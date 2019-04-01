@@ -7,21 +7,25 @@ const Wrapper = styled.section`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: ${color.background_secondary};
-  border-radius: 2px;
+  background-color: ${color.background_primary};
 `;
 
 const Window = styled.article`
   box-sizing: border-box;
   background: ${color.background_primary};
-  border: 1px solid ${color.accent_green_dark};
+  border: 1px solid ${color.accent_orange};
   position: absolute;
   box-shadow: 0px 0px 5px ${color.box_shadow};
+  border-radius: 4px;
+
   .titlebar {
     height: 32px;
-    box-sizing: border-box;
-    background-color: ${color.accent_green_light};
-    border-bottom: 1px solid ${color.accent_green_dark};
+    background-color: ${color.accent_orange_light};
+    border-bottom: 1px solid ${color.accent_orange};
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+
+
   }
 `;
 
