@@ -1,4 +1,8 @@
 declare namespace System {
+  export interface Map<T> {
+    [key: string]: Readonly<T>;
+  }
+
   export interface Coordinates {
     x: number;
     y: number;
@@ -22,9 +26,37 @@ declare namespace System {
     message: string;
   }
 
+  export type Domain = 'window';
+
   export type FetchStatus = 'unstarted' | 'loading' | 'error' | 'done';
   export type FetchRequest = 'All';
   export type FetchStatuses = Record<FetchRequest, FetchStatus>;
+
+  export interface Window {
+    id: string;
+    zIndex: number;
+    dimensions: Dimension;
+    position: Coordinates;
+  }
+
+  export interface File {
+    id: string;
+    name: string;
+  }
+
+  export interface Folder {
+    id: string;
+    name: string;
+    fileIds: string[];
+    folderIds: string;
+    permissions: Permission[];
+    settings: {
+      iconSize: 'small' | 'medium' | 'large';
+    };
+  }
+
+  export type FileType = 'folder' | 'file' | 'program';
+  export type Permission = 'admin';
 }
 
 declare namespace PG {

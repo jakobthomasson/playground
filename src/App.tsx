@@ -20,7 +20,7 @@ const FooterWrapper = styled.footer``;
 const App: SFC = () => {
   return (
     <Wrapper>
-      <Desktop />
+      <Desktop  />
       <Footer />
     </Wrapper>
   );
