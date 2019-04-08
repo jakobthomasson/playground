@@ -51,22 +51,33 @@ const Desktop: SFC<Props> = (props: Props) => {
       document.removeEventListener('mouseup', mouseUpListener);
     };
   });
+
+  // onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+  //   const timestamp = Date.now().toString();
+  //   console.log('- window/OPEN -');
+  //   console.log(' open window with id: ', timestamp);
+  //   console.log('....................');
+  //   props.openWindow(timestamp);
+  // }}
   return (
     <Wrapper>
-      <Button
-        theme={{ type: 'button', mood: 'abort', buttonSize: 'small' }}
-        text="small"
-        // onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-        //   const timestamp = Date.now().toString();
-        //   console.log('- window/OPEN -');
-        //   console.log(' open window with id: ', timestamp);
-        //   console.log('....................');
-        //   props.openWindow(timestamp);
-        // }}
-      />
-      <Button theme={{ type: 'button', mood: 'danger', buttonSize: 'medium' }} text="medium" />
-      <Button theme={{ type: 'button', mood: 'info', buttonSize: 'large' }} text="large" />
+      <Button theme={{ type: 'button', mood: 'abort', buttonSize: 'small' }} text="cancel" />
+      <Button theme={{ type: 'button', mood: 'danger', buttonSize: 'small' }} text="danger" />
+      <Button theme={{ type: 'button', mood: 'great', buttonSize: 'small' }} text="great" />
+      <Button theme={{ type: 'button', mood: 'info', buttonSize: 'small' }} text="info" />
+      <Button theme={{ type: 'button', mood: 'neutral', buttonSize: 'small' }} text="neutral" />
 
+      <Button theme={{ type: 'button', mood: 'abort', buttonSize: 'medium' }} text="medium" />
+      <Button theme={{ type: 'button', mood: 'danger', buttonSize: 'medium' }} text="medium" />
+      <Button theme={{ type: 'button', mood: 'great', buttonSize: 'medium' }} text="medium" />
+      <Button theme={{ type: 'button', mood: 'info', buttonSize: 'medium' }} text="medium" />
+      <Button theme={{ type: 'button', mood: 'neutral', buttonSize: 'medium' }} text="medium" />
+
+      <Button theme={{ type: 'button', mood: 'abort', buttonSize: 'large' }} text="large" />
+      <Button theme={{ type: 'button', mood: 'danger', buttonSize: 'large' }} text="large" />
+      <Button theme={{ type: 'button', mood: 'great', buttonSize: 'large' }} text="large" />
+      <Button theme={{ type: 'button', mood: 'info', buttonSize: 'large' }} text="large" />
+      <Button theme={{ type: 'button', mood: 'neutral', buttonSize: 'large' }} text="large" />
       {props.windows.map((window, i) => (
         <Window
           key={i}
