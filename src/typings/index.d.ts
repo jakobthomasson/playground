@@ -59,21 +59,36 @@ declare namespace System {
   export type Permission = 'admin';
 }
 
+declare namespace Styles {
+  type Type = 'button' | 'div' | 'span' | 'text';
+  interface BaseTheme {
+    type: Type;
+  }
+  /**
+   * Button
+   */
+  export type ButtonMood = 'neutral' | 'abort' | 'danger' | 'great' | 'info';
+  export type Size = 'small' | 'medium' | 'large';
+  export interface ButtonTheme extends BaseTheme {
+    type: 'button';
+    mood: ButtonMood;
+    buttonSize: Size;
+  }
+  export interface TextTheme extends BaseTheme {
+    type: 'text';
+    textValue: string;
+  }
+
+  export interface ColorScheme {
+    light: string;
+    dark: string;
+    normal: string;
+    text: string;
+  }
+}
 declare namespace PG {
   export interface Example {}
 }
-// declare type ValueOf<T> = T[keyof T];
-
-// declare type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
-
-// declare type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
-//   U[keyof U];
-
-// declare type PartialWithId<T> = Partial<T> & { id: string };
-
-// declare type PartialWithoutId<T> = Omit<T, "id">;
-
-// declare type Constructor<T = {}> = new (...args: any[]) => T;
 
 declare interface Window {
   __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any;

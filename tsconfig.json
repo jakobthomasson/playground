@@ -9,16 +9,16 @@
     "allowJs": true,
     "jsx": "preserve",
     "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
     "strict": true,
-    "noImplicitAny": true,
+    "noUnusedLocals": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "noEmit": true,
-    "strictNullChecks": false
+    "skipLibCheck": true
   },
   "exclude": [
     "node_modules"

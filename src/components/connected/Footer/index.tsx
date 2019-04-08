@@ -1,6 +1,6 @@
-import React, { SFC, useState } from 'react';
-import styled, { css } from 'styled-components';
-import { color, zIndex, size } from 'variables';
+import React, { SFC } from 'react';
+import styled from 'styled-components';
+import { color, size } from 'variables';
 import { accent_green_light } from 'variables/color';
 
 const Wrapper = styled.footer`

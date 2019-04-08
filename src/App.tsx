@@ -1,6 +1,6 @@
 import React, { SFC } from 'react';
 import styled from 'styled-components';
-import { color, zIndex, spacing, size } from 'variables';
+import { color, zIndex } from 'variables';
 import Footer from 'components/connected/Footer';
 import Desktop from 'components/connected/Desktop';
 
@@ -15,12 +15,11 @@ const Wrapper = styled.main`
   z-index: ${zIndex.base};
 `;
 
-const FooterWrapper = styled.footer``;
 
 const App: SFC = () => {
   return (
     <Wrapper>
-      <Desktop  />
+      <Desktop />
       <Footer />
     </Wrapper>
   );

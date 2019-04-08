@@ -44,41 +44,38 @@ export const text = '#201F1F';
 export const text_dark = '#050505';
 export const text_light = '#939393';
 
-export const border = accent_gray_dark;
-export const border_dark = text;
-export const border_light = text_light;
+export const border_discreet = accent_gray_dark;
+export const border = text;
 
-export type BUTTON_TYPE = 'primary' | '';
-
-export interface ColorScheme {
-  light: string;
-  dark: string;
-  normal: string;
-}
-
-/*
-
-const black: string = '#000000';
-const white: string = '#FFFFFF';
-
-  white,
-  black,
-
-  menuitem_active: colorHelpers.getOpacity(0.72, '#272B54'),
-
-  accent_gray: '#F1F4F7',
-  accent_gray_light: '#FBFBFB',
-  accent_gray_dark: '#D7DCE1',
-  accent_text: '#FFFFFF',
-
-  accent_orange: '#F05F35', // FIXME: Not relevant anymore?
-
-  background_primary: '#FFFFFF',
-  background_secondary: '#E6E6F0',
-  text: '#201F1F',
-  text_light: '#939393',
-
-  text_highlight: '#B0D7EE',
-  box_shadow: colorHelpers.getOpacity(0.5, black),
-  border: '#979797',
-*/
+export const buttonMoodColor: System.Map<Styles.ColorScheme> = {
+  neutral: {
+    light: primary_light,
+    dark: primary_dark,
+    normal: primary,
+    text: primary_text,
+  },
+  abort: {
+    light: accent_yellow_light,
+    dark: accent_yellow_dark,
+    normal: accent_yellow,
+    text: accent_text,
+  },
+  danger: {
+    light: accent_red_light,
+    dark: accent_red_dark,
+    normal: accent_red,
+    text: accent_text,
+  },
+  great: {
+    light: accent_green_light,
+    dark: accent_green_dark,
+    normal: accent_green,
+    text: accent_text,
+  },
+  info: {
+    light: accent_blue_light,
+    dark: accent_blue_dark,
+    normal: accent_blue,
+    text: accent_text,
+  },
+};

@@ -1,6 +1,6 @@
 import React, { SFC, useState, useEffect } from 'react';
-import styled, { css } from 'styled-components';
-import { color, zIndex, size } from 'variables';
+import styled from 'styled-components';
+import { color } from 'variables';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import Types from 'Types';
@@ -22,7 +22,7 @@ const Desktop: SFC<Props> = (props: Props) => {
   const [deltaPosition, setDeltaPosition] = useState<System.Coordinates>();
   // useEffect;
   const [position, setPosition] = useState<System.Coordinates>({ x: 100, y: 100 });
-  const [dimension, setDimension] = useState<System.Dimension>({ width: 300, height: 400 });
+  const [dimension] = useState<System.Dimension>({ width: 300, height: 400 });
 
   const [isMouseDown, setIsMouseDown] = useState<boolean>(false);
   useEffect(() => {
@@ -51,25 +51,25 @@ const Desktop: SFC<Props> = (props: Props) => {
       document.removeEventListener('mouseup', mouseUpListener);
     };
   });
-
   return (
     <Wrapper>
       <Button
-        text="Open new Window"
-        color="great"
-        buttonSize="medium"
-        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-          const timestamp = Date.now().toString();
-          console.log('- window/OPEN -');
-          console.log(' open window with id: ', timestamp);
-          console.log('....................');
-          props.openWindow(timestamp);
-        }}
+        theme={{ type: 'button', mood: 'abort', buttonSize: 'small' }}
+        text="small"
+        // onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+        //   const timestamp = Date.now().toString();
+        //   console.log('- window/OPEN -');
+        //   console.log(' open window with id: ', timestamp);
+        //   console.log('....................');
+        //   props.openWindow(timestamp);
+        // }}
       />
+      <Button theme={{ type: 'button', mood: 'danger', buttonSize: 'medium' }} text="medium" />
+      <Button theme={{ type: 'button', mood: 'info', buttonSize: 'large' }} text="large" />
 
       {props.windows.map((window, i) => (
         <Window
-          key={i  }
+          key={i}
           style={{
             width: `${dimension.width}px`,
             height: `${dimension.height}px`,
@@ -113,8 +113,4 @@ const Window = styled.article`
     border-top-right-radius: 3px;
     border-top-left-radius: 3px;
   }
-`;
-
-const OpenWindowButton = styled.button`
-  width: 20px;
 `;

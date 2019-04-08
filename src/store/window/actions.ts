@@ -1,4 +1,4 @@
-import { createAction, createStandardAction, ActionType } from 'typesafe-actions';
+import { createAction } from 'typesafe-actions';
 import { CLOSE, MINIMIZE, OPEN, RESIZE, SELECT } from './constants';
 
 export const open = createAction(OPEN, resolve => (payload: { id: string }) => resolve(payload));
