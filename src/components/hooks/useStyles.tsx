@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { css } from 'styled-components';
-import { buttonHelper } from 'helpers';
+import getButtonStyle from 'components/ui/Button/styles';
+import getIconStyle from 'components/ui/Icon/styles';
+
 // import {button} from 'helpers/styles';
 type Props = {
-  style: Styles.ButtonTheme | Styles.TextTheme;
+  style: Styles.ButtonTheme | Styles.TextTheme | Styles.IconTheme;
 };
 
 const defaultStyle = css``;
@@ -18,7 +20,10 @@ function useStyles(props: Props) {
     const { style } = props;
     switch (style.type) {
       case 'button':
-        setStyledCss(buttonHelper.getButtonStyle(style));
+        setStyledCss(getButtonStyle(style));
+        break;
+      case 'icon':
+        setStyledCss(getIconStyle(style));
         break;
       case 'text':
         setStyledCss(getTextStyle(style));

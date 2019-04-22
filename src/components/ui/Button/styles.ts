@@ -15,28 +15,16 @@ const baseCss = css`
   }
 `;
 
-function getColorStyle(colorScheme: Styles.ColorScheme) {
-  return css`
-    background-color: ${colorScheme.normal};
-
-    &:hover:enabled {
-      background-color: ${colorScheme.light};
-    }
-
-    &:active:enabled {
-      background-color: ${colorScheme.dark};
-    }
-
-    color: ${colorScheme.text};
-  `;
-}
 const smallButtonSizeCss = css`
   border: ${border.normal};
   border-radius: ${border.radius_small};
   height: 20px;
   padding: 0 ${spacing.small};
-  > span {
+  .text {
     ${font.small_button_text}
+  }
+  .icon {
+    margin-right: ${spacing.small};
   }
 `;
 const mediumButtonSizeCss = css`
@@ -46,8 +34,12 @@ const mediumButtonSizeCss = css`
   height: 24px;
   padding: 0 ${spacing.small};
 
-  > span {
+  .text {
     ${font.medium_button_text}
+  }
+
+  .icon {
+    margin-right: ${spacing.small};
   }
 `;
 const largeButtonSizeCss = css`
@@ -57,8 +49,12 @@ const largeButtonSizeCss = css`
   height: 32px;
   padding: 0 ${spacing.medium};
 
-  > span {
+  .text {
     ${font.large_button_text}
+  }
+
+  .icon {
+    margin-right: ${spacing.medium};
   }
 `;
 
@@ -73,17 +69,36 @@ function getSizeStyle(buttonSize: Styles.Size) {
   }
 }
 
-function getButtonStyle(button: Styles.ButtonTheme) {
+function getColorStyle(colorScheme: Styles.ColorScheme) {
+  return css`
+    background-color: ${colorScheme.normal};
+
+    &:hover:enabled {
+      background-color: ${colorScheme.light};
+    }
+
+    &:active:enabled {
+      background-color: ${colorScheme.dark};
+    }
+
+    color: ${colorScheme.text};
+
+    .icon {
+      fill: ${colorScheme.text};
+    }
+  `;
+}
+
+function getStyle(button: Styles.ButtonTheme) {
   const colorScheme = color.buttonMoodColor[button.mood];
-  const buttonSize = button.buttonSize;
+  const buttonSize = button.size;
 
   const buttonCss = css`
     ${baseCss}
-
     ${getColorStyle(colorScheme)}
     ${getSizeStyle(buttonSize)}
   `;
   return buttonCss;
 }
 
-export default { getButtonStyle };
+export default getStyle;

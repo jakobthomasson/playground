@@ -7,6 +7,8 @@ const fontSize = {
   huge: '24px',
 };
 
+
+
 const fontFamily = {
   standard: "'Montserrat', sans-serif",
 };
@@ -18,6 +20,7 @@ const fontWeight = {
   medium: 500,
   bold: 700,
 };
+
 export const small_button_text = css`
   font-family: ${fontFamily.standard};
   font-size: ${fontSize.small};

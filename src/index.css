@@ -6,6 +6,15 @@ Author: Richard Clark - http://richclarkdesign.com
 Twitter: @rich_clark
 */
 
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
 html,
 body,
 div,
@@ -74,7 +83,7 @@ summary,
 time,
 mark,
 audio,
-video, 
+video,
 button {
   margin: 0;
   padding: 0;
