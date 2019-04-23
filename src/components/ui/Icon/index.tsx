@@ -12,11 +12,11 @@ type Props = {
   theme: Styles.IconTheme;
 };
 
-const IconComponent: FunctionComponent<React.HTMLProps<HTMLSpanElement> & Props> = (props: Props) => {
-  const { theme, ...restProps } = props;
+const IconComponent: FunctionComponent<Props & React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>> = (props) => {
+  const { theme, ref, ...restProps } = props;
   const css = useStyles({ style: props.theme });
   return (
-    <Wrapper css={css} {...restProps}>
+    <Wrapper className="icon" css={css} {...restProps} >
       <SvgComponent icon={theme.icon} />
     </Wrapper>
   );

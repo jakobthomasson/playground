@@ -7,27 +7,30 @@ const initialState: WindowState = {
 };
 
 export default (state: WindowState = initialState, action: WindowAction): WindowState => {
-  let id = null;
+  let id: string;
   switch (action.type) {
     case getType(actions.open):
-      id = action.payload.id;
+      const date = new Date();
+      id = date.getTime().toString();
 
-      const newWindow: System.Window = {
+      const window: System.Window = {
         id,
         dimensions: { height: 200, width: 200 },
         position: { x: 0, y: 0 },
         zIndex: 0,
       };
 
-      const byId: System.Map<System.Window> = {
-        id: newWindow,
+      return {
+        byId: R.set(state.byId, id, window),
+        allIds: [...state.allIds, id],
       };
-
-      const allIds = [id];
-      const newState: WindowState = R.merge(state, { byId, allIds });
-
-      console.log(newState);
-      return newState;
+    case getType(actions.close):
+      id = action.payload.id;
+      return {
+        byId: R.omit(state.byId, [id]),
+        allIds: R.reject(state.allIds, i => i === id),
+      };
+    // const byId = R.omit(state.byId, [`${}`]);
 
     default:
       return state;

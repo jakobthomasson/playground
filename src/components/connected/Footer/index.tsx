@@ -1,4 +1,4 @@
-import React, { SFC } from 'react';
+import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import { color, size } from 'variables';
 import { accent_green_light } from 'variables/color';
@@ -42,7 +42,7 @@ const Home = styled.div`
     }
   }
 `;
-const Footer: SFC = () => {
+const Footer: FunctionComponent = () => {
   return (
     <Wrapper>
       <Home>

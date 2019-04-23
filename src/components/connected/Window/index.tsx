@@ -1,16 +1,19 @@
-import React, { SFC, useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { color } from 'variables';
+import React, { FunctionComponent, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import Types from 'Types';
-import { windowActions, windowSelectors } from 'store/window';
+import { windowSelectors, windowActions } from 'store/window';
+import Icon from 'components/ui/Icon';
+import Text from 'components/ui/Text';
 
+import { Wrapper } from './styled';
 const mapStateToProps = (state: Types.RootState, ownProps: OwnProps) => ({
-  window: windowSelectors.windows(state),
+  window: windowSelectors.window(state, { windowId: ownProps.id }),
 });
+
+
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  openWindow: (id: string) => dispatch(windowActions.open({ id })),
+  close: (id: string) => dispatch(windowActions.close({ id }))
 });
 
 type StateProps = ReturnType<typeof mapStateToProps>;
@@ -20,11 +23,14 @@ type OwnProps = {
 };
 type Props = StateProps & DispatchProps;
 
-const Window: SFC<Props> = (props: Props) => {
+const Window: FunctionComponent<Props> = (props: Props) => {
+  const { window, close } = props;
+
   const [deltaPosition, setDeltaPosition] = useState<System.Coordinates>();
-  // useEffect;
-  const [position, setPosition] = useState<System.Coordinates>({ x: 100, y: 100 });
-  const [dimension] = useState<System.Dimension>({ width: 300, height: 400 });
+  const [position, setPosition] = useState<System.Coordinates>({ x: 0, y: 100 });
+  const [dimension, setDimension] = useState<System.Dimension>({ width: 300, height: 400 });
+  const [isMax, setIsMax] = useState(false)
+
 
   const [isMouseDown, setIsMouseDown] = useState<boolean>(false);
   useEffect(() => {
@@ -36,11 +42,13 @@ const Window: SFC<Props> = (props: Props) => {
       } else {
         setDeltaPosition({ x: e.clientX, y: e.clientY });
       }
+      e.preventDefault();
     }
 
     function mouseUpListener(e: MouseEvent) {
       setDeltaPosition(undefined);
       setIsMouseDown(false);
+      e.preventDefault();
     }
 
     if (isMouseDown) {
@@ -53,7 +61,56 @@ const Window: SFC<Props> = (props: Props) => {
       document.removeEventListener('mouseup', mouseUpListener);
     };
   })
-  return <Wrapper>asd</Wrapper>;
+
+  function getStyle(): React.CSSProperties {
+
+    let height = `${dimension.height}px`
+    let width = `${dimension.width}px`;
+    let top = `${position.y}px`;
+    let left = `${position.x}px`;
+
+    if (isMax) {
+      height = '100%'
+      width = '100%';
+      top = '0';
+      left = '0';
+    }
+    return {
+      top,
+      left,
+      width,
+      height,
+    }
+  }
+
+  return (
+    <Wrapper style={getStyle()}>
+      <div className="titlebar" onMouseDown={() => setIsMouseDown(true)} onMouseUp={() => setIsMouseDown(false)}>
+        <Text theme={{ type: 'text', mood: 'bread', }} text={window.id} />
+        <div className="icon-wrapper">
+          <Icon theme={{ icon: 'hide', size: 'small', type: 'icon' }} />
+          {isMax ?
+            <Icon theme={{ icon: 'minimize', size: 'small', type: 'icon' }} onClick={() => setIsMax(false)} />
+            :
+            <Icon theme={{ icon: 'maximize', size: 'small', type: 'icon' }} onClick={() => setIsMax(true)} />
+          }
+          <Icon theme={{ icon: 'close', size: 'small', type: 'icon' }} onClick={() => close(window.id)} />
+        </div>
+      </div>
+      {
+        // not static in future
+      }
+      <div className="content">
+
+        <Text theme={{ type: 'text', mood: 'bread', }} text={`width: ${dimension.width}`} />
+        <Text theme={{ type: 'text', mood: 'bread', }} text={`height: ${dimension.height}`} />
+        <Text theme={{ type: 'text', mood: 'bread', }} text={`x: ${position.x}`} />
+        <Text theme={{ type: 'text', mood: 'bread', }} text={`x: ${position.y}`} />
+      </div>
+
+
+    </Wrapper>
+  );
 };
 
 export default connect(
@@ -61,19 +118,3 @@ export default connect(
   mapDispatchToProps,
 )(Window);
 
-const Wrapper = styled.article`
-  box-sizing: border-box;
-  background: ${color.background_primary};
-  border: 1px solid ${color.accent_orange};
-  position: absolute;
-  box-shadow: 0px 0px 5px ${color.box_shadow};
-  border-radius: 4px;
-
-  .titlebar {
-    height: 32px;
-    background-color: ${color.accent_orange_light};
-    border-bottom: 1px solid ${color.accent_orange};
-    border-top-right-radius: 3px;
-    border-top-left-radius: 3px;
-  }
-`;

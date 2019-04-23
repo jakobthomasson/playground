@@ -1,18 +1,17 @@
 import { useState, useEffect } from 'react';
 import { css } from 'styled-components';
-import getButtonStyle from 'components/ui/Button/styles';
-import getIconStyle from 'components/ui/Icon/styles';
+import getButtonStyle from 'components/ui/Button/styled';
+import getIconStyle from 'components/ui/Icon/styled';
+import getWrapperStyle from 'components/ui/Wrapper/styled';
+import getTextStyle from 'components/ui/Text/styled';
 
-// import {button} from 'helpers/styles';
+
 type Props = {
-  style: Styles.ButtonTheme | Styles.TextTheme | Styles.IconTheme;
+  style: Styles.ButtonTheme | Styles.TextTheme | Styles.IconTheme | Styles.WrapperTheme;
 };
 
 const defaultStyle = css``;
 
-function getTextStyle(text: Styles.TextTheme) {
-  return defaultStyle;
-}
 
 function useStyles(props: Props) {
   const [styledCss, setStyledCss] = useState(defaultStyle);
@@ -24,6 +23,9 @@ function useStyles(props: Props) {
         break;
       case 'icon':
         setStyledCss(getIconStyle(style));
+        break;
+      case 'wrapper':
+        setStyledCss(getWrapperStyle(style));
         break;
       case 'text':
         setStyledCss(getTextStyle(style));

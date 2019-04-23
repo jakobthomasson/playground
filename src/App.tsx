@@ -1,4 +1,4 @@
-import React, { SFC } from 'react';
+import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import { color, zIndex } from 'variables';
 import Footer from 'components/connected/Footer';
@@ -16,7 +16,7 @@ const Wrapper = styled.main`
 `;
 
 
-const App: SFC = () => {
+const App: FunctionComponent = () => {
   return (
     <Wrapper>
       <Desktop />

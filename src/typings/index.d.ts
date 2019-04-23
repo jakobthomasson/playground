@@ -60,7 +60,7 @@ declare namespace System {
 }
 
 declare namespace Styles {
-  type Type = 'button' | 'div' | 'span' | 'text' | 'svg';
+  type Type = 'button' | 'wrapper' | 'text' | 'svg';
   interface BaseTheme {
     type: Type;
   }
@@ -68,8 +68,9 @@ declare namespace Styles {
    * Button
    */
   export type ButtonMood = 'neutral' | 'abort' | 'danger' | 'great' | 'info';
-  export type Size = 'small' | 'medium' | 'large';
+  export type TextMood = 'bread';
 
+  export type Size = 'small' | 'medium' | 'large';
   export interface ButtonTheme extends BaseTheme {
     type: 'button';
     mood: ButtonMood;
@@ -77,65 +78,18 @@ declare namespace Styles {
   }
   export interface TextTheme extends BaseTheme {
     type: 'text';
-    textValue: string;
+    mood: TextMood;
   }
 
-  export type Icon =
-    | 'avatar-man'
-    | 'avatar-female'
-    | 'back'
-    | 'book'
-    | 'cancel'
-    | 'chat-written'
-    | 'chat-writing'
-    | 'chat-heart'
-    | 'copy'
-    | 'dislike'
-    | 'download'
-    | 'download-detailed'
-    | 'edit'
-    | 'envelope'
-    | 'folder'
-    | 'garbage'
-    | 'glasses'
-    | 'hand'
-    | 'headphones'
-    | 'heart'
-    | 'house'
-    | 'like'
-    | 'link'
-    | 'logout'
-    | 'monitor'
-    | 'music-note'
-    | 'next'
-    | 'forward'
-    | 'padlock'
-    | 'paper-plane'
-    | 'phone-call'
-    | 'photo-camera'
-    | 'pie-chart'
-    | 'piggy-bank'
-    | 'placeholder'
-    | 'printer'
-    | 'reload'
-    | 'search'
-    | 'settings-cogwheel'
-    | 'settings-sliders'
-    | 'share'
-    | 'shopping-bag'
-    | 'shopping-cart'
-    | 'shuffle'
-    | 'speaker'
-    | 'star'
-    | 'tag'
-    | 'upload'
-    | 'upload-detailed'
-    | 'vector';
-
+  export type Icon = 'close' | 'minimize' | 'maximize' | 'hide';
   export interface IconTheme extends BaseTheme {
     type: 'icon';
     size: Size;
     icon: Icon;
+  }
+
+  export interface WrapperTheme extends BaseTheme {
+    type: 'wrapper';
   }
 
   export interface ColorScheme {

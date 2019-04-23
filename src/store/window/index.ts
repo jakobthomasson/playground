@@ -9,7 +9,7 @@ import windowReducer from './reducer';
 export type WindowAction = ActionType<typeof windowActions>;
 export type WindowState = {
   byId: System.Map<System.Window>;
-  allIds: ReadonlyArray<string>;
+  allIds: string[];
 };
 
 export { windowConstants, windowActions, windowReducer, windowSelectors };

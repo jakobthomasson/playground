@@ -11,3 +11,6 @@ export const windows = createSelector(
   allIds,
   (byId, allIds) => allIds.map(id => byId[id]),
 );
+
+export const window = (state: Types.RootState, ownProps: { windowId: string }) =>
+  state.windowDomain.byId[ownProps.windowId];
