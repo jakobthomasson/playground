@@ -39,23 +39,22 @@ declare namespace System {
     position: Coordinates;
   }
 
-  export interface File {
+  export interface SystemItem {
     id: string;
+    type: 'file' | 'folder';
     name: string;
+    path: string[];
   }
 
-  export interface Folder {
-    id: string;
-    name: string;
-    fileIds: string[];
-    folderIds: string;
-    permissions: Permission[];
-    settings: {
-      iconSize: 'small' | 'medium' | 'large';
-    };
+  export interface File extends SystemItem {
+    type: 'file';
   }
 
-  export type FileType = 'folder' | 'file' | 'program';
+  export interface Folder extends SystemItem {
+    type: 'folder';
+  }
+
+  export type FileType = 'folder' | 'file';
   export type Permission = 'admin';
 }
 
@@ -70,7 +69,7 @@ declare namespace Styles {
   export type ButtonMood = 'neutral' | 'abort' | 'danger' | 'great' | 'info';
   export type TextMood = 'bread';
 
-  export type Size = 'small' | 'medium' | 'large';
+  export type Size = 'small' | 'medium' | 'large' | 'xlarge';
   export interface ButtonTheme extends BaseTheme {
     type: 'button';
     mood: ButtonMood;
@@ -81,7 +80,8 @@ declare namespace Styles {
     mood: TextMood;
   }
 
-  export type Icon = 'close' | 'minimize' | 'maximize' | 'hide';
+  export type Icon = 'close' | 'minimize' | 'maximize' | 'hide' | 'folder' | 'file';
+
   export interface IconTheme extends BaseTheme {
     type: 'icon';
     size: Size;

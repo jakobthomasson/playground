@@ -13,6 +13,9 @@ const mediumIconCss = css`
 const largeIconCss = css`
   height: ${size.iconSize.large}px;
 `;
+const xlargeIconCss = css`
+  height: ${size.iconSize.xlarge}px;
+`;
 
 function getSizeStyle(iconSize: Styles.Size) {
   switch (iconSize) {
@@ -22,6 +25,8 @@ function getSizeStyle(iconSize: Styles.Size) {
       return mediumIconCss;
     case 'large':
       return largeIconCss;
+    case 'xlarge':
+      return xlargeIconCss;
   }
 }
 

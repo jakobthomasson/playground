@@ -16,6 +16,7 @@ export const big_button_dimensions: System.Dimension = {
 
 export const iconSize = {
   small: 16,
-  medium: 20,
-  large: 24,
+  medium: 24,
+  large: 48,
+  xlarge: 64,
 };

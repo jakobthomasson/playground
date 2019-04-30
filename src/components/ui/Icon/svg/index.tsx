@@ -3,6 +3,8 @@ import CloseIcon from './Close';
 import HideIcon from './Hide';
 import MaximizeIcon from './Maximize';
 import MinimizeIcon from './Minimize';
+import FolderIcon from './Folder';
+import FileIcon from './File';
 
 
 /**
@@ -24,6 +26,10 @@ const SvgComponent: FunctionComponent<Props> = (props: Props) => {
       return <MaximizeIcon />;
     case 'minimize':
       return <MinimizeIcon />;
+    case 'folder':
+      return <FolderIcon />;
+    case 'file':
+      return <FileIcon />;
   }
 };
 

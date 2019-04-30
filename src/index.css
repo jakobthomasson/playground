@@ -8,6 +8,7 @@ Twitter: @rich_clark
 
 html {
   box-sizing: border-box;
+  user-select: none;
 }
 *,
 *:before,

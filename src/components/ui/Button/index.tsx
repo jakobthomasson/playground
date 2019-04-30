@@ -15,8 +15,8 @@ type Props = {
   icon?: Styles.Icon;
 };
 
-const ButtonComponent: FunctionComponent<Props & React.DetailedHTMLProps<React.HTMLAttributes<HTMLButtonElement>, HTMLButtonElement>> = (props) => {
-  const { theme, text, icon, ref, ...buttonProps } = props;
+const ButtonComponent: FunctionComponent<Props & React.DetailedHTMLProps<React.HTMLAttributes<HTMLButtonElement>, HTMLButtonElement>> = (props: Props) => {
+  const { theme, text, icon, ...buttonProps } = props;
 
   const css = useStyles({ style: theme });
   return (

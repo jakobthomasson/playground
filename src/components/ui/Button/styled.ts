@@ -43,6 +43,8 @@ function getSizeStyle(buttonSize: Styles.Size) {
       return mediumButtonSizeCss;
     case 'large':
       return largeButtonSizeCss;
+    case 'xlarge':
+      return largeButtonSizeCss;
   }
 }
 
