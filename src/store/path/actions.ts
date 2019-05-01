@@ -1,4 +1,7 @@
 import { createAction } from 'typesafe-actions';
-import { MOVE } from './constants';
+import { ADD, UPDATE } from './constants';
 
-export const move = createAction(MOVE);
+export const add = createAction(ADD, resolve => (payload: { path: System.Path }) => resolve(payload));
+export const update = createAction(UPDATE, resolve => (payload: { partialPath: PartialWithId<System.Path> }) =>
+  resolve(payload),
+);

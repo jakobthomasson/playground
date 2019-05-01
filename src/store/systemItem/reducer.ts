@@ -2,13 +2,6 @@ import { getType } from 'typesafe-actions';
 import { SystemItemAction, SystemItemState, systemItemActions as actions } from './';
 import * as R from 'remeda';
 
-// const rootPath: System.Path = {
-//   id: 'iamroot',
-//   parentPathId: null,
-//   name: 'root',
-//   systemItemIds: [],
-// };
-
 const initialState: SystemItemState = {
   byId: {},
   allIds: [],
@@ -17,7 +10,14 @@ const initialState: SystemItemState = {
 export default (state: SystemItemState = initialState, action: SystemItemAction): SystemItemState => {
   switch (action.type) {
     case getType(actions.add):
-      return state;
+      const {
+        payload: { systemItem },
+      } = action;
+      return {
+        byId: R.set(state.byId, systemItem.id, systemItem),
+        allIds: [...state.allIds, systemItem.id],
+      };
+
     default:
       return state;
   }

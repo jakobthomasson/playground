@@ -6,10 +6,10 @@ import { windowSelectors, windowActions } from 'store/window';
 import Icon from 'components/ui/Icon';
 import Text from 'components/ui/Text';
 import { Wrapper } from './styled';
+
 const mapStateToProps = (state: Types.RootState, ownProps: OwnProps) => ({
   window: windowSelectors.window(state, { windowId: ownProps.id }),
 });
-
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   close: (id: string) => dispatch(windowActions.close({ id })),
 });

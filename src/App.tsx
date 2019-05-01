@@ -1,9 +1,8 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import styled from 'styled-components';
 import { color, zIndex } from 'variables';
 import Footer from 'components/connected/Footer';
 import Desktop from 'components/connected/Desktop';
-
 const Wrapper = styled.main`
   background-color: ${color.background_primary};
   width: 100vw;
@@ -15,12 +14,12 @@ const Wrapper = styled.main`
   z-index: ${zIndex.base};
 `;
 
-
 const App: FunctionComponent = () => {
+
   return (
     <Wrapper>
       <Desktop />
-      <Footer />
+      {/* <Footer /> */}
     </Wrapper>
   );
 };

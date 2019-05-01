@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { color, spacing } from 'variables';
 
-export const Wrapper = styled.div<{ position: string }>`
+export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -39,12 +39,6 @@ declare namespace System {
     position: Coordinates;
   }
 
-  export interface SystemItem {
-    id: string;
-    type: 'file' | 'folder';
-    pathId: string;
-  }
-
   export interface Path {
     id: string;
     name: string;
@@ -52,18 +46,24 @@ declare namespace System {
     systemItemIds: string[];
   }
 
-  export interface File extends SystemItem {
+  export interface BaseSystemItem {
+    id: string;
+    type: 'folder' | 'file';
+    pathId: string;
+  }
+
+  export interface File extends BaseSystemItem {
     type: 'file';
   }
 
-  export interface Folder extends SystemItem {
+  export interface Folder extends BaseSystemItem {
     type: 'folder';
   }
 
-  export type FileType = 'folder' | 'file';
+  export type SystemItem = File | Folder;
+
   export type Permission = 'admin';
 }
-
 declare namespace Styles {
   type Type = 'button' | 'wrapper' | 'text' | 'svg';
   interface BaseTheme {
@@ -105,10 +105,11 @@ declare namespace Styles {
     text: string;
   }
 }
-declare namespace PG {
-  export interface Example {}
-}
 
 declare interface Window {
   __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any;
 }
+
+declare type PartialWithId<T> = Partial<T> & { id: string };
+
+declare type PartialWithoutId<T> = Omit<T, 'id'>;

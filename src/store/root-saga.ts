@@ -1,12 +1,6 @@
-import { all } from 'redux-saga/effects';
-// import { exampleSagas } from 'store/example';
-
-// export function* rootSaga() {
-//   yield spawn(userSagas.authWatcher);
-// }
+import { all, spawn } from 'redux-saga/effects';
+import { systemSagas } from 'store/system';
 
 export function* rootSaga() {
-  return yield all([
-    // spawn(exampleSagas.watcher)
-  ]);
+  return yield all([spawn(systemSagas.watcher)]);
 }

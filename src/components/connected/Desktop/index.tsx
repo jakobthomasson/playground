@@ -7,6 +7,8 @@ import Window from 'components/connected/Window';
 import SystemLocation from 'components/connected/SystemLocation';
 import useComponentSize from '@rehooks/component-size';
 import { Wrapper } from './styled';
+import { useEventListener } from 'components/hooks';
+import { systemActions } from 'store/system';
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = ReturnType<typeof mapDispatchToProps>;
@@ -16,17 +18,24 @@ const mapStateToProps = (state: Types.RootState) => ({
   windows: windowSelectors.windows(state),
 });
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  openWindow: () => dispatch(windowActions.open()),
+  createSystemItem: () => dispatch(systemActions.startCreateSystemItem({ parentPathId: 'iamroot' })),
 });
 
 const Desktop: FunctionComponent<Props> = (props: Props) => {
-  const { openWindow } = props;
   const ref = useRef(null);
   const dimension: System.Dimension = useComponentSize(ref);
+
+  useEventListener<React.MouseEvent>('contextmenu', e => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    props.createSystemItem();
+    // setCoords([clientX, clientY]);
+  });
+
   return (
     <Wrapper ref={ref}>
-      <SystemLocation dimension={dimension} locationId="" />
-
+      <SystemLocation dimension={dimension} pathId="iamroot" />
       {props.windows.map(window => (
         <Window key={window.id} id={`${window.id}`} />
       ))}
