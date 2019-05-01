@@ -10,9 +10,8 @@ const mapStateToProps = (state: Types.RootState, ownProps: OwnProps) => ({
   window: windowSelectors.window(state, { windowId: ownProps.id }),
 });
 
-
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  close: (id: string) => dispatch(windowActions.close({ id }))
+  close: (id: string) => dispatch(windowActions.close({ id })),
 });
 
 type StateProps = ReturnType<typeof mapStateToProps>;
@@ -28,8 +27,7 @@ const Window: FunctionComponent<Props> = (props: Props) => {
   const [deltaPosition, setDeltaPosition] = useState<System.Coordinates>();
   const [position, setPosition] = useState<System.Coordinates>({ x: 0, y: 100 });
   const [dimension, setDimension] = useState<System.Dimension>({ width: 300, height: 400 });
-  const [isMax, setIsMax] = useState(false)
-
+  const [isMax, setIsMax] = useState(false);
 
   const [isMouseDown, setIsMouseDown] = useState<boolean>(false);
   useEffect(() => {
@@ -59,17 +57,16 @@ const Window: FunctionComponent<Props> = (props: Props) => {
       document.removeEventListener('mousemove', mouseMoveListener);
       document.removeEventListener('mouseup', mouseUpListener);
     };
-  })
+  });
 
   function getStyle(): React.CSSProperties {
-
-    let height = `${dimension.height}px`
+    let height = `${dimension.height}px`;
     let width = `${dimension.width}px`;
     let top = `${position.y}px`;
     let left = `${position.x}px`;
 
     if (isMax) {
-      height = '100%'
+      height = '100%';
       width = '100%';
       top = '0';
       left = '0';
@@ -79,20 +76,20 @@ const Window: FunctionComponent<Props> = (props: Props) => {
       left,
       width,
       height,
-    }
+    };
   }
 
   return (
     <Wrapper style={getStyle()}>
       <div className="titlebar" onMouseDown={() => setIsMouseDown(true)} onMouseUp={() => setIsMouseDown(false)}>
-        <Text theme={{ type: 'text', mood: 'bread', }} text={window.id} />
+        <Text theme={{ type: 'text', mood: 'bread' }} text={window.id} />
         <div className="icon-wrapper">
           <Icon theme={{ icon: 'hide', size: 'small', type: 'icon' }} />
-          {isMax ?
+          {isMax ? (
             <Icon theme={{ icon: 'minimize', size: 'small', type: 'icon' }} onClick={() => setIsMax(false)} />
-            :
+          ) : (
             <Icon theme={{ icon: 'maximize', size: 'small', type: 'icon' }} onClick={() => setIsMax(true)} />
-          }
+          )}
           <Icon theme={{ icon: 'close', size: 'small', type: 'icon' }} onClick={() => close(window.id)} />
         </div>
       </div>
@@ -100,14 +97,11 @@ const Window: FunctionComponent<Props> = (props: Props) => {
         // not static in future
       }
       <div className="content">
-
-        <Text theme={{ type: 'text', mood: 'bread', }} text={`width: ${dimension.width}`} />
-        <Text theme={{ type: 'text', mood: 'bread', }} text={`height: ${dimension.height}`} />
-        <Text theme={{ type: 'text', mood: 'bread', }} text={`x: ${position.x}`} />
-        <Text theme={{ type: 'text', mood: 'bread', }} text={`x: ${position.y}`} />
+        <Text theme={{ type: 'text', mood: 'bread' }} text={`width: ${dimension.width}`} />
+        <Text theme={{ type: 'text', mood: 'bread' }} text={`height: ${dimension.height}`} />
+        <Text theme={{ type: 'text', mood: 'bread' }} text={`x: ${position.x}`} />
+        <Text theme={{ type: 'text', mood: 'bread' }} text={`x: ${position.y}`} />
       </div>
-
-
     </Wrapper>
   );
 };
@@ -116,4 +110,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
 )(Window);
-

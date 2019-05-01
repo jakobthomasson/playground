@@ -6,13 +6,12 @@ import Text from 'components/ui/Text';
 type Props = {
   systemItem: System.File | System.Folder;
   position: number;
+  maxRow: number;
+  size: number;
 };
 
 const SystemItem: FunctionComponent<Props> = props => {
-  const size = 100;
-  // const position = 14;
-  const maxRow = 10;
-
+  const { maxRow, size } = props;
   const top = Math.floor((props.position - 1) / maxRow) * size;
   const left = Math.floor((props.position - 1) % maxRow) * size;
 
