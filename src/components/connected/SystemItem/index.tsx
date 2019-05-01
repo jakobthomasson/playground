@@ -22,7 +22,7 @@ const SystemItem: FunctionComponent<Props> = props => {
       style={{ position: 'absolute', top: `${top}px`, left: `${left}px` }}
     >
       <Icon theme={{ type: 'icon', size: 'xlarge', icon: props.systemItem.type }} />
-      <Text theme={{ type: 'text', mood: 'bread' }} text={props.systemItem.name} />
+      <Text theme={{ type: 'text', mood: 'bread' }} text={'från path'} />
     </Wrapper>
   );
 };

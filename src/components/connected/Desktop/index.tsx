@@ -25,7 +25,7 @@ const Desktop: FunctionComponent<Props> = (props: Props) => {
   const dimension: System.Dimension = useComponentSize(ref);
   return (
     <Wrapper ref={ref}>
-      <SystemLocation dimension={dimension} />
+      <SystemLocation dimension={dimension} locationId="" />
 
       {props.windows.map(window => (
         <Window key={window.id} id={`${window.id}`} />

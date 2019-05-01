@@ -42,8 +42,14 @@ declare namespace System {
   export interface SystemItem {
     id: string;
     type: 'file' | 'folder';
+    pathId: string;
+  }
+
+  export interface Path {
+    id: string;
     name: string;
-    path: string[];
+    parentPathId: string | null;
+    systemItemIds: string[];
   }
 
   export interface File extends SystemItem {

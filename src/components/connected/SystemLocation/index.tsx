@@ -10,7 +10,7 @@ import { Wrapper } from './styled';
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = ReturnType<typeof mapDispatchToProps>;
 type OwnProps = {
-  location?: string[];
+  locationId: string;
   dimension: System.Dimension;
 };
 type Props = StateProps & DispatchProps & OwnProps;
@@ -33,7 +33,7 @@ const SystemLocation: FunctionComponent<Props> = (props: Props) => {
         <SystemItem
           key={l}
           position={l}
-          systemItem={{ id: `${l}`, name: `file ${l}`, path: [], type: 'file' }}
+          systemItem={{ id: `${l}`, name: `file ${l}`, type: 'file', pathId: 'lol' }}
           maxRow={maxRow}
           size={size}
         />
