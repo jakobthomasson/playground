@@ -2,9 +2,8 @@ import React, { FunctionComponent, useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import Types from 'Types';
-import Window from 'components/connected/Window';
 import SystemItem from 'components/connected/SystemItem';
-import { pathSelectors } from 'store/path';
+import { pathSelectors } from 'store/domain/path';
 import { Wrapper } from './styled';
 
 type StateProps = ReturnType<typeof mapStateToProps>;

@@ -1,0 +1,1 @@
+export const START_CREATE_SYSTEM_ITEM = 'system/START_CREATE_SYSTEM_ITEM';

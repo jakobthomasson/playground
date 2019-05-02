@@ -5,9 +5,6 @@ import * as systemItemSelectors from './selectors';
 import systemItemReducer from './reducer';
 
 export type SystemItemAction = ActionType<typeof systemItemActions>;
-export type SystemItemState = {
-  byId: System.Map<System.SystemItem>;
-  allIds: string[];
-};
+export type SystemItemState = System.NormalizedDomain<System.SystemItem>;
 
 export { systemItemConstants, systemItemActions, systemItemReducer, systemItemSelectors };

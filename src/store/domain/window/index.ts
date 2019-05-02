@@ -7,9 +7,6 @@ import windowReducer from './reducer';
 // export type DocumentAction = ActionType<typeof exampleActions>;
 
 export type WindowAction = ActionType<typeof windowActions>;
-export type WindowState = {
-  byId: System.Map<System.Window>;
-  allIds: string[];
-};
+export type WindowState = System.NormalizedDomain<System.Window>;
 
 export { windowConstants, windowActions, windowReducer, windowSelectors };

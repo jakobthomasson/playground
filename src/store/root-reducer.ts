@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import { windowReducer } from './window';
-import { pathReducer } from './path';
-import { systemItemReducer } from './systemItem';
+import { windowReducer } from './domain/window';
+import { pathReducer } from './domain/path';
+import { systemItemReducer } from './domain/systemItem';
 
 const rootReducer = combineReducers({
   windowDomain: windowReducer,

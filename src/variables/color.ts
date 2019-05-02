@@ -47,7 +47,7 @@ export const text_light = '#939393';
 export const border_discreet = accent_gray_dark;
 export const border = text;
 
-export const buttonMoodColor: System.Map<Styles.ColorScheme> = {
+export const buttonMoodColor: Record<string, Styles.ColorScheme> = {
   neutral: {
     light: primary_light,
     dark: primary_dark,

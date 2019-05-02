@@ -1,6 +1,7 @@
 declare namespace System {
-  export interface Map<T> {
-    [key: string]: Readonly<T>;
+  export interface NormalizedDomain<T> {
+    byId: Record<string, T>;
+    allIds: string[];
   }
 
   export interface Coordinates {
@@ -11,11 +12,6 @@ declare namespace System {
   export interface Dimension {
     width: number;
     height: number;
-  }
-
-  export interface NormalizedDomain<T> {
-    byId: Record<string, T>;
-    allIds: string[];
   }
 
   export type NotificationType = 'SUCCESS' | 'ERROR' | 'INFO';
@@ -46,9 +42,10 @@ declare namespace System {
     systemItemIds: string[];
   }
 
+  export type SystemItemType = 'folder' | 'file';
   export interface BaseSystemItem {
     id: string;
-    type: 'folder' | 'file';
+    type: SystemItemType;
     pathId: string;
   }
 

@@ -1,7 +1,7 @@
 import { getType } from 'typesafe-actions';
 import { PathAction, PathState, pathActions as actions } from './';
+import { domainHelper } from 'helpers';
 import * as R from 'remeda';
-
 const rootPath: System.Path = {
   id: 'iamroot',
   parentPathId: null,
@@ -17,23 +17,11 @@ const initialState: PathState = {
 export default (state: PathState = initialState, action: PathAction): PathState => {
   switch (action.type) {
     case getType(actions.add):
-      const {
-        payload: { path },
-      } = action;
-      return {
-        byId: R.set(state.byId, path.id, path),
-        allIds: [...state.allIds, path.id],
-      };
-
+      return domainHelper.add(state, action.payload.path);
     case getType(actions.update):
-      const {
-        payload: { partialPath },
-      } = action;
-      return {
-        byId: R.set(state.byId, partialPath.id, R.merge(state.byId[partialPath.id], partialPath)),
-        allIds: state.allIds,
-      };
-
+      return domainHelper.update(state, action.payload.partialPath);
+    case getType(actions.remove):
+      return domainHelper.remove(state, action.payload.pathId);
     default:
       return state;
   }

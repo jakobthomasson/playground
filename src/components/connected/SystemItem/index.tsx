@@ -5,7 +5,7 @@ import Text from 'components/ui/Text';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import Types from 'Types';
-import { systemItemSelectors } from 'store/systemItem';
+import { systemItemSelectors } from 'store/domain/systemItem';
 
 const mapStateToProps = (state: Types.RootState, ownProps: OwnProps) => ({
   systemItem: systemItemSelectors.systemItem(state, { id: ownProps.systemItemId }),

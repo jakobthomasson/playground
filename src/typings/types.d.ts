@@ -1,8 +1,8 @@
 import rootReducer from 'store/root-reducer';
 import { StateType } from 'typesafe-actions';
-import { WindowAction } from 'store/window';
-import { PathAction } from 'store/path';
-import { SystemItemAction } from 'store/systemItem';
+import { WindowAction } from 'store/domain/window';
+import { PathAction } from 'store/domain/path';
+import { SystemItemAction } from 'store/domain/systemItem';
 import { SystemAction } from 'store/system';
 
 declare module 'Types' {

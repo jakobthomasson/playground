@@ -7,9 +7,6 @@ import pathReducer from './reducer';
 // export type DocumentAction = ActionType<typeof exampleActions>;
 
 export type PathAction = ActionType<typeof pathActions>;
-export type PathState = {
-  byId: System.Map<System.Path>;
-  allIds: string[];
-};
+export type PathState = System.NormalizedDomain<System.Path>;
 
 export { pathConstants, pathActions, pathReducer, pathSelectors };

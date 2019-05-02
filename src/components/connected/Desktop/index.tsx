@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import Types from 'Types';
-import { windowActions, windowSelectors } from 'store/window';
+import { windowActions, windowSelectors } from 'store/domain/window';
 import Window from 'components/connected/Window';
 import SystemLocation from 'components/connected/SystemLocation';
 import useComponentSize from '@rehooks/component-size';
@@ -18,18 +18,19 @@ const mapStateToProps = (state: Types.RootState) => ({
   windows: windowSelectors.windows(state),
 });
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  createSystemItem: () => dispatch(systemActions.startCreateSystemItem({ parentPathId: 'iamroot' })),
+  createSystemItem: () => dispatch(systemActions.startCreateSystemItem({ contextPathId: 'iamroot', type: 'file' })),
 });
 
 const Desktop: FunctionComponent<Props> = (props: Props) => {
   const ref = useRef(null);
   const dimension: System.Dimension = useComponentSize(ref);
-
+  const [isContextMenuOpen, setIsContextMenuOpen] = useState(false);
   useEventListener<React.MouseEvent>('contextmenu', e => {
     e.stopPropagation();
     e.preventDefault();
-
+    setIsContextMenuOpen(true);
     props.createSystemItem();
+
     // setCoords([clientX, clientY]);
   });
 

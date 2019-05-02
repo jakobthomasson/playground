@@ -2,7 +2,9 @@ import React, { FunctionComponent, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import Types from 'Types';
-import { windowSelectors, windowActions } from 'store/window';
+import { systemActions } from 'store/system';
+import { windowSelectors } from 'store/domain/window';
+
 import Icon from 'components/ui/Icon';
 import Text from 'components/ui/Text';
 import { Wrapper } from './styled';
@@ -11,7 +13,7 @@ const mapStateToProps = (state: Types.RootState, ownProps: OwnProps) => ({
   window: windowSelectors.window(state, { windowId: ownProps.id }),
 });
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  close: (id: string) => dispatch(windowActions.close({ id })),
+  close: (id: string) => dispatch(systemActions.startCloseWindow({ id })),
 });
 
 type StateProps = ReturnType<typeof mapStateToProps>;
