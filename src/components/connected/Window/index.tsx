@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 import Types from 'Types';
 import { systemActions } from 'store/system';
 import { windowSelectors } from 'store/domain/window';
-import { useEventListener, useRefCallback } from 'components/hooks';
+import { useRefCallback, useDraggable } from 'components/hooks';
 
 import Icon from 'components/ui/Icon';
 import Text from 'components/ui/Text';
@@ -27,40 +27,10 @@ type Props = StateProps & DispatchProps;
 const Window: FunctionComponent<Props> = (props: Props) => {
   const { window, close } = props;
 
-  const [startPosition, setStartPosition] = useState<System.Coordinates>({ x: 0, y: 0 });
-  const [position, setPosition] = useState<System.Coordinates>(window.position);
   const [dimension] = useState<System.Dimension>(window.dimension);
   const [isMax, setIsMax] = useState(false);
-
   const [titlebar, titlebarRef] = useRefCallback<HTMLDivElement>();
-
-  useEventListener<React.DragEvent>(
-    'drag',
-    e => {
-      if (e.pageX !== 0 && e.pageY !== 0) {
-        setPosition({ x: e.pageX - startPosition.x, y: e.pageY - startPosition.y });
-      }
-    },
-    titlebar,
-  );
-  useEventListener<React.DragEvent>(
-    'dragstart',
-    e => {
-      setStartPosition({ x: e.pageX - position.x, y: e.pageY - position.y });
-      const div = document.createElement('div');
-      e.dataTransfer.setDragImage(div, 0, 0);
-      return false;
-    },
-    titlebar,
-  );
-
-  useEventListener<React.DragEvent>(
-    'dragend',
-    e => {
-      setPosition({ x: e.pageX - startPosition.x, y: e.pageY - startPosition.y });
-    },
-    titlebar,
-  );
+  const [position] = useDraggable(titlebar, window.position);
 
   function getStyle(): React.CSSProperties {
     let height = `${dimension.height}px`;
@@ -85,7 +55,6 @@ const Window: FunctionComponent<Props> = (props: Props) => {
 
   return (
     <Wrapper style={getStyle()}>
-      {/* <div className="titlebar" onMouseDown={() => setIsMouseDown(true)} onMouseUp={() => setIsMouseDown(false)}> */}
       <div draggable className="titlebar" ref={titlebarRef}>
         <Text theme={{ type: 'text', mood: 'bread' }} text={window.id} />
         <div className="icon-wrapper">
