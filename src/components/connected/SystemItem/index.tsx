@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useCallback, useState, useRef } from 'react';
+import React, { FunctionComponent } from 'react';
 import { Wrapper } from './styled';
 import Icon from 'components/ui/Icon';
 import Text from 'components/ui/Text';
@@ -9,6 +9,7 @@ import { systemSelectors } from 'store/system';
 import { AnimatedValue } from 'react-spring';
 import { systemActions } from 'store/system';
 import { useEventListener, useRefCallback } from 'components/hooks';
+
 const mapStateToProps = (state: Types.RootState, ownProps: OwnProps) => ({
   systemItem: systemSelectors.systemItemFromPathId(state, { pathId: ownProps.pathId }),
 });
@@ -19,10 +20,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = ReturnType<typeof mapDispatchToProps>;
 type OwnProps = {
+  pathId: string;
   maxRow: number;
   size: number;
   position: number;
-  pathId: string;
   animatedProps: AnimatedValue<React.CSSProperties>;
 };
 

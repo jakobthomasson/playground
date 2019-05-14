@@ -51,6 +51,5 @@ export const Wrapper = styled.article`
     .text {
       margin-bottom: ${spacing.small};
     }
- 
   }
 `;

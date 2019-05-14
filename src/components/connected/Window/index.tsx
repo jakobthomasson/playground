@@ -1,9 +1,10 @@
-import React, { FunctionComponent, useState, useEffect } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import Types from 'Types';
 import { systemActions } from 'store/system';
 import { windowSelectors } from 'store/domain/window';
+import { useEventListener, useRefCallback } from 'components/hooks';
 
 import Icon from 'components/ui/Icon';
 import Text from 'components/ui/Text';
@@ -26,40 +27,40 @@ type Props = StateProps & DispatchProps;
 const Window: FunctionComponent<Props> = (props: Props) => {
   const { window, close } = props;
 
-  const [deltaPosition, setDeltaPosition] = useState<System.Coordinates>();
-  const [position, setPosition] = useState<System.Coordinates>({ x: 0, y: 100 });
-  const [dimension] = useState<System.Dimension>({ width: 300, height: 400 });
+  const [startPosition, setStartPosition] = useState<System.Coordinates>({ x: 0, y: 0 });
+  const [position, setPosition] = useState<System.Coordinates>(window.position);
+  const [dimension] = useState<System.Dimension>(window.dimension);
   const [isMax, setIsMax] = useState(false);
 
-  const [isMouseDown, setIsMouseDown] = useState<boolean>(false);
-  useEffect(() => {
-    function mouseMoveListener(e: MouseEvent) {
-      if (deltaPosition) {
-        const newDelta = { x: e.clientX - deltaPosition.x, y: e.clientY - deltaPosition.y };
-        setDeltaPosition({ x: e.clientX, y: e.clientY });
-        setPosition({ x: position.x + newDelta.x, y: position.y + newDelta.y });
-      } else {
-        setDeltaPosition({ x: e.clientX, y: e.clientY });
+  const [titlebar, titlebarRef] = useRefCallback<HTMLDivElement>();
+
+  useEventListener<React.DragEvent>(
+    'drag',
+    e => {
+      if (e.pageX !== 0 && e.pageY !== 0) {
+        setPosition({ x: e.pageX - startPosition.x, y: e.pageY - startPosition.y });
       }
-      e.preventDefault();
-    }
+    },
+    titlebar,
+  );
+  useEventListener<React.DragEvent>(
+    'dragstart',
+    e => {
+      setStartPosition({ x: e.pageX - position.x, y: e.pageY - position.y });
+      const div = document.createElement('div');
+      e.dataTransfer.setDragImage(div, 0, 0);
+      return false;
+    },
+    titlebar,
+  );
 
-    function mouseUpListener(e: MouseEvent) {
-      setDeltaPosition(undefined);
-      setIsMouseDown(false);
-      e.preventDefault();
-    }
-
-    if (isMouseDown) {
-      document.addEventListener('mousemove', mouseMoveListener);
-      document.addEventListener('mouseup', mouseUpListener);
-    }
-
-    return () => {
-      document.removeEventListener('mousemove', mouseMoveListener);
-      document.removeEventListener('mouseup', mouseUpListener);
-    };
-  });
+  useEventListener<React.DragEvent>(
+    'dragend',
+    e => {
+      setPosition({ x: e.pageX - startPosition.x, y: e.pageY - startPosition.y });
+    },
+    titlebar,
+  );
 
   function getStyle(): React.CSSProperties {
     let height = `${dimension.height}px`;
@@ -78,12 +79,14 @@ const Window: FunctionComponent<Props> = (props: Props) => {
       left,
       width,
       height,
+      zIndex: props.window.zIndex,
     };
   }
 
   return (
     <Wrapper style={getStyle()}>
-      <div className="titlebar" onMouseDown={() => setIsMouseDown(true)} onMouseUp={() => setIsMouseDown(false)}>
+      {/* <div className="titlebar" onMouseDown={() => setIsMouseDown(true)} onMouseUp={() => setIsMouseDown(false)}> */}
+      <div draggable className="titlebar" ref={titlebarRef}>
         <Text theme={{ type: 'text', mood: 'bread' }} text={window.id} />
         <div className="icon-wrapper">
           <Icon theme={{ icon: 'hide', size: 'small', type: 'icon' }} />

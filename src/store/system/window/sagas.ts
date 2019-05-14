@@ -31,12 +31,14 @@ function* startOpenSaga(action: ActionType<typeof actions.startOpenWindow>) {
       window = {
         zIndex,
         id: windowId,
-        dimensions: { height: 200, width: 200 },
+        dimension: { height: 400, width: 500 },
         position: { x: 300, y: 300 },
         systemItemId: action.payload.systemItemId,
       };
       yield put(windowActions.add({ window }));
+      return;
     }
+    yield put(windowActions.update({ partialWindow: { ...window, zIndex } }));
   } catch (error) {
     console.error('error: ', error);
   }
