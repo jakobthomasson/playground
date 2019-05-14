@@ -1,7 +1,9 @@
-import { all, takeLatest, delay } from 'redux-saga/effects';
-// import { ActionType } from 'typesafe-actions';
-// import * as actions from './actions';
+import { all, takeLatest, delay, put, select } from 'redux-saga/effects';
+import { ActionType } from 'typesafe-actions';
+import * as actions from './actions';
+import { windowSelectors, windowActions } from 'store/domain/window';
 import * as constants from './constants';
+import { domainHelper } from 'helpers';
 
 function* startCloseSaga() {
   try {
@@ -18,9 +20,23 @@ function* startMinimizeSaga() {
     console.error('error: ', error);
   }
 }
-function* startOpenSaga() {
+
+function* startOpenSaga(action: ActionType<typeof actions.startOpenWindow>) {
   try {
-    yield delay(100);
+    const { systemItemId } = action.payload;
+    let window: System.Window | null = yield select(windowSelectors.systemItemWindow, { systemItemId });
+    let zIndex: number = yield select(windowSelectors.highestZIndex);
+    if (!window) {
+      const windowId = domainHelper.getUniqueString();
+      window = {
+        zIndex,
+        id: windowId,
+        dimensions: { height: 200, width: 200 },
+        position: { x: 300, y: 300 },
+        systemItemId: action.payload.systemItemId,
+      };
+      yield put(windowActions.add({ window }));
+    }
   } catch (error) {
     console.error('error: ', error);
   }

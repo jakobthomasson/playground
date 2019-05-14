@@ -7,7 +7,7 @@ const rootPath: System.Path = {
   id: 'iamroot',
   parentId: null,
   name: 'root',
-  childrenIds: [],
+  childIds: [],
   systemItemId: null,
 };
 

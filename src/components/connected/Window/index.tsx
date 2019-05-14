@@ -13,7 +13,7 @@ const mapStateToProps = (state: Types.RootState, ownProps: OwnProps) => ({
   window: windowSelectors.window(state, { windowId: ownProps.id }),
 });
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  close: (id: string) => dispatch(systemActions.startCloseWindow({ id })),
+  close: (windowId: string) => dispatch(systemActions.startCloseWindow({ windowId })),
 });
 
 type StateProps = ReturnType<typeof mapStateToProps>;

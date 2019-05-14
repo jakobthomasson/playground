@@ -7,7 +7,7 @@ export const byId = (state: Types.RootState) => state.pathDomain.byId;
 export const allIds = (state: Types.RootState) => state.pathDomain.allIds;
 
 export const path = createSelector(
-  (state: Types.RootState, ownProps: { id: string }) => ownProps.id,
+  (state: Types.RootState, ownProps: { pathId: string }) => ownProps.pathId,
   byId,
   (id, byId) => byId[id],
 );

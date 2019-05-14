@@ -3,7 +3,7 @@ import { useRef, useEffect, EventHandler, SyntheticEvent } from 'react';
 const useEventListener = <T extends SyntheticEvent<any>>(
   eventName: keyof GlobalEventHandlersEventMap,
   handler: EventHandler<T>,
-  element: HTMLElement | Window = window,
+  element: HTMLElement | HTMLDivElement | Window | null = window,
 ) => {
   const savedHandler = useRef<EventHandler<T>>();
   useEffect(() => {
@@ -11,17 +11,16 @@ const useEventListener = <T extends SyntheticEvent<any>>(
   }, [handler]);
 
   useEffect(() => {
+    // console.log(element);
     const isSupported = element && element.addEventListener;
     if (!isSupported) {
       return;
     }
-
     const eventListener = (event: any) => savedHandler.current!(event);
 
-    // element.addEventListener
-    element.addEventListener(eventName, eventListener);
+    element!.addEventListener(eventName, eventListener);
     return () => {
-      element.removeEventListener(eventName, eventListener);
+      element!.removeEventListener(eventName, eventListener);
     };
   }, [eventName, element]);
 };

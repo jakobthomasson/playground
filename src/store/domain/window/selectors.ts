@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import * as R from 'remeda';
 import Types from 'Types';
 
 export const domain = (state: Types.RootState) => state.windowDomain;
@@ -14,3 +15,21 @@ export const windows = createSelector(
 
 export const window = (state: Types.RootState, ownProps: { windowId: string }) =>
   state.windowDomain.byId[ownProps.windowId];
+
+export const systemItemWindow = createSelector(
+  (state: Types.RootState, ownProps: { systemItemId: string }) => ownProps.systemItemId,
+  windows,
+  (systemItemId, windows) => {
+    const window = R.find(windows, w => w.systemItemId === systemItemId);
+    return window || null;
+  },
+);
+
+export const highestZIndex = createSelector(
+  windows,
+  windows => {
+    const window = R.sort(windows, (a, b) => b.zIndex - a.zIndex)[0];
+    // console.log(window);
+    return window ? window.zIndex + 1 : 1;
+  },
+);

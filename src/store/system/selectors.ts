@@ -1,5 +1,11 @@
-import Types from 'Types';
+import { createSelector } from 'reselect';
+import { pathSelectors } from 'store/domain/path';
+import { systemItemSelectors } from 'store/domain/systemItem';
 
-export const domain = (state: Types.RootState) => state.systemItemDomain;
-export const byId = (state: Types.RootState) => state.systemItemDomain.byId;
-export const allIds = (state: Types.RootState) => state.systemItemDomain.allIds;
+export const systemItemFromPathId = createSelector(
+  pathSelectors.path,
+  systemItemSelectors.byId,
+  (path, systemItemById) => {
+    return systemItemById[path.systemItemId!];
+  },
+);

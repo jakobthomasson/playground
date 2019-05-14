@@ -6,7 +6,7 @@ export const byId = (state: Types.RootState) => state.systemItemDomain.byId;
 export const allIds = (state: Types.RootState) => state.systemItemDomain.allIds;
 
 export const systemItem = createSelector(
-  (state: Types.RootState, ownProps: { id: string }) => ownProps.id,
+  (state: Types.RootState, ownProps: { systemItemId: string }) => ownProps.systemItemId,
   byId,
   (id, byId) => byId[id],
 );

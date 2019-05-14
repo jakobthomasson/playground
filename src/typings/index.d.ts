@@ -33,13 +33,14 @@ declare namespace System {
     zIndex: number;
     dimensions: Dimension;
     position: Coordinates;
+    systemItemId: string;
   }
 
   export interface Path {
     id: string;
     name: string;
     parentId: string | null;
-    childrenIds: string[] | null;
+    childIds: string[] | null;
     systemItemId: string | null;
   }
 
