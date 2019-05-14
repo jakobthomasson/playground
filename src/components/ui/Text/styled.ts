@@ -1,4 +1,3 @@
-import { color, border, spacing, font } from 'variables';
 import { css } from 'styled-components';
 
 const baseCss = css`

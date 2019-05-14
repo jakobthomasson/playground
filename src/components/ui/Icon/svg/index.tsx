@@ -6,7 +6,6 @@ import MinimizeIcon from './Minimize';
 import FolderIcon from './Folder';
 import FileIcon from './File';
 
-
 /**
  * https://www.flaticon.com/packs/multimedia-collection
  * https://www.flaticon.com/packs/essential-set-2/2
@@ -30,6 +29,8 @@ const SvgComponent: FunctionComponent<Props> = (props: Props) => {
       return <FolderIcon />;
     case 'file':
       return <FileIcon />;
+    default:
+      return null;
   }
 };
 

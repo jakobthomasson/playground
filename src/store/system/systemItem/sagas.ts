@@ -1,4 +1,4 @@
-import { all, call, put, select, spawn, take, takeLatest, delay } from 'redux-saga/effects';
+import { all, put, select, takeLatest, delay } from 'redux-saga/effects';
 import { ActionType } from 'typesafe-actions';
 import * as actions from './actions';
 import * as constants from './constants';
@@ -21,14 +21,15 @@ function* startCreateSystemItemSaga(action: ActionType<typeof actions.startCreat
     const file: System.File = {
       id: fileId,
       type: 'file',
-      pathId,
+      // pathId,
     };
 
     const path: System.Path = {
       id: pathId,
       name: pathName,
-      systemItemIds: [fileId],
-      parentPathId: action.payload.contextPathId,
+      parentId: action.payload.contextPathId,
+      childrenIds: [],
+      systemItemId: fileId,
     };
 
     yield put(systemItemActions.add({ systemItem: file }));
@@ -36,7 +37,7 @@ function* startCreateSystemItemSaga(action: ActionType<typeof actions.startCreat
 
     yield put(
       pathActions.update({
-        partialPath: { id: contextPathId, systemItemIds: R.concat(parentPath.systemItemIds, [file.id]) },
+        partialPath: { id: contextPathId, childrenIds: R.concat(parentPath.childrenIds!, [path.id]) },
       }),
     );
 

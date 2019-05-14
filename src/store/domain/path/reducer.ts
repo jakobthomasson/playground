@@ -2,11 +2,13 @@ import { getType } from 'typesafe-actions';
 import { PathAction, PathState, pathActions as actions } from './';
 import { domainHelper } from 'helpers';
 import * as R from 'remeda';
+
 const rootPath: System.Path = {
   id: 'iamroot',
-  parentPathId: null,
+  parentId: null,
   name: 'root',
-  systemItemIds: [],
+  childrenIds: [],
+  systemItemId: null,
 };
 
 const initialState: PathState = {

@@ -1,4 +1,4 @@
-import { color, border, spacing, font, size } from 'variables';
+import { size } from 'variables';
 import { css } from 'styled-components';
 
 const baseCss = css`
@@ -27,24 +27,26 @@ function getSizeStyle(iconSize: Styles.Size) {
       return largeIconCss;
     case 'xlarge':
       return xlargeIconCss;
+    default:
+      return null;
   }
 }
 
-function getColorStyle(colorScheme: Styles.ColorScheme) {
-  return css`
-    background-color: ${colorScheme.normal};
+// function getColorStyle(colorScheme: Styles.ColorScheme) {
+//   return css`
+//     background-color: ${colorScheme.normal};
 
-    &:hover:enabled {
-      background-color: ${colorScheme.light};
-    }
+//     &:hover:enabled {
+//       background-color: ${colorScheme.light};
+//     }
 
-    &:active:enabled {
-      background-color: ${colorScheme.dark};
-    }
+//     &:active:enabled {
+//       background-color: ${colorScheme.dark};
+//     }
 
-    color: ${colorScheme.text};
-  `;
-}
+//     color: ${colorScheme.text};
+//   `;
+// }
 
 function getStyle(icon: Styles.IconTheme) {
   // const colorScheme = color.buttonMoodColor[button.mood];

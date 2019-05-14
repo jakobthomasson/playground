@@ -5,18 +5,16 @@ import getIconStyle from 'components/ui/Icon/styled';
 import getWrapperStyle from 'components/ui/Wrapper/styled';
 import getTextStyle from 'components/ui/Text/styled';
 
-
 type Props = {
   style: Styles.ButtonTheme | Styles.TextTheme | Styles.IconTheme | Styles.WrapperTheme;
 };
 
 const defaultStyle = css``;
 
-
 function useStyles(props: Props) {
   const [styledCss, setStyledCss] = useState(defaultStyle);
+  const { style } = props;
   useEffect(() => {
-    const { style } = props;
     switch (style.type) {
       case 'button':
         setStyledCss(getButtonStyle(style));
@@ -34,7 +32,7 @@ function useStyles(props: Props) {
         console.warn('Style non-existing');
         break;
     }
-  }, []);
+  }, [style]);
   return styledCss;
 }
 

@@ -1,4 +1,3 @@
-import { createSelector } from 'reselect';
 import Types from 'Types';
 
 export const domain = (state: Types.RootState) => state.systemItemDomain;

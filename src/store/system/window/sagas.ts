@@ -1,11 +1,9 @@
-import { all, call, put, select, spawn, take, takeLatest, delay } from 'redux-saga/effects';
-import { ActionType } from 'typesafe-actions';
-import * as actions from './actions';
+import { all, takeLatest, delay } from 'redux-saga/effects';
+// import { ActionType } from 'typesafe-actions';
+// import * as actions from './actions';
 import * as constants from './constants';
 
-import * as R from 'remeda';
-
-function* startCloseSaga(action: ActionType<typeof actions.startCloseWindow>) {
+function* startCloseSaga() {
   try {
     yield delay(100);
   } catch (error) {
@@ -13,28 +11,28 @@ function* startCloseSaga(action: ActionType<typeof actions.startCloseWindow>) {
   }
 }
 
-function* startMinimizeSaga(action: ActionType<typeof actions.startMinimizeWindow>) {
+function* startMinimizeSaga() {
   try {
     yield delay(100);
   } catch (error) {
     console.error('error: ', error);
   }
 }
-function* startOpenSaga(action: ActionType<typeof actions.startOpenWindow>) {
+function* startOpenSaga() {
   try {
     yield delay(100);
   } catch (error) {
     console.error('error: ', error);
   }
 }
-function* startResizeSaga(action: ActionType<typeof actions.startResizeWindow>) {
+function* startResizeSaga() {
   try {
     yield delay(100);
   } catch (error) {
     console.error('error: ', error);
   }
 }
-function* startSelectSaga(action: ActionType<typeof actions.startSelectWindow>) {
+function* startSelectSaga() {
   try {
     yield delay(100);
   } catch (error) {

@@ -38,15 +38,15 @@ declare namespace System {
   export interface Path {
     id: string;
     name: string;
-    parentPathId: string | null;
-    systemItemIds: string[];
+    parentId: string | null;
+    childrenIds: string[] | null;
+    systemItemId: string | null;
   }
 
   export type SystemItemType = 'folder' | 'file';
   export interface BaseSystemItem {
     id: string;
     type: SystemItemType;
-    pathId: string;
   }
 
   export interface File extends BaseSystemItem {

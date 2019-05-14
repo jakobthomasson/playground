@@ -1,4 +1,4 @@
-import { color, border, spacing, font } from 'variables';
+import { color, border, spacing } from 'variables';
 import { css } from 'styled-components';
 
 const baseCss = css`
@@ -45,6 +45,8 @@ function getSizeStyle(buttonSize: Styles.Size) {
       return largeButtonSizeCss;
     case 'xlarge':
       return largeButtonSizeCss;
+    default:
+      return null;
   }
 }
 

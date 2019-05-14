@@ -28,7 +28,7 @@ const Window: FunctionComponent<Props> = (props: Props) => {
 
   const [deltaPosition, setDeltaPosition] = useState<System.Coordinates>();
   const [position, setPosition] = useState<System.Coordinates>({ x: 0, y: 100 });
-  const [dimension, setDimension] = useState<System.Dimension>({ width: 300, height: 400 });
+  const [dimension] = useState<System.Dimension>({ width: 300, height: 400 });
   const [isMax, setIsMax] = useState(false);
 
   const [isMouseDown, setIsMouseDown] = useState<boolean>(false);

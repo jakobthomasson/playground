@@ -19,7 +19,7 @@ export const fullPath = createSelector(
     function recursivePath(pathId: string, oldFullPath: System.Path[]): System.Path[] {
       const currentPath = byId[pathId];
       const fullPath = R.concat([currentPath], oldFullPath);
-      return !currentPath.parentPathId ? fullPath : recursivePath(currentPath.parentPathId, fullPath);
+      return !currentPath.parentId ? fullPath : recursivePath(currentPath.parentId, fullPath);
     }
     return recursivePath(path.id, []);
   },

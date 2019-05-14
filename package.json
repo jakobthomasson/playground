@@ -12,21 +12,16 @@
     "@types/redux": "^3.6.0",
     "@types/styled-components": "^4.1.12",
     "@types/webpack-env": "^1.13.9",
-    "prettier": "^1.16.4",
-    "prettier-tslint": "^0.4.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^6.0.1",
-    "react-scripts": "2.1.8",
+    "react-scripts": "3.0.1",
     "react-spring": "^8.0.19",
     "redux": "^4.0.1",
     "redux-saga": "^1.0.2",
     "remeda": "^0.0.11",
     "reselect": "^4.0.0",
     "styled-components": "^4.2.0",
-    "tslint": "^5.15.0",
-    "tslint-config-airbnb": "^5.11.1",
-    "tslint-config-prettier": "^1.18.0",
     "typesafe-actions": "^4.0.0",
     "typescript": "3.3.3"
   },
@@ -34,10 +29,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "eject": "react-scripts eject",
+    "lint:fix": "eslint './src/**/*.{ts,tsx}'"
   },
   "browserslist": [
     ">0.2%",

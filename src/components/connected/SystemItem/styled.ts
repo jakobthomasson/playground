@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { color, spacing } from 'variables';
+import { animated } from 'react-spring';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled(animated.div)`
   display: flex;
   flex-direction: column;
   justify-content: center;
