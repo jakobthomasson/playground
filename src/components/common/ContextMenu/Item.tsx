@@ -33,11 +33,18 @@ const ContextMenuItem: FunctionComponent<Props> = (props: Props) => {
     element,
   );
 
+  useEventListener(
+    'click',
+    e => {
+      console.log('action');
+      menuItem.action();
+    },
+    element,
+  );
   function getMenuPosition() {
     const boundingRect = element!.getBoundingClientRect() as DOMRect;
-    console.log(boundingRect);
     const x = boundingRect.x + boundingRect.width;
-    const y = boundingRect.y - 4;
+    const y = boundingRect.y - 5;
     return {
       x,
       y,

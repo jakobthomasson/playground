@@ -6,8 +6,7 @@ export const Wrapper = styled.div`
   width: ${size.context_menu_width}px;
   background-color: ${color.accent_gray_light};
   padding: ${spacing.small} ${spacing.xsmall};
-  border: 1px solid ${color.border_discreet};
-  border-radius: 2px;
+  border: 1px solid ${color.border};
 
   .group {
     width: 100%;
@@ -17,7 +16,7 @@ export const Wrapper = styled.div`
     .border {
       margin: ${spacing.small} 0;
       width: calc(100% - 2 * ${spacing.medium});
-      border-bottom: 1px solid ${color.border_discreet};
+      border-bottom: 1px solid ${color.border_light};
     }
   }
 `;

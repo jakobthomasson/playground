@@ -45,8 +45,9 @@ export const text = '#201F1F';
 export const text_dark = '#050505';
 export const text_light = '#939393';
 
-export const border_discreet = accent_gray_dark;
-export const border = text;
+export const border_light = accent_gray_dark;
+export const border = text_light;
+export const border_dark = text;
 
 export const buttonMoodColor: Record<string, Styles.ColorScheme> = {
   neutral: {

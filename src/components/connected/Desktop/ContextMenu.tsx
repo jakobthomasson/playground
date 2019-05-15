@@ -7,7 +7,8 @@ import ContextMenu from 'components/common/ContextMenu';
 
 const mapStateToProps = (state: Types.RootState, ownProps: OwnProps) => ({});
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  createSystemItem: () => dispatch(systemActions.startCreateSystemItem({ contextPathId: 'iamroot', type: 'file' })),
+  createSystemItem: (type: System.SystemItemType) =>
+    dispatch(systemActions.startCreateSystemItem({ type, contextPathId: 'iamroot' })),
 });
 
 type StateProps = ReturnType<typeof mapStateToProps>;
@@ -18,6 +19,7 @@ type OwnProps = { mousePosition: System.Coordinates; pageDimension: System.Dimen
 type Props = StateProps & DispatchProps & OwnProps;
 
 const DesktopContextMenu: FunctionComponent<Props> = (props: Props) => {
+  const { createSystemItem } = props;
   const menuGroups: System.ContextMenuGroup[] = [
     {
       items: [
@@ -58,10 +60,10 @@ const DesktopContextMenu: FunctionComponent<Props> = (props: Props) => {
           action: () => console.log('paste'),
           subgroups: [
             {
-              items: [{ text: 'folder', action: () => console.log('folder') }],
+              items: [{ text: 'folder', action: () => createSystemItem('folder') }],
             },
             {
-              items: [{ text: 'text document', action: () => console.log('text') }],
+              items: [{ text: 'text document', action: () => createSystemItem('file') }],
             },
           ],
         },

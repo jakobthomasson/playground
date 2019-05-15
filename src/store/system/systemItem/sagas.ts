@@ -10,29 +10,45 @@ import * as R from 'remeda';
 function* startCreateSystemItemSaga(action: ActionType<typeof actions.startCreateSystemItem>) {
   try {
     const {
-      payload: { contextPathId },
+      payload: { contextPathId, type },
     } = action;
     const parentPath: System.Path = yield select(pathSelectors.path, { pathId: contextPathId });
 
     const timestamp = domainHelper.getUniqueString();
-    const fileId = `file-${timestamp}`;
+    const systemItemId = `file-${timestamp}`;
     const pathId = `path-${timestamp}`;
     const pathName = `Path ${timestamp}`;
-
-    const file: System.File = {
-      id: fileId,
-      type: 'file',
-    };
 
     const path: System.Path = {
       id: pathId,
       name: pathName,
       parentId: action.payload.contextPathId,
       childIds: [],
-      systemItemId: fileId,
+      systemItemId: systemItemId,
     };
+    switch (type) {
+      case 'file':
+        yield put(
+          systemItemActions.add({
+            systemItem: {
+              type,
+              id: systemItemId,
+            },
+          }),
+        );
+        break;
+      case 'folder':
+        yield put(
+          systemItemActions.add({
+            systemItem: {
+              type,
+              id: systemItemId,
+            },
+          }),
+        );
+        break;
+    }
 
-    yield put(systemItemActions.add({ systemItem: file }));
     yield put(pathActions.add({ path }));
 
     yield put(
