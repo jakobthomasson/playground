@@ -26,7 +26,6 @@ type Props = StateProps & DispatchProps;
 const Desktop: FunctionComponent<Props> = (props: Props) => {
   const { windowIds, createSystemItem } = props;
   const ref = useRef(null);
-
   const dimension: System.Dimension = useComponentSize(ref);
   const [isContextMenuOpen, setIsContextMenuOpen] = useState(false);
   const [mousePosition, setMousePosition] = useState<System.Coordinates>({ x: 0, y: 0 });
@@ -45,7 +44,7 @@ const Desktop: FunctionComponent<Props> = (props: Props) => {
         return <Window key={id} id={id} />;
       })}
 
-      {isContextMenuOpen && <ContextMenu dimension={dimension} mousePosition={mousePosition} />}
+      {isContextMenuOpen && <ContextMenu pageDimension={dimension} mousePosition={mousePosition} />}
 
       <Taskbar />
     </Wrapper>

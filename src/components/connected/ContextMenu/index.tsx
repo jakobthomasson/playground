@@ -16,24 +16,24 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({});
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = ReturnType<typeof mapDispatchToProps>;
 
-type OwnProps = { mousePosition: System.Coordinates; dimension: System.Dimension };
+type OwnProps = { mousePosition: System.Coordinates; pageDimension: System.Dimension };
 type Props = StateProps & DispatchProps & OwnProps;
 
 const ContextMenu: FunctionComponent<Props> = (props: Props) => {
-  const { mousePosition, dimension } = props;
+  const { mousePosition, pageDimension } = props;
   const ref = useRef(null);
-  const contextMenuDimensions: System.Dimension = useComponentSize(ref);
+  const dimension: System.Dimension = useComponentSize(ref);
   function getStyle(): React.CSSProperties {
     const position: System.Coordinates = {
       x:
-        mousePosition.x + contextMenuDimensions.width > dimension.width
-          ? dimension.width - contextMenuDimensions.width
+        mousePosition.x + dimension.width > pageDimension.width
+          ? pageDimension.width - dimension.width
           : mousePosition.x,
       y:
-        mousePosition.y + contextMenuDimensions.height > dimension.height - taskbar_height
-          ? mousePosition.y > dimension.height - taskbar_height
-            ? dimension.height - taskbar_height - contextMenuDimensions.height
-            : mousePosition.y - contextMenuDimensions.height
+        mousePosition.y + dimension.height > pageDimension.height - taskbar_height
+          ? mousePosition.y > pageDimension.height - taskbar_height
+            ? pageDimension.height - taskbar_height - dimension.height
+            : mousePosition.y - dimension.height
           : mousePosition.y,
     };
 
