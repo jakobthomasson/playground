@@ -10,6 +10,7 @@ import { Wrapper } from './styled';
 import { useEventListener } from 'components/hooks';
 import { systemActions } from 'store/system';
 import Taskbar from 'components/connected/Taskbar';
+import ContextMenu from 'components/connected/ContextMenu';
 
 const mapStateToProps = (state: Types.RootState) => ({
   windowIds: uiSelectors.visibleWindowIds(state),
@@ -25,14 +26,16 @@ type Props = StateProps & DispatchProps;
 const Desktop: FunctionComponent<Props> = (props: Props) => {
   const { windowIds, createSystemItem } = props;
   const ref = useRef(null);
-  const dimension: System.Dimension = useComponentSize(ref);
-  const [, setIsContextMenuOpen] = useState(false);
 
+  const dimension: System.Dimension = useComponentSize(ref);
+  const [isContextMenuOpen, setIsContextMenuOpen] = useState(false);
+  const [mousePosition, setMousePosition] = useState<System.Coordinates>({ x: 0, y: 0 });
   useEventListener<React.MouseEvent>('contextmenu', e => {
     e.stopPropagation();
     e.preventDefault();
+    setMousePosition({ x: e.pageX, y: e.pageY });
     setIsContextMenuOpen(true);
-    createSystemItem();
+    // createSystemItem();
   });
 
   return (
@@ -41,6 +44,8 @@ const Desktop: FunctionComponent<Props> = (props: Props) => {
       {windowIds.map(id => {
         return <Window key={id} id={id} />;
       })}
+
+      {isContextMenuOpen && <ContextMenu dimension={dimension} mousePosition={mousePosition} />}
 
       <Taskbar />
     </Wrapper>
