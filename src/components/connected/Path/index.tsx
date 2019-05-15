@@ -27,9 +27,9 @@ const Path: FunctionComponent<Props> = (props: Props) => {
   } = props;
 
   const transition = useTransition(childIds, childId => childId, {
-    from: { opacity: 0, marginTop: -100 },
+    from: { opacity: 0, marginTop: -20 },
     enter: { opacity: 1, marginTop: 0 },
-    config: config.gentle,
+    config: config.stiff,
   });
 
   const {

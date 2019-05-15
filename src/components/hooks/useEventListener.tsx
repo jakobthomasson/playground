@@ -3,7 +3,7 @@ import { useRef, useEffect, EventHandler, SyntheticEvent } from 'react';
 const useEventListener = <T extends SyntheticEvent<any>>(
   eventName: keyof GlobalEventHandlersEventMap,
   handler: EventHandler<T>,
-  element:Element  | Window | null = window,
+  element: Element | Window | null = window,
 ) => {
   const savedHandler = useRef<EventHandler<T>>();
   useEffect(() => {

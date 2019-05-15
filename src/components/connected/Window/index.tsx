@@ -5,32 +5,43 @@ import Types from 'Types';
 import { systemActions } from 'store/system';
 import { windowSelectors } from 'store/domain/window';
 import { useRefCallback, useDraggable } from 'components/hooks';
-
+import { AnimatedValue } from 'react-spring';
 import Icon from 'components/ui/Icon';
 import Text from 'components/ui/Text';
 import { Wrapper } from './styled';
+import { useEventListener } from 'components/hooks';
 
 const mapStateToProps = (state: Types.RootState, ownProps: OwnProps) => ({
   window: windowSelectors.window(state, { windowId: ownProps.id }),
 });
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   close: (windowId: string) => dispatch(systemActions.startCloseWindow({ windowId })),
+  select: (windowId: string) => dispatch(systemActions.startSelectWindow({ windowId })),
 });
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = ReturnType<typeof mapDispatchToProps>;
 type OwnProps = {
   id: string;
+  animatedProps: AnimatedValue<React.CSSProperties>;
 };
-type Props = StateProps & DispatchProps;
+type Props = OwnProps & StateProps & DispatchProps;
 
 const Window: FunctionComponent<Props> = (props: Props) => {
-  const { window, close } = props;
-
+  const { window, close, animatedProps, id, select } = props;
   const [dimension] = useState<System.Dimension>(window.dimension);
   const [isMax, setIsMax] = useState(false);
   const [titlebar, titlebarRef] = useRefCallback<HTMLDivElement>();
+  const [wrapper, wrapperRef] = useRefCallback<HTMLDivElement>();
   const [position] = useDraggable(titlebar, window.position);
+
+  useEventListener<React.MouseEvent>(
+    'mousedown',
+    e => {
+      select(id);
+    },
+    wrapper,
+  );
 
   function getStyle(): React.CSSProperties {
     let height = `${dimension.height}px`;
@@ -45,16 +56,17 @@ const Window: FunctionComponent<Props> = (props: Props) => {
       left = '0';
     }
     return {
+      ...animatedProps,
       top,
       left,
       width,
       height,
-      zIndex: props.window.zIndex,
+      zIndex: window.zIndex,
     };
   }
 
   return (
-    <Wrapper style={getStyle()}>
+    <Wrapper style={getStyle()} ref={wrapperRef}>
       <div draggable className="titlebar" ref={titlebarRef}>
         <Text theme={{ type: 'text', mood: 'bread' }} text={window.id} />
         <div className="icon-wrapper">
@@ -67,9 +79,7 @@ const Window: FunctionComponent<Props> = (props: Props) => {
           <Icon theme={{ icon: 'close', size: 'small', type: 'icon' }} onClick={() => close(window.id)} />
         </div>
       </div>
-      {
-        // not static in future
-      }
+      {}
       <div className="content">
         <Text theme={{ type: 'text', mood: 'bread' }} text={`width: ${dimension.width}`} />
         <Text theme={{ type: 'text', mood: 'bread' }} text={`height: ${dimension.height}`} />

@@ -50,9 +50,11 @@ function* startResizeSaga() {
     console.error('error: ', error);
   }
 }
-function* startSelectSaga() {
+function* startSelectSaga(action: ActionType<typeof actions.startSelectWindow>) {
   try {
-    yield delay(100);
+    const { windowId } = action.payload;
+    let zIndex: number = yield select(windowSelectors.highestZIndex);
+    yield put(windowActions.update({ partialWindow: { id: windowId, zIndex } }));
   } catch (error) {
     console.error('error: ', error);
   }

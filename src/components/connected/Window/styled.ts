@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { color, spacing } from 'variables';
+import { animated } from 'react-spring';
 
-export const Wrapper = styled.article`
+export const Wrapper = styled(animated.article)`
   box-sizing: border-box;
   background: ${color.background_primary};
   border: 1px solid ${color.text_light};
