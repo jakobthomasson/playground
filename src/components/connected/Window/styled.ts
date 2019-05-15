@@ -5,7 +5,7 @@ import { animated } from 'react-spring';
 export const Wrapper = styled(animated.article)`
   box-sizing: border-box;
   background: ${color.background_primary};
-  border: 1px solid ${color.text_light};
+  border: 2px solid ${color.text_light};
   position: absolute;
   box-shadow: 0px 0px 5px ${color.box_shadow};
   border-radius: 4px;

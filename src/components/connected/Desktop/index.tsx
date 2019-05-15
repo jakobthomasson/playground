@@ -2,17 +2,17 @@ import React, { FunctionComponent, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import Types from 'Types';
-import { windowSelectors } from 'store/domain/window';
+import { uiSelectors } from 'store/ui';
 import Window from 'components/connected/Window';
 import Path from 'components/connected/Path';
 import useComponentSize from '@rehooks/component-size';
 import { Wrapper } from './styled';
 import { useEventListener } from 'components/hooks';
 import { systemActions } from 'store/system';
-import { useTransition, config } from 'react-spring';
+import Taskbar from 'components/connected/Taskbar';
 
 const mapStateToProps = (state: Types.RootState) => ({
-  windows: windowSelectors.windows(state),
+  windowIds: uiSelectors.visibleWindowIds(state),
 });
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   createSystemItem: () => dispatch(systemActions.startCreateSystemItem({ contextPathId: 'iamroot', type: 'file' })),
@@ -23,6 +23,7 @@ type DispatchProps = ReturnType<typeof mapDispatchToProps>;
 type Props = StateProps & DispatchProps;
 
 const Desktop: FunctionComponent<Props> = (props: Props) => {
+  const { windowIds, createSystemItem } = props;
   const ref = useRef(null);
   const dimension: System.Dimension = useComponentSize(ref);
   const [, setIsContextMenuOpen] = useState(false);
@@ -31,21 +32,17 @@ const Desktop: FunctionComponent<Props> = (props: Props) => {
     e.stopPropagation();
     e.preventDefault();
     setIsContextMenuOpen(true);
-    props.createSystemItem();
-  });
-
-  const transition = useTransition(props.windows, window => window.id, {
-    from: { opacity: 0 },
-    enter: { opacity: 1 },
-    config: config.slow,
+    createSystemItem();
   });
 
   return (
     <Wrapper ref={ref}>
       <Path dimension={dimension} pathId="iamroot" />
-      {transition.map(({ item, key, props }, i) => (
-        <Window key={key} id={item.id} animatedProps={props} />
-      ))}
+      {windowIds.map(id => {
+        return <Window key={id} id={id} />;
+      })}
+
+      <Taskbar />
     </Wrapper>
   );
 };

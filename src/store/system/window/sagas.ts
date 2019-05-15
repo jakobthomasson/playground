@@ -2,20 +2,26 @@ import { all, takeLatest, delay, put, select } from 'redux-saga/effects';
 import { ActionType } from 'typesafe-actions';
 import * as actions from './actions';
 import { windowSelectors, windowActions } from 'store/domain/window';
+import { uiActions } from 'store/ui';
+
 import * as constants from './constants';
 import { domainHelper } from 'helpers';
 
-function* startCloseSaga() {
+function* startCloseSaga(action: ActionType<typeof actions.startCloseWindow>) {
   try {
     yield delay(100);
+    const { windowId } = action.payload;
+    yield put(uiActions.hideWindow({ windowId }));
+    yield put(windowActions.remove({ windowId }));
   } catch (error) {
     console.error('error: ', error);
   }
 }
 
-function* startMinimizeSaga() {
+function* startMinimizeSaga(action: ActionType<typeof actions.startMinimizeWindow>) {
   try {
-    yield delay(100);
+    const { windowId } = action.payload;
+    yield put(uiActions.hideWindow({ windowId }));
   } catch (error) {
     console.error('error: ', error);
   }
@@ -36,9 +42,11 @@ function* startOpenSaga(action: ActionType<typeof actions.startOpenWindow>) {
         systemItemId: action.payload.systemItemId,
       };
       yield put(windowActions.add({ window }));
-      return;
+    } else {
+      yield put(windowActions.update({ partialWindow: { ...window, zIndex } }));
     }
-    yield put(windowActions.update({ partialWindow: { ...window, zIndex } }));
+
+    yield put(uiActions.showWindow({ windowId: window.id }));
   } catch (error) {
     console.error('error: ', error);
   }
@@ -55,6 +63,7 @@ function* startSelectSaga(action: ActionType<typeof actions.startSelectWindow>) 
     const { windowId } = action.payload;
     let zIndex: number = yield select(windowSelectors.highestZIndex);
     yield put(windowActions.update({ partialWindow: { id: windowId, zIndex } }));
+    yield put(uiActions.showWindow({ windowId }));
   } catch (error) {
     console.error('error: ', error);
   }

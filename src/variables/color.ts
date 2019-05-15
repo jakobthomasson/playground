@@ -32,7 +32,7 @@ export const white = 'rgb(255,255,255)';
 export const background_primary = '#fff';
 export const background_secondary = '#f5f5f5';
 
-export const box_shadow = 'rgba(251, 254, 252, 0.4)';
+export const box_shadow = 'rgba(5, 5, 5, 0.2)';
 
 export const accent_gray = '#F1F4F7';
 export const accent_gray_light = '#FBFBFB';
@@ -40,6 +40,7 @@ export const accent_gray_dark = '#D7DCE1';
 
 export const primary_text = '#FFFFFF';
 export const accent_text = '#FFFFFF';
+
 export const text = '#201F1F';
 export const text_dark = '#050505';
 export const text_light = '#939393';

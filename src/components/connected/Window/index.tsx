@@ -5,7 +5,7 @@ import Types from 'Types';
 import { systemActions } from 'store/system';
 import { windowSelectors } from 'store/domain/window';
 import { useRefCallback, useDraggable } from 'components/hooks';
-import { AnimatedValue } from 'react-spring';
+import { useSpring } from 'react-spring';
 import Icon from 'components/ui/Icon';
 import Text from 'components/ui/Text';
 import { Wrapper } from './styled';
@@ -23,12 +23,11 @@ type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = ReturnType<typeof mapDispatchToProps>;
 type OwnProps = {
   id: string;
-  animatedProps: AnimatedValue<React.CSSProperties>;
 };
 type Props = OwnProps & StateProps & DispatchProps;
 
 const Window: FunctionComponent<Props> = (props: Props) => {
-  const { window, close, animatedProps, id, select } = props;
+  const { window, close, id, select } = props;
   const [dimension] = useState<System.Dimension>(window.dimension);
   const [isMax, setIsMax] = useState(false);
   const [titlebar, titlebarRef] = useRefCallback<HTMLDivElement>();
@@ -43,6 +42,8 @@ const Window: FunctionComponent<Props> = (props: Props) => {
     wrapper,
   );
 
+  const styleProps = useSpring({ from: { opacity: 0 }, to: { opacity: 1 } });
+
   function getStyle(): React.CSSProperties {
     let height = `${dimension.height}px`;
     let width = `${dimension.width}px`;
@@ -56,7 +57,7 @@ const Window: FunctionComponent<Props> = (props: Props) => {
       left = '0';
     }
     return {
-      ...animatedProps,
+      ...styleProps,
       top,
       left,
       width,

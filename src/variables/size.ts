@@ -1,4 +1,4 @@
-export const FooterHeight = 48;
+export const footer_height = 48;
 
 export const small_button_dimensions: System.Dimension = {
   height: 52,
