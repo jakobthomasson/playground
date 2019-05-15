@@ -49,6 +49,15 @@ declare namespace System {
     type: SystemItemType;
   }
 
+  export interface ContextMenuGroup {
+    items: ContextMenuItem[];
+  }
+  export interface ContextMenuItem {
+    icon?: Styles.Icon;
+    text: string;
+    subgroups?: ContextMenuGroup[];
+    action: () => void;
+  }
   export interface File extends BaseSystemItem {
     type: 'file';
   }
@@ -83,7 +92,16 @@ declare namespace Styles {
     mood: TextMood;
   }
 
-  export type Icon = 'close' | 'minimize' | 'maximize' | 'restore' | 'folder' | 'file' | 'next' | 'back';
+  export type Icon =
+    | 'close'
+    | 'minimize'
+    | 'maximize'
+    | 'restore'
+    | 'folder'
+    | 'file'
+    | 'next'
+    | 'back'
+    | 'placeholder';
 
   export interface IconTheme extends BaseTheme {
     type: 'icon';

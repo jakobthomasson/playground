@@ -7,6 +7,7 @@ import FolderIcon from './Folder';
 import FileIcon from './File';
 import NextIcon from './Next';
 import BackIcon from './Back';
+import PlaceholderIcon from './Placeholder';
 
 /**
  * https://www.flaticon.com/packs/multimedia-collection
@@ -35,6 +36,8 @@ const SvgComponent: FunctionComponent<Props> = (props: Props) => {
       return <NextIcon />;
     case 'back':
       return <BackIcon />;
+    case 'placeholder':
+      return <PlaceholderIcon />;
     default:
       return null;
   }

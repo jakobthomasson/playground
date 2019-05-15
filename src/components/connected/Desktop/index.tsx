@@ -8,23 +8,20 @@ import Path from 'components/connected/Path';
 import useComponentSize from '@rehooks/component-size';
 import { Wrapper } from './styled';
 import { useEventListener } from 'components/hooks';
-import { systemActions } from 'store/system';
 import Taskbar from 'components/connected/Taskbar';
-import ContextMenu from 'components/connected/ContextMenu';
+import DesktopContextMenu from './ContextMenu';
 
 const mapStateToProps = (state: Types.RootState) => ({
   windowIds: uiSelectors.visibleWindowIds(state),
 });
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  createSystemItem: () => dispatch(systemActions.startCreateSystemItem({ contextPathId: 'iamroot', type: 'file' })),
-});
+const mapDispatchToProps = (dispatch: Dispatch) => ({});
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = ReturnType<typeof mapDispatchToProps>;
 type Props = StateProps & DispatchProps;
 
 const Desktop: FunctionComponent<Props> = (props: Props) => {
-  const { windowIds, createSystemItem } = props;
+  const { windowIds } = props;
   const ref = useRef(null);
   const dimension: System.Dimension = useComponentSize(ref);
   const [isContextMenuOpen, setIsContextMenuOpen] = useState(false);
@@ -44,7 +41,7 @@ const Desktop: FunctionComponent<Props> = (props: Props) => {
         return <Window key={id} id={id} />;
       })}
 
-      {isContextMenuOpen && <ContextMenu pageDimension={dimension} mousePosition={mousePosition} />}
+      {isContextMenuOpen && <DesktopContextMenu pageDimension={dimension} mousePosition={mousePosition} />}
 
       <Taskbar />
     </Wrapper>
@@ -53,5 +50,5 @@ const Desktop: FunctionComponent<Props> = (props: Props) => {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  null,
 )(Desktop);
