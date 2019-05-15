@@ -5,6 +5,8 @@ import MaximizeIcon from './Maximize';
 import MinimizeIcon from './Minimize';
 import FolderIcon from './Folder';
 import FileIcon from './File';
+import NextIcon from './Next';
+import BackIcon from './Back';
 
 /**
  * https://www.flaticon.com/packs/multimedia-collection
@@ -29,6 +31,10 @@ const SvgComponent: FunctionComponent<Props> = (props: Props) => {
       return <FolderIcon />;
     case 'file':
       return <FileIcon />;
+    case 'next':
+      return <NextIcon />;
+    case 'back':
+      return <BackIcon />;
     default:
       return null;
   }

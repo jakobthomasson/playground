@@ -6,7 +6,7 @@ import { Wrapper } from './styled';
 import Icon from 'components/ui/Icon';
 import Text from 'components/ui/Text';
 
-import { useTransition, config } from 'react-spring';
+import { useSpring, config } from 'react-spring';
 
 const mapStateToProps = (state: Types.RootState, ownProps: OwnProps) => ({});
 const mapDispatchToProps = (dispatch: Dispatch) => ({});
@@ -65,6 +65,7 @@ const ContextMenu: FunctionComponent<Props> = (props: Props) => {
         <div className="menuitem">
           <Icon theme={{ type: 'icon', size: 'small', icon: 'file' }} />
           <Text theme={{ type: 'text', mood: 'bread' }} text="test" />
+          <Icon theme={{ type: 'icon', size: 'small', icon: 'next' }} />
         </div>
       </div>
     </Wrapper>

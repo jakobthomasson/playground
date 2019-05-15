@@ -1,8 +1,9 @@
-import { size } from 'variables';
+import { size, color } from 'variables';
 import { css } from 'styled-components';
 
 const baseCss = css`
   display: inline-flex;
+  fill: ${color.text};
 `;
 const smallIconCss = css`
   height: ${size.iconSize.small}px;

@@ -26,9 +26,10 @@ export const Wrapper = styled.div`
     }
     .icon {
       padding-left: ${spacing.medium};
-      margin-right: ${spacing.large};
+      margin-right: ${spacing.medium};
     }
     .text {
+      flex-grow: 1;
     }
   }
 `;
