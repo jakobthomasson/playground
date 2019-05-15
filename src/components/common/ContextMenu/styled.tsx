@@ -2,12 +2,12 @@ import styled from 'styled-components';
 import { size, color, spacing } from 'variables';
 
 export const Wrapper = styled.div`
-  position: absolute;
+  position: fixed;
   width: ${size.context_menu_width}px;
   background-color: ${color.accent_gray_light};
   padding: ${spacing.small} ${spacing.xsmall};
   border: 1px solid ${color.border_discreet};
-  border-radius: 4px;
+  border-radius: 2px;
 
   .group {
     width: 100%;

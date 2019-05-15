@@ -21,15 +21,64 @@ const DesktopContextMenu: FunctionComponent<Props> = (props: Props) => {
   const menuGroups: System.ContextMenuGroup[] = [
     {
       items: [
-        { text: 'view', action: () => console.log('view'), subgroups: [] },
-        { text: 'sort by', action: () => console.log('sort by'), subgroups: [] },
+        {
+          text: 'view',
+          action: () => console.log('view'),
+          subgroups: [
+            {
+              items: [
+                { text: 'small icons', action: () => console.log('small icon') },
+                { text: 'medium icons', action: () => console.log('medium icon') },
+                { text: 'large icons', action: () => console.log('large icon') },
+              ],
+            },
+          ],
+        },
+        {
+          text: 'sort by',
+          action: () => console.log('sort by'),
+          subgroups: [
+            {
+              items: [
+                { text: 'name', action: () => console.log('name') },
+                { text: 'size', action: () => console.log('size') },
+                { text: 'file type', action: () => console.log('type') },
+                { text: 'modified', action: () => console.log('modified') },
+              ],
+            },
+          ],
+        },
       ],
     },
     { items: [{ text: 'paste', action: () => console.log('paste') }] },
-    { items: [{ text: 'new', action: () => console.log('paste') }] },
+    {
+      items: [
+        {
+          text: 'new',
+          action: () => console.log('paste'),
+          subgroups: [
+            {
+              items: [{ text: 'folder', action: () => console.log('folder') }],
+            },
+            {
+              items: [{ text: 'text document', action: () => console.log('text') }],
+            },
+          ],
+        },
+      ],
+    },
   ];
+
   const { mousePosition, pageDimension } = props;
-  return <ContextMenu mousePosition={mousePosition} pageDimension={pageDimension} menuGroups={menuGroups} />;
+
+  return (
+    <ContextMenu
+      startPosition={mousePosition}
+      pageDimension={pageDimension}
+      menuGroups={menuGroups}
+      isSubMenu={false}
+    />
+  );
 };
 
 export default connect(
