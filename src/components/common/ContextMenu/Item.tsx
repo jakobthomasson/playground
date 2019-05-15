@@ -2,8 +2,6 @@ import React, { FunctionComponent, useState } from 'react';
 import { MenuItem } from './styled';
 import Icon from 'components/ui/Icon';
 import Text from 'components/ui/Text';
-import { taskbar_height, context_menu_width } from 'variables/size';
-import useComponentSize from '@rehooks/component-size';
 import Menu from './';
 import { useEventListener, useRefCallback } from 'components/hooks';
 
@@ -38,6 +36,7 @@ const ContextMenuItem: FunctionComponent<Props> = (props: Props) => {
     e => {
       console.log('action');
       menuItem.action();
+      setShowMenu(false);
     },
     element,
   );

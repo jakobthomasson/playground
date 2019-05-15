@@ -60,10 +60,10 @@ const DesktopContextMenu: FunctionComponent<Props> = (props: Props) => {
           action: () => console.log('paste'),
           subgroups: [
             {
-              items: [{ text: 'folder', action: () => createSystemItem('folder') }],
+              items: [{ text: 'folder', action: () => createSystemItem('folder'), icon: 'folder' }],
             },
             {
-              items: [{ text: 'text document', action: () => createSystemItem('file') }],
+              items: [{ text: 'text document', action: () => createSystemItem('file'), icon: 'file' }],
             },
           ],
         },
