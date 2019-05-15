@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useEventListener } from 'components/hooks';
 
-const useDraggable = (element: Element | null, startingPosition: System.Coordinates) => {
+const useDraggable = (element: Element | null, startingPosition: System.Coordinates, dragEndCallback?: () => void) => {
   const [startPosition, setStartPosition] = useState<System.Coordinates>({ x: 0, y: 0 });
   const [position, setPosition] = useState<System.Coordinates>(startingPosition);
 
@@ -28,6 +28,7 @@ const useDraggable = (element: Element | null, startingPosition: System.Coordina
     'dragend',
     e => {
       setPosition({ x: e.pageX - startPosition.x, y: e.pageY - startPosition.y });
+      dragEndCallback && dragEndCallback();
     },
     element,
   );

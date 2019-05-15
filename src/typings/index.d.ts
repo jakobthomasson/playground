@@ -83,7 +83,7 @@ declare namespace Styles {
     mood: TextMood;
   }
 
-  export type Icon = 'close' | 'minimize' | 'maximize' | 'hide' | 'folder' | 'file';
+  export type Icon = 'close' | 'minimize' | 'maximize' | 'restore' | 'folder' | 'file';
 
   export interface IconTheme extends BaseTheme {
     type: 'icon';

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { color, spacing } from 'variables';
+import { color, spacing, size } from 'variables';
 import { animated } from 'react-spring';
 
 export const Wrapper = styled(animated.article)`
@@ -11,7 +11,7 @@ export const Wrapper = styled(animated.article)`
   border-radius: 4px;
 
   .titlebar {
-    height: 32px;
+    height: ${size.window_titlebar_height}px;
     background-color: ${color.accent_gray};
     border-bottom: 1px solid ${color.text_light};
     border-top-right-radius: 3px;

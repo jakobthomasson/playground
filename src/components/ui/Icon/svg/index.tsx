@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import CloseIcon from './Close';
-import HideIcon from './Hide';
+import RestoreIcon from './Restore';
 import MaximizeIcon from './Maximize';
 import MinimizeIcon from './Minimize';
 import FolderIcon from './Folder';
@@ -19,8 +19,8 @@ const SvgComponent: FunctionComponent<Props> = (props: Props) => {
   switch (icon) {
     case 'close':
       return <CloseIcon />;
-    case 'hide':
-      return <HideIcon />;
+    case 'restore':
+      return <RestoreIcon />;
     case 'maximize':
       return <MaximizeIcon />;
     case 'minimize':

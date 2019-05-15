@@ -10,7 +10,7 @@
     "@types/react-dom": "16.8.3",
     "@types/react-redux": "^7.0.6",
     "@types/redux": "^3.6.0",
-    "@types/styled-components": "^4.1.12",
+    "@types/styled-components": "^4.1.15",
     "@types/webpack-env": "^1.13.9",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

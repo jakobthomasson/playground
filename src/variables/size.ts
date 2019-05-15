@@ -1,5 +1,6 @@
 export const footer_height = 48;
 
+export const window_titlebar_height = 24;
 export const small_button_dimensions: System.Dimension = {
   height: 52,
   width: 48,
