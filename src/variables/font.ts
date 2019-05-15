@@ -1,26 +1,25 @@
 import { css } from 'styled-components';
 
-const fontSize = {
+export const fontSize = {
   small: '12px',
   medium: '14px',
   large: '16px',
   huge: '24px',
 };
 
-
-
-const fontFamily = {
+export const fontFamily = {
   standard: "'Montserrat', sans-serif",
 };
 // const label =
 
-const fontWeight = {
+export const fontWeight = {
   extra_light: 200,
   regular: 400,
   medium: 500,
   bold: 700,
 };
 
+// TODO remove, button is not responsible for text
 export const small_button_text = css`
   font-family: ${fontFamily.standard};
   font-size: ${fontSize.small};

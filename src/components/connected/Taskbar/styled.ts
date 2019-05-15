@@ -7,7 +7,7 @@ export const Wrapper = styled(animated.div)`
   z-index: 1000;
   bottom: 0;
   width: 100%;
-  height: ${size.footer_height}px;
+  height: ${size.taskbar_height}px;
   background-color: ${color.accent_gray};
 
   border-top: 2px solid ${color.text_light};

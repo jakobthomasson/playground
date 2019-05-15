@@ -70,7 +70,7 @@ declare namespace Styles {
    * Button
    */
   export type ButtonMood = 'neutral' | 'abort' | 'danger' | 'great' | 'info';
-  export type TextMood = 'bread';
+  export type TextMood = 'bread' | 'menu';
 
   export type Size = 'small' | 'medium' | 'large' | 'xlarge';
   export interface ButtonTheme extends BaseTheme {
