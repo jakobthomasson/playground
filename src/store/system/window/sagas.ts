@@ -3,7 +3,6 @@ import { ActionType } from 'typesafe-actions';
 import * as actions from './actions';
 import { windowSelectors, windowActions } from 'store/domain/window';
 import { uiActions } from 'store/ui';
-
 import * as constants from './constants';
 import { domainHelper } from 'helpers';
 
@@ -31,19 +30,16 @@ function* startOpenSaga(action: ActionType<typeof actions.startOpenWindow>) {
   try {
     const { systemItemId } = action.payload;
     let window: System.Window | null = yield select(windowSelectors.systemItemWindow, { systemItemId });
-    let zIndex: number = yield select(windowSelectors.highestZIndex);
+
     if (!window) {
       const windowId = domainHelper.getUniqueString();
       window = {
-        zIndex,
         id: windowId,
         dimension: { height: 400, width: 500 },
         position: { x: 300, y: 300 },
         systemItemId: action.payload.systemItemId,
       };
       yield put(windowActions.add({ window }));
-    } else {
-      yield put(windowActions.update({ partialWindow: { ...window, zIndex } }));
     }
 
     yield put(uiActions.showWindow({ windowId: window.id }));
@@ -61,8 +57,6 @@ function* startResizeSaga() {
 function* startSelectSaga(action: ActionType<typeof actions.startSelectWindow>) {
   try {
     const { windowId } = action.payload;
-    let zIndex: number = yield select(windowSelectors.highestZIndex);
-    yield put(windowActions.update({ partialWindow: { id: windowId, zIndex } }));
     yield put(uiActions.showWindow({ windowId }));
   } catch (error) {
     console.error('error: ', error);

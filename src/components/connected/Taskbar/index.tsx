@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Wrapper } from './styled';
+import { Wrapper, Tab } from './styled';
 import Icon from 'components/ui/Icon';
 import Text from 'components/ui/Text';
 import { connect } from 'react-redux';
@@ -7,10 +7,13 @@ import { Dispatch } from 'redux';
 import Types from 'Types';
 import { systemActions } from 'store/system';
 import { useEventListener, useRefCallback } from 'components/hooks';
+import { windowSelectors } from 'store/domain/window';
 
-const mapStateToProps = (state: Types.RootState, ownProps: OwnProps) => ({});
+const mapStateToProps = (state: Types.RootState, ownProps: OwnProps) => ({
+  windowTabIds: windowSelectors.allIds(state),
+});
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  openWindow: (systemItemId: string) => dispatch(systemActions.startOpenWindow({ systemItemId })),
+  selectWindow: (windowId: string) => dispatch(systemActions.startSelectWindow({ windowId })),
 });
 
 type StateProps = ReturnType<typeof mapStateToProps>;
@@ -20,7 +23,14 @@ type OwnProps = {};
 type Props = StateProps & DispatchProps & OwnProps;
 
 const SystemItem: FunctionComponent<Props> = props => {
-  return <Wrapper>Taskbar, wonderful</Wrapper>;
+  const { windowTabIds } = props;
+  return (
+    <Wrapper>
+      {windowTabIds.map(id => (
+        <Tab>{id}</Tab>
+      ))}
+    </Wrapper>
+  );
 };
 
 export default connect(

@@ -24,12 +24,3 @@ export const systemItemWindow = createSelector(
     return window || null;
   },
 );
-
-export const highestZIndex = createSelector(
-  windows,
-  windows => {
-    const window = R.sort(windows, (a, b) => b.zIndex - a.zIndex)[0];
-    // console.log(window);
-    return window ? window.zIndex + 1 : 1;
-  },
-);

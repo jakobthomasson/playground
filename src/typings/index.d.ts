@@ -30,7 +30,6 @@ declare namespace System {
 
   export interface Window {
     id: string;
-    zIndex: number;
     dimension: Dimension;
     position: Coordinates;
     systemItemId: string;

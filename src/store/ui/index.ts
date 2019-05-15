@@ -7,6 +7,7 @@ import uiReducer from './reducer';
 export type UiAction = ActionType<typeof uiActions>;
 export type UiState = {
   visibleWindowIds: string[];
+  activeWindowId: string | null;
 };
 
 export { uiConstants, uiActions, uiReducer, uiSelectors };

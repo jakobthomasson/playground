@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import Types from 'Types';
 import { systemActions } from 'store/system';
+import { uiSelectors } from 'store/ui';
+
 import { windowSelectors } from 'store/domain/window';
 import { useRefCallback, useDraggable } from 'components/hooks';
 import { useSpring } from 'react-spring';
@@ -13,6 +15,7 @@ import { useEventListener } from 'components/hooks';
 
 const mapStateToProps = (state: Types.RootState, ownProps: OwnProps) => ({
   window: windowSelectors.window(state, { windowId: ownProps.id }),
+  zIndex: uiSelectors.windowZNumber(state, { windowId: ownProps.id }),
 });
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   close: (windowId: string) => dispatch(systemActions.startCloseWindow({ windowId })),
@@ -27,7 +30,7 @@ type OwnProps = {
 type Props = OwnProps & StateProps & DispatchProps;
 
 const Window: FunctionComponent<Props> = (props: Props) => {
-  const { window, close, id, select } = props;
+  const { window, close, id, select, zIndex } = props;
   const [dimension] = useState<System.Dimension>(window.dimension);
   const [isMax, setIsMax] = useState(false);
   const [titlebar, titlebarRef] = useRefCallback<HTMLDivElement>();
@@ -62,7 +65,7 @@ const Window: FunctionComponent<Props> = (props: Props) => {
       left,
       width,
       height,
-      zIndex: window.zIndex,
+      zIndex,
     };
   }
 
