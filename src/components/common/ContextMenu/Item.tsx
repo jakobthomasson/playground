@@ -20,8 +20,8 @@ const ContextMenuItem: FunctionComponent<Props> = (props: Props) => {
   useEventListener(
     'click',
     e => {
+      e.stopPropagation();
       menuItem.action();
-      // setShowMenu(false);
     },
     element,
   );
