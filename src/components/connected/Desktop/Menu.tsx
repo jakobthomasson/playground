@@ -3,9 +3,13 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import Types from 'Types';
 import { systemActions } from 'store/system';
+import { uiSelectors } from 'store/ui';
+
 import ContextMenu from 'components/common/ContextMenu';
 
-const mapStateToProps = (state: Types.RootState, ownProps: OwnProps) => ({});
+const mapStateToProps = (state: Types.RootState, ownProps: OwnProps) => ({
+  pageDimensions: uiSelectors.pageDimensions(state),
+});
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   createSystemItem: (type: System.SystemItemType) =>
     dispatch(systemActions.startCreateSystemItem({ type, contextPathId: 'iamroot' })),
@@ -14,7 +18,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = ReturnType<typeof mapDispatchToProps>;
 
-type OwnProps = { mousePosition: System.Coordinates; pageDimensions: System.Dimensions };
+type OwnProps = { contextMenu: System.DesktopContextMenu };
 
 type Props = StateProps & DispatchProps & OwnProps;
 
@@ -71,11 +75,11 @@ const DesktopMenu: FunctionComponent<Props> = (props: Props) => {
     },
   ];
 
-  const { mousePosition, pageDimensions } = props;
+  const { contextMenu, pageDimensions } = props;
 
   return (
     <ContextMenu
-      startPosition={mousePosition}
+      coordinates={contextMenu.coordinates}
       pageDimensions={pageDimensions}
       menuGroups={menuGroups}
       isSubMenu={false}

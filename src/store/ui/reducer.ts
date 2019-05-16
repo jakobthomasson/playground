@@ -4,7 +4,7 @@ import * as R from 'remeda';
 
 const initialState: UiState = {
   visibleWindowIds: [],
-  pageDimensions: null,
+  pageDimensions: { height: 0, width: 0 },
   coordinates: null,
   contextMenu: null,
 };

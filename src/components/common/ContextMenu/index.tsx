@@ -1,36 +1,41 @@
-import React, { FunctionComponent, useRef } from 'react';
+import React, { FunctionComponent } from 'react';
 import { Wrapper } from './styled';
-import { taskbar_height } from 'variables/size';
-import { useComponentSize } from 'components/hooks';
+import { taskbar_height, context_menu_item_height } from 'variables/size';
+import { useComponentSize, useRefCallback } from 'components/hooks';
 import Item from './Item';
 
 type Props = {
-  startPosition: System.Coordinates;
+  coordinates: System.Coordinates;
   pageDimensions: System.Dimensions;
   menuGroups: System.MenuGroup[];
   isSubMenu: boolean;
 };
 
 const ContextMenu: FunctionComponent<Props> = (props: Props) => {
-  const { startPosition, pageDimensions, menuGroups, isSubMenu } = props;
-  const ref = useRef(null);
-  const dimensions: System.Dimensions = useComponentSize(ref);
-
+  const { coordinates, pageDimensions, menuGroups, isSubMenu } = props;
+  const [element, ref] = useRefCallback<HTMLDivElement>();
+  const menu: System.Dimensions = useComponentSize(element);
   function getStyle(): React.CSSProperties {
-    const position: System.Coordinates = !isSubMenu
-      ? {
-          x:
-            startPosition.x + dimensions.width > pageDimensions.width
-              ? pageDimensions.width - dimensions.width
-              : startPosition.x,
-          y:
-            startPosition.y + dimensions.height > pageDimensions.height - taskbar_height
-              ? startPosition.y > pageDimensions.height - taskbar_height
-                ? pageDimensions.height - taskbar_height - dimensions.height
-                : startPosition.y - dimensions.height
-              : startPosition.y,
-        }
-      : { x: startPosition.x, y: startPosition.y };
+    let position: System.Coordinates;
+    const height = pageDimensions.height - taskbar_height;
+    const width = pageDimensions.width;
+    const xOverflow = coordinates.x + menu.width > width;
+    const yOverflow = coordinates.y + menu.height > height;
+    const yOnTaskbar = coordinates.y > height;
+
+    if (!isSubMenu) {
+      const x: number = xOverflow ? width - menu.width : coordinates.x;
+      const y: number = yOverflow ? (yOnTaskbar ? height - menu.height : coordinates.y - menu.height) : coordinates.y;
+      position = {
+        x,
+        y,
+      };
+    } else {
+      const x: number = xOverflow ? coordinates.x - 2 * menu.width + 2 * 4 : coordinates.x; //spacing 4 * 2
+      const isOver = coordinates.y + menu.height > height;
+      const y = isOver ? coordinates.y - menu.height + context_menu_item_height + 10 : coordinates.y; // spacing 4 * 2 + border
+      position = { x, y };
+    }
 
     let top = `${position.y}px`;
     let left = `${position.x}px`;

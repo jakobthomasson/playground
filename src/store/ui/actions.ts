@@ -10,7 +10,7 @@ export const setCoordinates = createAction(
 );
 export const setPageDimensions = createAction(
   SET_PAGE_DIMENSIONS,
-  resolve => (payload: { pageDimensions: System.Dimensions | null }) => resolve(payload),
+  resolve => (payload: { pageDimensions: System.Dimensions }) => resolve(payload),
 );
 
 export const setContextMenu = createAction(

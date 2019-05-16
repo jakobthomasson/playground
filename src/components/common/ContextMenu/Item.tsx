@@ -34,7 +34,6 @@ const ContextMenuItem: FunctionComponent<Props> = (props: Props) => {
   useEventListener(
     'click',
     e => {
-      console.log('action');
       menuItem.action();
       setShowMenu(false);
     },
@@ -43,7 +42,7 @@ const ContextMenuItem: FunctionComponent<Props> = (props: Props) => {
   function getMenuPosition() {
     const boundingRect = element!.getBoundingClientRect() as DOMRect;
     const x = boundingRect.x + boundingRect.width;
-    const y = boundingRect.y - 5;
+    const y = boundingRect.y - 5; // spacing 4 + border
     return {
       x,
       y,
@@ -60,7 +59,7 @@ const ContextMenuItem: FunctionComponent<Props> = (props: Props) => {
             <Menu
               menuGroups={menuItem.subgroups}
               pageDimensions={pageDimensions}
-              startPosition={getMenuPosition()}
+              coordinates={getMenuPosition()}
               isSubMenu={true}
             />
           )}

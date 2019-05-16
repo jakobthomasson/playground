@@ -62,7 +62,7 @@ const ContextMenu: FunctionComponent<{ contextMenu: System.ContextMenu }> = prop
   const { contextMenu } = props;
   switch (contextMenu.type) {
     case 'desktop':
-      return <DesktopContextMenu mousePosition={{ x: 0, y: 0 }} pageDimensions={{ height: 100, width: 100 }} />;
+      return <DesktopContextMenu contextMenu={contextMenu} />;
   }
 };
 export default connect(
