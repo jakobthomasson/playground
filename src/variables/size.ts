@@ -1,6 +1,9 @@
 export const taskbar_height = 48;
 export const window_titlebar_height = 24;
-export const context_menu_width = 250;
+
+export const context_menu_width = 240;
+export const context_menu_item_height = 24;
+
 export const small_button_dimensions: System.Dimensions = {
   height: 52,
   width: 48,

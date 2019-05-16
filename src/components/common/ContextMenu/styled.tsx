@@ -23,9 +23,9 @@ export const Wrapper = styled.div`
 
 export const MenuItem = styled.div`
   width: 100%;
+  height: ${size.context_menu_item_height}px;
   display: flex;
   align-items: center;
-  padding: ${spacing.small} 0;
   :hover {
     background-color: ${color.accent_gray};
   }
