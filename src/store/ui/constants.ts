@@ -1,2 +1,5 @@
 export const SHOW_WINDOW = 'ui/SHOW_WINDOW';
 export const HIDE_WINDOW = 'ui/HIDE_WINDOW';
+export const SET_COORDINATES = 'ui/SET_COORDINATES';
+export const SET_PAGE_DIMENSIONS = 'ui/SET_PAGE_DIMENSIONS';
+export const SET_CONTEXT_MENU = 'ui/SET_CONTEXT_MENU';

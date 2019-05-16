@@ -6,12 +6,12 @@ import Menu from './';
 import { useEventListener, useRefCallback } from 'components/hooks';
 
 type Props = {
-  menuItem: System.ContextMenuItem;
-  pageDimension: System.Dimension;
+  menuItem: System.MenuItem;
+  pageDimensions: System.Dimensions;
 };
 
 const ContextMenuItem: FunctionComponent<Props> = (props: Props) => {
-  const { menuItem, pageDimension } = props;
+  const { menuItem, pageDimensions } = props;
   const [element, ref] = useRefCallback<HTMLDivElement>();
   const [showMenu, setShowMenu] = useState(false);
 
@@ -59,7 +59,7 @@ const ContextMenuItem: FunctionComponent<Props> = (props: Props) => {
           {showMenu && (
             <Menu
               menuGroups={menuItem.subgroups}
-              pageDimension={pageDimension}
+              pageDimensions={pageDimensions}
               startPosition={getMenuPosition()}
               isSubMenu={true}
             />

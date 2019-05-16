@@ -4,7 +4,9 @@ import * as R from 'remeda';
 
 const initialState: UiState = {
   visibleWindowIds: [],
-  activeWindowId: null,
+  pageDimensions: null,
+  coordinates: null,
+  contextMenu: null,
 };
 
 export default (state: UiState = initialState, action: UiAction): UiState => {
@@ -14,7 +16,12 @@ export default (state: UiState = initialState, action: UiAction): UiState => {
       return R.set(state, 'visibleWindowIds', [...visibleWindowIds, action.payload.windowId]);
     case getType(actions.hideWindow):
       return R.set(state, 'visibleWindowIds', R.reject(state.visibleWindowIds, i => i === action.payload.windowId));
-
+    case getType(actions.setPageDimensions):
+      return R.set(state, 'pageDimensions', action.payload.pageDimensions);
+    case getType(actions.setCoordinates):
+      return R.set(state, 'coordinates', action.payload.coordinates);
+    case getType(actions.setContextMenu):
+      return R.set(state, 'contextMenu', action.payload.contextMenu);
     default:
       return state;
   }

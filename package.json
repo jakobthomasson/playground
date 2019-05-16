@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@rehooks/component-size": "^1.0.2",
     "@types/jest": "24.0.11",
+    "@types/lodash.debounce": "^4.0.6",
     "@types/node": "^11.12.2",
     "@types/react": "16.8.10",
     "@types/react-dom": "16.8.3",
@@ -12,6 +12,7 @@
     "@types/redux": "^3.6.0",
     "@types/styled-components": "^4.1.15",
     "@types/webpack-env": "^1.13.9",
+    "lodash.debounce": "^4.0.8",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^6.0.1",
@@ -21,6 +22,7 @@
     "redux-saga": "^1.0.2",
     "remeda": "^0.0.11",
     "reselect": "^4.0.0",
+    "resize-observer": "^1.0.0",
     "styled-components": "^4.2.0",
     "typesafe-actions": "^4.0.0",
     "typescript": "3.3.3"

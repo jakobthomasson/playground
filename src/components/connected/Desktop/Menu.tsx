@@ -14,13 +14,13 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = ReturnType<typeof mapDispatchToProps>;
 
-type OwnProps = { mousePosition: System.Coordinates; pageDimension: System.Dimension };
+type OwnProps = { mousePosition: System.Coordinates; pageDimensions: System.Dimensions };
 
 type Props = StateProps & DispatchProps & OwnProps;
 
-const DesktopContextMenu: FunctionComponent<Props> = (props: Props) => {
+const DesktopMenu: FunctionComponent<Props> = (props: Props) => {
   const { createSystemItem } = props;
-  const menuGroups: System.ContextMenuGroup[] = [
+  const menuGroups: System.MenuGroup[] = [
     {
       items: [
         {
@@ -71,12 +71,12 @@ const DesktopContextMenu: FunctionComponent<Props> = (props: Props) => {
     },
   ];
 
-  const { mousePosition, pageDimension } = props;
+  const { mousePosition, pageDimensions } = props;
 
   return (
     <ContextMenu
       startPosition={mousePosition}
-      pageDimension={pageDimension}
+      pageDimensions={pageDimensions}
       menuGroups={menuGroups}
       isSubMenu={false}
     />
@@ -86,4 +86,4 @@ const DesktopContextMenu: FunctionComponent<Props> = (props: Props) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(DesktopContextMenu);
+)(DesktopMenu);

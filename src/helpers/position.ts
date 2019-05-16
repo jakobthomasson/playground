@@ -6,5 +6,5 @@
 // }
 
 export function getSize(itemSize: number, numberOfItems: number, marginBetween: number) {
-  itemSize;
+  // itemSize;
 }

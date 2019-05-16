@@ -9,3 +9,8 @@ export const windowZNumber = createSelector(
   visibleWindowIds,
   (windowId, visibleWindowIds) => R.findIndex(visibleWindowIds, id => id === windowId) + 1,
 );
+
+export const pageDimensions = (state: Types.RootState) => state.uiDomain.pageDimensions;
+export const coordinates = (state: Types.RootState) => state.uiDomain.coordinates;
+export const contextMenu = (state: Types.RootState) => state.uiDomain.contextMenu;
+

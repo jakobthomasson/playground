@@ -17,7 +17,7 @@ type DispatchProps = ReturnType<typeof mapDispatchToProps>;
 
 type OwnProps = {
   pathId: string;
-  dimension: System.Dimension;
+  dimensions: System.Dimensions;
 };
 type Props = StateProps & DispatchProps & OwnProps;
 
@@ -33,7 +33,7 @@ const Path: FunctionComponent<Props> = (props: Props) => {
   });
 
   const {
-    dimension: { width },
+    dimensions: { width },
   } = props;
   const size = 100;
   const maxRow = Math.floor(width / size);

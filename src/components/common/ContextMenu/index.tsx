@@ -1,33 +1,33 @@
 import React, { FunctionComponent, useRef } from 'react';
 import { Wrapper } from './styled';
 import { taskbar_height } from 'variables/size';
-import useComponentSize from '@rehooks/component-size';
+import { useComponentSize } from 'components/hooks';
 import Item from './Item';
 
 type Props = {
   startPosition: System.Coordinates;
-  pageDimension: System.Dimension;
-  menuGroups: System.ContextMenuGroup[];
+  pageDimensions: System.Dimensions;
+  menuGroups: System.MenuGroup[];
   isSubMenu: boolean;
 };
 
 const ContextMenu: FunctionComponent<Props> = (props: Props) => {
-  const { startPosition, pageDimension, menuGroups, isSubMenu } = props;
+  const { startPosition, pageDimensions, menuGroups, isSubMenu } = props;
   const ref = useRef(null);
-  const dimension: System.Dimension = useComponentSize(ref);
+  const dimensions: System.Dimensions = useComponentSize(ref);
 
   function getStyle(): React.CSSProperties {
     const position: System.Coordinates = !isSubMenu
       ? {
           x:
-            startPosition.x + dimension.width > pageDimension.width
-              ? pageDimension.width - dimension.width
+            startPosition.x + dimensions.width > pageDimensions.width
+              ? pageDimensions.width - dimensions.width
               : startPosition.x,
           y:
-            startPosition.y + dimension.height > pageDimension.height - taskbar_height
-              ? startPosition.y > pageDimension.height - taskbar_height
-                ? pageDimension.height - taskbar_height - dimension.height
-                : startPosition.y - dimension.height
+            startPosition.y + dimensions.height > pageDimensions.height - taskbar_height
+              ? startPosition.y > pageDimensions.height - taskbar_height
+                ? pageDimensions.height - taskbar_height - dimensions.height
+                : startPosition.y - dimensions.height
               : startPosition.y,
         }
       : { x: startPosition.x, y: startPosition.y };
@@ -45,7 +45,7 @@ const ContextMenu: FunctionComponent<Props> = (props: Props) => {
       {menuGroups.map((group, i) => (
         <div key={i} className="group">
           {group.items.map((item, j) => (
-            <Item key={j} menuItem={item} pageDimension={pageDimension} />
+            <Item key={j} menuItem={item} pageDimensions={pageDimensions} />
           ))}
           {menuGroups.length !== i + 1 && <div className="border" />}
         </div>

@@ -1,54 +1,71 @@
-import React, { FunctionComponent, useState, useRef } from 'react';
+import React, { FunctionComponent } from 'react';
+import debounce from 'lodash.debounce';
+
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import Types from 'Types';
-import { uiSelectors } from 'store/ui';
+import { uiSelectors, uiActions } from 'store/ui';
 import Window from 'components/connected/Window';
 import Path from 'components/connected/Path';
-import useComponentSize from '@rehooks/component-size';
+
 import { Wrapper } from './styled';
-import { useEventListener } from 'components/hooks';
+import { useEventListener, useRefCallback, useComponentSize } from 'components/hooks';
 import Taskbar from 'components/connected/Taskbar';
-import DesktopContextMenu from './ContextMenu';
+import DesktopContextMenu from './Menu';
 
 const mapStateToProps = (state: Types.RootState) => ({
   windowIds: uiSelectors.visibleWindowIds(state),
+  contextMenu: uiSelectors.contextMenu(state),
 });
-const mapDispatchToProps = (dispatch: Dispatch) => ({});
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  openDesktopContextMenu: (coordinates: System.Coordinates) =>
+    dispatch(uiActions.setContextMenu({ contextMenu: { type: 'desktop', coordinates } })),
+  setPageDimension: debounce(
+    (pageDimensions: System.Dimensions) => dispatch(uiActions.setPageDimensions({ pageDimensions })),
+    100,
+  ),
+});
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = ReturnType<typeof mapDispatchToProps>;
 type Props = StateProps & DispatchProps;
 
-const Desktop: FunctionComponent<Props> = (props: Props) => {
-  const { windowIds } = props;
-  const ref = useRef(null);
-  const dimension: System.Dimension = useComponentSize(ref);
-  const [isContextMenuOpen, setIsContextMenuOpen] = useState(false);
-  const [mousePosition, setMousePosition] = useState<System.Coordinates>({ x: 0, y: 0 });
-  useEventListener<React.MouseEvent>('contextmenu', e => {
-    e.stopPropagation();
-    e.preventDefault();
-    setMousePosition({ x: e.pageX, y: e.pageY });
-    setIsContextMenuOpen(true);
-    // createSystemItem();
-  });
+const Desktop: FunctionComponent<Props> = props => {
+  const { windowIds, contextMenu, openDesktopContextMenu, setPageDimension } = props;
+  const [element, ref] = useRefCallback<HTMLElement>();
+  const dimensions: System.Dimensions = useComponentSize(element, setPageDimension);
 
+  useEventListener<React.MouseEvent>(
+    'contextmenu',
+    e => {
+      e.stopPropagation();
+      e.preventDefault();
+      openDesktopContextMenu({ x: e.pageX, y: e.pageY });
+    },
+    element,
+  );
   return (
     <Wrapper ref={ref}>
-      <Path dimension={dimension} pathId="iamroot" />
+      <Path dimensions={dimensions} pathId="iamroot" />
       {windowIds.map(id => {
         return <Window key={id} id={id} />;
       })}
 
-      {isContextMenuOpen && <DesktopContextMenu pageDimension={dimension} mousePosition={mousePosition} />}
+      {contextMenu && <ContextMenu contextMenu={contextMenu} />}
 
       <Taskbar />
     </Wrapper>
   );
 };
 
+const ContextMenu: FunctionComponent<{ contextMenu: System.ContextMenu }> = props => {
+  const { contextMenu } = props;
+  switch (contextMenu.type) {
+    case 'desktop':
+      return <DesktopContextMenu mousePosition={{ x: 0, y: 0 }} pageDimensions={{ height: 100, width: 100 }} />;
+  }
+};
 export default connect(
   mapStateToProps,
-  null,
+  mapDispatchToProps,
 )(Desktop);

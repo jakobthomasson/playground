@@ -7,7 +7,9 @@ import uiReducer from './reducer';
 export type UiAction = ActionType<typeof uiActions>;
 export type UiState = {
   visibleWindowIds: string[];
-  activeWindowId: string | null;
+  pageDimensions: System.Dimensions | null;
+  coordinates: System.Coordinates | null;
+  contextMenu: System.ContextMenu | null;
 };
 
 export { uiConstants, uiActions, uiReducer, uiSelectors };

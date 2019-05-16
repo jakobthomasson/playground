@@ -42,7 +42,7 @@ function* startOpenSaga(action: ActionType<typeof systemActions.startOpenWindow>
       const windowId = domainHelper.getUniqueString();
       window = {
         id: windowId,
-        dimension: { height: 400, width: 500 },
+        dimensions: { height: 400, width: 500 },
         position: {
           x: selectedPosition.x + size.window_titlebar_height,
           y: selectedPosition.y + size.window_titlebar_height,

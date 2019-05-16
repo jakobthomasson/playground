@@ -33,7 +33,7 @@ type Props = OwnProps & StateProps & DispatchProps;
 
 const Window: FunctionComponent<Props> = (props: Props) => {
   const { window, close, id, select, zIndex, minimize, update } = props;
-  const [dimension] = useState<System.Dimension>(window.dimension);
+  const [dimensions] = useState<System.Dimensions>(window.dimensions);
   const [isMax, setIsMax] = useState(false);
   const [titlebar, titlebarRef] = useRefCallback<HTMLDivElement>();
   const [position] = useDraggable(titlebar, window.position, () => {
@@ -43,8 +43,8 @@ const Window: FunctionComponent<Props> = (props: Props) => {
   const styleProps = useSpring({ from: { opacity: 0 }, to: { opacity: 1 } });
 
   function getStyle(): React.CSSProperties {
-    let height = `${dimension.height}px`;
-    let width = `${dimension.width}px`;
+    let height = `${dimensions.height}px`;
+    let width = `${dimensions.width}px`;
     let top = `${position.y}px`;
     let left = `${position.x}px`;
 
@@ -107,8 +107,8 @@ const Window: FunctionComponent<Props> = (props: Props) => {
       </div>
       {}
       <div className="content">
-        <Text theme={{ type: 'text', mood: 'bread' }} text={`width: ${dimension.width}`} />
-        <Text theme={{ type: 'text', mood: 'bread' }} text={`height: ${dimension.height}`} />
+        <Text theme={{ type: 'text', mood: 'bread' }} text={`width: ${dimensions.width}`} />
+        <Text theme={{ type: 'text', mood: 'bread' }} text={`height: ${dimensions.height}`} />
         <Text theme={{ type: 'text', mood: 'bread' }} text={`x: ${position.x}`} />
         <Text theme={{ type: 'text', mood: 'bread' }} text={`x: ${position.y}`} />
       </div>

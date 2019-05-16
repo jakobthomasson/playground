@@ -9,7 +9,7 @@ declare namespace System {
     y: number;
   }
 
-  export interface Dimension {
+  export interface Dimensions {
     width: number;
     height: number;
   }
@@ -30,7 +30,7 @@ declare namespace System {
 
   export interface Window {
     id: string;
-    dimension: Dimension;
+    dimensions: Dimensions;
     position: Coordinates;
     systemItemId: string;
   }
@@ -49,15 +49,6 @@ declare namespace System {
     type: SystemItemType;
   }
 
-  export interface ContextMenuGroup {
-    items: ContextMenuItem[];
-  }
-  export interface ContextMenuItem {
-    icon?: Styles.Icon;
-    text: string;
-    subgroups?: ContextMenuGroup[];
-    action: () => void;
-  }
   export interface File extends BaseSystemItem {
     type: 'file';
   }
@@ -67,6 +58,30 @@ declare namespace System {
   }
 
   export type SystemItem = File | Folder;
+
+  // Menu stuff
+
+  export type ContextMenuType = 'desktop';
+
+  interface BaseContextMenu {
+    type: ContextMenuType;
+    coordinates: System.Coordinates;
+  }
+
+  export interface DesktopContextMenu extends BaseContextMenu {
+    type: 'desktop';
+  }
+
+  export type ContextMenu = DesktopContextMenu;
+  export interface MenuGroup {
+    items: MenuItem[];
+  }
+  export interface MenuItem {
+    icon?: Styles.Icon;
+    text: string;
+    subgroups?: MenuGroup[];
+    action: () => void;
+  }
 
   export type Permission = 'admin';
 }
