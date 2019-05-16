@@ -3,7 +3,8 @@ import { MenuItem } from './styled';
 import Icon from 'components/ui/Icon';
 import Text from 'components/ui/Text';
 import Menu from './';
-import { useEventListener, useRefCallback } from 'components/hooks';
+import debounce from 'lodash.debounce';
+import { useEventListener, useRefCallback, useMouseOver } from 'components/hooks';
 
 type Props = {
   menuItem: System.MenuItem;
@@ -13,29 +14,14 @@ type Props = {
 const ContextMenuItem: FunctionComponent<Props> = (props: Props) => {
   const { menuItem, pageDimensions } = props;
   const [element, ref] = useRefCallback<HTMLDivElement>();
-  const [showMenu, setShowMenu] = useState(false);
-
-  useEventListener(
-    'mouseover',
-    e => {
-      menuItem.subgroups && setShowMenu(true);
-    },
-    element,
-  );
-
-  useEventListener(
-    'mouseleave',
-    e => {
-      menuItem.subgroups && setShowMenu(false);
-    },
-    element,
-  );
+  // const [showMenu, setShowMenu] = useState(false);
+  const [showMenu] = useMouseOver(element, 200);
 
   useEventListener(
     'click',
     e => {
       menuItem.action();
-      setShowMenu(false);
+      // setShowMenu(false);
     },
     element,
   );

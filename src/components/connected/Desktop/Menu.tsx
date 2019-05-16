@@ -7,7 +7,7 @@ import { uiSelectors } from 'store/ui';
 
 import ContextMenu from 'components/common/ContextMenu';
 
-const mapStateToProps = (state: Types.RootState, ownProps: OwnProps) => ({
+const mapStateToProps = (state: Types.RootState) => ({
   pageDimensions: uiSelectors.pageDimensions(state),
 });
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -61,7 +61,7 @@ const DesktopMenu: FunctionComponent<Props> = (props: Props) => {
       items: [
         {
           text: 'new',
-          action: () => console.log('paste'),
+          action: () => console.log('new'),
           subgroups: [
             {
               items: [{ text: 'folder', action: () => createSystemItem('folder'), icon: 'folder' }],
