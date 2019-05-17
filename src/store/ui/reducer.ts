@@ -7,6 +7,7 @@ const initialState: UiState = {
   pageDimensions: { height: 0, width: 0 },
   coordinates: null,
   contextMenu: null,
+  selectedPathIds: [],
 };
 
 export default (state: UiState = initialState, action: UiAction): UiState => {
@@ -22,6 +23,21 @@ export default (state: UiState = initialState, action: UiAction): UiState => {
       return R.set(state, 'coordinates', action.payload.coordinates);
     case getType(actions.setContextMenu):
       return R.set(state, 'contextMenu', action.payload.contextMenu);
+    case getType(actions.setSelectedPathIds):
+      return R.set(state, 'selectedPathIds', action.payload.pathIds);
+    case getType(actions.toggleSelectedPathIds):
+      const removeIds = R.intersection(state.selectedPathIds, action.payload.pathIds);
+      const addIds = R.difference(action.payload.pathIds, removeIds);
+      return R.set(
+        state,
+        'selectedPathIds',
+        R.pipe(
+          state.selectedPathIds,
+          R.difference(removeIds),
+          R.concat(addIds),
+        ),
+      );
+
     default:
       return state;
   }

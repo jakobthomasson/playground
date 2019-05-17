@@ -10,6 +10,7 @@ export type UiState = {
   pageDimensions: System.Dimensions;
   coordinates: System.Coordinates | null;
   contextMenu: System.ContextMenu | null;
+  selectedPathIds: string[];
 };
 
 export { uiConstants, uiActions, uiReducer, uiSelectors };

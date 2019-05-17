@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { color, spacing } from 'variables';
 import { animated } from 'react-spring';
 
-export const Wrapper = styled(animated.div)`
+export const Wrapper = styled(animated.div)<{ selected: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -12,12 +12,21 @@ export const Wrapper = styled(animated.div)`
   cursor: pointer;
 
   :hover {
+    background-color: ${color.accent_gray_light};
+    border: 1px solid ${color.border_light};
+  }
+
+  ${({ selected }) =>
+    selected &&
+    `
     background-color: ${color.accent_gray};
-  }
-  :active {
-    background-color: ${color.accent_gray_dark};
-    border: 1px solid ${color.text_light};
-  }
+    border: 1px solid ${color.border};
+    :hover {
+      background-color: ${color.accent_gray_dark};
+        border: 1px solid ${color.border_dark};
+    }
+  `}
+
   .icon {
     margin-bottom: ${spacing.small};
   }

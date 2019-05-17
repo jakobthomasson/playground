@@ -20,6 +20,7 @@ const mapStateToProps = (state: Types.RootState) => ({
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   openDesktopContextMenu: (coordinates: System.Coordinates) =>
     dispatch(uiActions.setContextMenu({ contextMenu: { type: 'desktop', coordinates } })),
+  closeContextMenu: () => dispatch(uiActions.setContextMenu({ contextMenu: null })),
   setPageDimension: debounce(
     (pageDimensions: System.Dimensions) => dispatch(uiActions.setPageDimensions({ pageDimensions })),
     100,
@@ -31,7 +32,7 @@ type DispatchProps = ReturnType<typeof mapDispatchToProps>;
 type Props = StateProps & DispatchProps;
 
 const Desktop: FunctionComponent<Props> = props => {
-  const { windowIds, contextMenu, openDesktopContextMenu, setPageDimension } = props;
+  const { windowIds, contextMenu, openDesktopContextMenu, setPageDimension, closeContextMenu } = props;
   const [element, ref] = useRefCallback<HTMLElement>();
   const dimensions: System.Dimensions = useComponentSize(element, setPageDimension);
 
@@ -44,6 +45,12 @@ const Desktop: FunctionComponent<Props> = props => {
     },
     element,
   );
+
+  useEventListener<React.MouseEvent>('click', e => {
+  
+    contextMenu && closeContextMenu();
+  });
+
   return (
     <Wrapper ref={ref}>
       <Path dimensions={dimensions} pathId="iamroot" />
@@ -52,7 +59,6 @@ const Desktop: FunctionComponent<Props> = props => {
       })}
 
       {contextMenu && <ContextMenu contextMenu={contextMenu} />}
-
       <Taskbar />
     </Wrapper>
   );

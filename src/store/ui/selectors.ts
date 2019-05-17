@@ -14,3 +14,5 @@ export const pageDimensions = (state: Types.RootState) => state.uiDomain.pageDim
 export const coordinates = (state: Types.RootState) => state.uiDomain.coordinates;
 export const contextMenu = (state: Types.RootState) => state.uiDomain.contextMenu;
 
+export const isPathSelected = (state: Types.RootState, ownProps: { pathId: string }) =>
+  R.findIndex(state.uiDomain.selectedPathIds, id => id === ownProps.pathId) !== -1;

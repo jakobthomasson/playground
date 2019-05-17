@@ -1,9 +1,8 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 import { MenuItem } from './styled';
 import Icon from 'components/ui/Icon';
 import Text from 'components/ui/Text';
 import Menu from './';
-import debounce from 'lodash.debounce';
 import { useEventListener, useRefCallback, useMouseOver } from 'components/hooks';
 
 type Props = {
@@ -14,7 +13,6 @@ type Props = {
 const ContextMenuItem: FunctionComponent<Props> = (props: Props) => {
   const { menuItem, pageDimensions } = props;
   const [element, ref] = useRefCallback<HTMLDivElement>();
-  // const [showMenu, setShowMenu] = useState(false);
   const [showMenu] = useMouseOver(element, 200);
 
   useEventListener(
@@ -25,6 +23,7 @@ const ContextMenuItem: FunctionComponent<Props> = (props: Props) => {
     },
     element,
   );
+
   function getMenuPosition() {
     const boundingRect = element!.getBoundingClientRect() as DOMRect;
     const x = boundingRect.x + boundingRect.width;
