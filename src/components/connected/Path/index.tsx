@@ -35,7 +35,7 @@ const Path: FunctionComponent<Props> = (props: Props) => {
   const {
     dimensions: { width },
   } = props;
-  const size = 100;
+  const size = 140;
   const maxRow = Math.floor(width / size);
   return (
     <Wrapper>

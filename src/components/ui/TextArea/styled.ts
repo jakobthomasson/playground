@@ -3,7 +3,6 @@ import { border } from 'variables';
 
 const baseCss = css`
   resize: none;
-  background: blue;
   border: ${border.normal_discreet};
 `;
 
@@ -22,8 +21,8 @@ function getSizeStyle(size: Styles.Size) {
   }
 }
 
-function getStyle(input: Styles.InputTheme) {
-  const { size, type } = input;
+function getStyle(input: Styles.TextAreaTheme) {
+  const { size } = input;
   const inputCss = css`
     ${baseCss}
     ${getSizeStyle(size ? size : 'medium')}

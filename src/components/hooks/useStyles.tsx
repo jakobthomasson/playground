@@ -4,6 +4,7 @@ import getButtonStyle from 'components/ui/Button/styled';
 import getIconStyle from 'components/ui/Icon/styled';
 import getTextStyle from 'components/ui/Text/styled';
 import getInputStyle from 'components/ui/Input/styled';
+import getTextAreaStyle from 'components/ui/TextArea/styled';
 
 type Props = {
   theme: Styles.Theme;
@@ -28,8 +29,8 @@ function useStyles(props: Props) {
       case 'input':
         setStyledCss(getInputStyle(theme));
         break;
-      case 'no_element':
-        setStyledCss(css``);
+      case 'textarea':
+        setStyledCss(getTextAreaStyle(theme));
 
         break;
     }

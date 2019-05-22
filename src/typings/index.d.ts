@@ -86,7 +86,7 @@ declare namespace System {
   export type Permission = 'admin';
 }
 declare namespace Styles {
-  type ElementType = 'button' | 'wrapper' | 'text' | 'svg' | 'input' | 'no_element';
+  type ElementType = 'button' | 'wrapper' | 'text' | 'svg' | 'input' | 'textarea';
 
   export type Size = 'small' | 'medium' | 'large' | 'xlarge';
 
@@ -98,13 +98,10 @@ declare namespace Styles {
     text: string;
   }
 
-  export type Theme = ButtonTheme | TextTheme | IconTheme | InputTheme | NoTheme;
+  export type Theme = ButtonTheme | TextTheme | IconTheme | InputTheme | TextAreaTheme;
 
   interface BaseTheme {
     element: Type;
-  }
-  interface NoTheme {
-    element: 'no_element';
   }
 
   // TODO, remove mood
@@ -142,6 +139,13 @@ declare namespace Styles {
     element: 'input';
     size?: Size;
     type?: InputType;
+  }
+  export type TextAreaType = '';
+
+  export interface TextAreaTheme extends BaseTheme {
+    element: 'textarea';
+    size?: Size;
+    type?: TextAreaType;
   }
 }
 

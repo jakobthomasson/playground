@@ -5,10 +5,13 @@ import { animated } from 'react-spring';
 export const Wrapper = styled(animated.div)<{ selected: boolean }>`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 100px;
-  height: 100px;
+  border: 1px solid transparent;
+  max-height: 140px;
+  padding: ${spacing.small};
+  
   cursor: pointer;
 
   :hover {
@@ -33,6 +36,8 @@ export const Wrapper = styled(animated.div)<{ selected: boolean }>`
 
   .text {
     width: calc(100% - ${spacing.small});
+    min-height: 24px;
     text-align: center;
+    overflow: hidden;
   }
 `;

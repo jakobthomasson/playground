@@ -18,7 +18,6 @@ const InputComponent: FunctionComponent<
   const { theme, value, externalRef, ref, ...inputProps } = props;
 
   let textTheme: Styles.TextTheme = { element: 'text', size: theme.size, type: 'bread' };
-
   const styles = css`
     ${useStyles({ theme })}
     ${useStyles({ theme: textTheme })}

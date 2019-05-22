@@ -1,7 +1,9 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState, useEffect, useRef } from 'react';
 import { Wrapper } from './styled';
 import Icon from 'components/ui/Icon';
 import Text from 'components/ui/Text';
+import TextArea, { RefHandlers } from 'components/ui/TextArea';
+
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import Types from 'Types';
@@ -56,13 +58,25 @@ const SystemItem: FunctionComponent<Props> = props => {
     path,
     updatePath,
   } = props;
-  const top = Math.floor((props.position - 1) / maxRow) * size;
-  const left = Math.floor((props.position - 1) % maxRow) * size;
-
-  const [element, ref] = useRefCallback<HTMLDivElement>();
-  const [textElement, textRef] = useRefCallback<HTMLElement>();
 
   const [name, setName] = useState(path.name);
+  const [element, ref] = useRefCallback<HTMLDivElement>();
+
+  const textAreaRef = useRef<RefHandlers>(null);
+
+  function inputKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
+    if (e.keyCode === 13) {
+      console.log('hej');
+      updatePath({ id: pathId, name });
+    }
+  }
+
+  useEffect(() => {
+    if (textAreaRef.current) {
+      textAreaRef.current.focus();
+    }
+  });
+
   useEventListener<React.MouseEvent>(
     'dblclick',
     e => {
@@ -93,29 +107,8 @@ const SystemItem: FunctionComponent<Props> = props => {
     element,
   );
 
-  useEventListener<React.KeyboardEvent>(
-    'keydown',
-    e => {
-      if (e.keyCode === 13) {
-        updatePath({ id: pathId, name });
-      }
-    },
-    textElement,
-  );
-  let situationalProps;
-  if (isRenaming) {
-    textElement && textElement.focus();
-    situationalProps = {
-      as: 'input',
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-        setName(e.target.value);
-      },
-    } as { as: 'input' };
-  } else {
-    situationalProps = {
-      as: 'span',
-    } as { as: 'span' };
-  }
+  const top = Math.floor((props.position - 1) / maxRow) * size;
+  const left = Math.floor((props.position - 1) % maxRow) * size;
 
   return (
     <Wrapper
@@ -125,12 +118,17 @@ const SystemItem: FunctionComponent<Props> = props => {
       selected={isSelected}
     >
       <Icon theme={{ element: 'icon', size: 'xlarge', icon: systemItem.type }} />
-      <Text
-        theme={{ element: 'text', type: 'bread', size: 'small' }}
-        text={name}
-        externalRef={textRef}
-        {...situationalProps}
-      />
+      {isRenaming ? (
+        <TextArea
+          theme={{ element: 'textarea', size: 'small' }}
+          value="hej"
+          ref={textAreaRef}
+          onKeyDown={inputKeyDown}
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setName(e.target.value)}
+        />
+      ) : (
+        <Text theme={{ element: 'text', type: 'bread', size: 'small' }} text={name} />
+      )}
     </Wrapper>
   );
 };
