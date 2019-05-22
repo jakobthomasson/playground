@@ -49,35 +49,11 @@ export const border_light = accent_gray_dark;
 export const border = text_light;
 export const border_dark = text;
 
-export const buttonMoodColor: Record<string, Styles.ColorScheme> = {
+export const colorScheme: Record<Styles.ColorSchemeType, Styles.ColorScheme> = {
   neutral: {
     light: primary_light,
     dark: primary_dark,
     normal: primary,
     text: primary_text,
-  },
-  abort: {
-    light: accent_yellow_light,
-    dark: accent_yellow_dark,
-    normal: accent_yellow,
-    text: accent_text,
-  },
-  danger: {
-    light: accent_red_light,
-    dark: accent_red_dark,
-    normal: accent_red,
-    text: accent_text,
-  },
-  great: {
-    light: accent_green_light,
-    dark: accent_green_dark,
-    normal: accent_green,
-    text: accent_text,
-  },
-  info: {
-    light: accent_blue_light,
-    dark: accent_blue_dark,
-    normal: accent_blue,
-    text: accent_text,
   },
 };

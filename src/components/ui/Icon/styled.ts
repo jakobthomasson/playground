@@ -33,31 +33,14 @@ function getSizeStyle(iconSize: Styles.Size) {
   }
 }
 
-// function getColorStyle(colorScheme: Styles.ColorScheme) {
-//   return css`
-//     background-color: ${colorScheme.normal};
-
-//     &:hover:enabled {
-//       background-color: ${colorScheme.light};
-//     }
-
-//     &:active:enabled {
-//       background-color: ${colorScheme.dark};
-//     }
-
-//     color: ${colorScheme.text};
-//   `;
-// }
-
 function getStyle(icon: Styles.IconTheme) {
-  // const colorScheme = color.buttonMoodColor[button.mood];
-  // const buttonSize = button.buttonSize;
-  const iconSize = icon.size;
+  const { size } = icon;
+
   const buttonCss = css`
     ${baseCss}
 
     > svg {
-      ${getSizeStyle(iconSize)}
+      ${getSizeStyle(size ? size : 'medium')}
     }
   `;
   return buttonCss;

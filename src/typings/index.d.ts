@@ -86,25 +86,39 @@ declare namespace System {
   export type Permission = 'admin';
 }
 declare namespace Styles {
-  type Type = 'button' | 'wrapper' | 'text' | 'svg';
-  interface BaseTheme {
-    type: Type;
-  }
-  /**
-   * Button
-   */
-  export type ButtonMood = 'neutral' | 'abort' | 'danger' | 'great' | 'info';
-  export type TextMood = 'bread' | 'menu';
+  type ElementType = 'button' | 'wrapper' | 'text' | 'svg' | 'input' | 'no_element';
 
   export type Size = 'small' | 'medium' | 'large' | 'xlarge';
+
+  export type ColorSchemeType = 'neutral';
+  export interface ColorScheme {
+    light: string;
+    dark: string;
+    normal: string;
+    text: string;
+  }
+
+  export type Theme = ButtonTheme | TextTheme | IconTheme | InputTheme | NoTheme;
+
+  interface BaseTheme {
+    element: Type;
+  }
+  interface NoTheme {
+    element: 'no_element';
+  }
+
+  // TODO, remove mood
   export interface ButtonTheme extends BaseTheme {
-    type: 'button';
-    mood: ButtonMood;
+    element: 'button';
+    mood: ColorSchemeType;
     size: Size;
   }
+
+  export type TextType = 'bread' | 'menu';
   export interface TextTheme extends BaseTheme {
-    type: 'text';
-    mood: TextMood;
+    element: 'text';
+    type: TextType;
+    size?: Size;
   }
 
   export type Icon =
@@ -117,22 +131,17 @@ declare namespace Styles {
     | 'next'
     | 'back'
     | 'placeholder';
-
   export interface IconTheme extends BaseTheme {
-    type: 'icon';
-    size: Size;
+    element: 'icon';
     icon: Icon;
+    size?: Size;
   }
 
-  export interface WrapperTheme extends BaseTheme {
-    type: 'wrapper';
-  }
-
-  export interface ColorScheme {
-    light: string;
-    dark: string;
-    normal: string;
-    text: string;
+  export type InputType = '';
+  export interface InputTheme extends BaseTheme {
+    element: 'input';
+    size?: Size;
+    type?: InputType;
   }
 }
 
@@ -143,3 +152,5 @@ declare interface Window {
 declare type PartialWithId<T> = Partial<T> & { id: string };
 
 declare type PartialWithoutId<T> = Omit<T, 'id'>;
+
+declare type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;

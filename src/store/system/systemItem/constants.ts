@@ -1,1 +1,3 @@
 export const START_CREATE_SYSTEM_ITEM = 'system/START_CREATE_SYSTEM_ITEM';
+
+export const START_UPDATE_PATH = 'system/START_UPDATE_PATH';

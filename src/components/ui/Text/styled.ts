@@ -6,33 +6,44 @@ const baseCss = css`
   font-family: ${font.fontFamily.standard};
 `;
 
-const breadTextCss = css`
-  font-size: ${font.fontSize.medium};
-  font-weight: ${font.fontWeight.regular};
-`;
-
-const menuTextCss = css`
-  font-size: ${font.fontSize.small};
-  font-weight: ${font.fontWeight.medium};
-  letter-spacing: 1.2px;
-`;
-function getMoodStyle(textMood: Styles.TextMood) {
-  switch (textMood) {
+function getTypeStyle(type: Styles.TextType) {
+  switch (type) {
     case 'bread':
-      return breadTextCss;
+      return css`
+        font-weight: ${font.fontWeight.regular};
+      `;
     case 'menu':
-      return menuTextCss;
+      return css`
+        font-weight: ${font.fontWeight.medium};
+        letter-spacing: 1.2px;
+      `;
 
     default:
       return null;
   }
 }
 
-function getStyle(button: Styles.TextTheme) {
-  const { mood } = button;
+function getSizeStyle(size: Styles.Size) {
+  switch (size) {
+    case 'small':
+      return css`
+        font-size: ${font.fontSize.small};
+      `;
+    case 'medium':
+      return css`
+        font-size: ${font.fontSize.medium};
+      `;
+    default:
+      return null;
+  }
+}
+
+function getStyle(text: Styles.TextTheme) {
+  const { type, size } = text;
   const textCss = css`
     ${baseCss}
-    ${getMoodStyle(mood)}
+    ${getTypeStyle(type)}
+    ${getSizeStyle(size ? size : 'medium')}
   `;
   return textCss;
 }

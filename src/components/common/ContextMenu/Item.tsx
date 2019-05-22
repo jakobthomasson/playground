@@ -35,11 +35,11 @@ const ContextMenuItem: FunctionComponent<Props> = (props: Props) => {
   }
   return (
     <MenuItem ref={ref}>
-      <Icon theme={{ type: 'icon', size: 'small', icon: menuItem.icon ? menuItem.icon : 'placeholder' }} />
-      <Text theme={{ type: 'text', mood: 'menu' }} text={menuItem.text} />
+      <Icon theme={{ element: 'icon', size: 'small', icon: menuItem.icon ? menuItem.icon : 'placeholder' }} />
+      <Text theme={{ element: 'text', type: 'menu', size: 'small' }} text={menuItem.text} />
       {menuItem.subgroups ? (
         <>
-          <Icon theme={{ type: 'icon', size: 'small', icon: 'next' }} />
+          <Icon theme={{ element: 'icon', size: 'small', icon: 'next' }} />
           {showMenu && (
             <Menu
               menuGroups={menuItem.subgroups}
@@ -50,7 +50,7 @@ const ContextMenuItem: FunctionComponent<Props> = (props: Props) => {
           )}
         </>
       ) : (
-        <Icon theme={{ type: 'icon', size: 'small', icon: 'placeholder' }} />
+        <Icon theme={{ element: 'icon', size: 'small', icon: 'placeholder' }} />
       )}
     </MenuItem>
   );

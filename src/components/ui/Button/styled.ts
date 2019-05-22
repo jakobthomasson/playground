@@ -65,7 +65,7 @@ function getColorStyle(colorScheme: Styles.ColorScheme) {
 }
 
 function getStyle(button: Styles.ButtonTheme) {
-  const colorScheme = color.buttonMoodColor[button.mood];
+  const colorScheme = color.colorScheme[button.mood];
   const buttonSize = button.size;
 
   const buttonCss = css`

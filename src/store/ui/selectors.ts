@@ -16,3 +16,11 @@ export const contextMenu = (state: Types.RootState) => state.uiDomain.contextMen
 
 export const isPathSelected = (state: Types.RootState, ownProps: { pathId: string }) =>
   R.findIndex(state.uiDomain.selectedPathIds, id => id === ownProps.pathId) !== -1;
+
+export const renamingPathId = (state: Types.RootState) => state.uiDomain.renamingPathId;
+
+export const isPathRenaming = createSelector(
+  (state: Types.RootState, ownProps: { pathId: string }) => ownProps.pathId,
+  renamingPathId,
+  (pathId, renamePathId) => pathId === renamePathId,
+);

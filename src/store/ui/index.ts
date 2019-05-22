@@ -11,6 +11,7 @@ export type UiState = {
   coordinates: System.Coordinates | null;
   contextMenu: System.ContextMenu | null;
   selectedPathIds: string[];
+  renamingPathId: string | null;
 };
 
 export { uiConstants, uiActions, uiReducer, uiSelectors };

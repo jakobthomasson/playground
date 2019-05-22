@@ -8,6 +8,7 @@ const initialState: UiState = {
   coordinates: null,
   contextMenu: null,
   selectedPathIds: [],
+  renamingPathId: null,
 };
 
 export default (state: UiState = initialState, action: UiAction): UiState => {
@@ -37,7 +38,8 @@ export default (state: UiState = initialState, action: UiAction): UiState => {
           R.concat(addIds),
         ),
       );
-
+    case getType(actions.setRenamingPathId):
+      return R.set(state, 'renamingPathId', action.payload.pathId);
     default:
       return state;
   }

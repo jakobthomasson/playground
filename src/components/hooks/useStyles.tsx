@@ -2,37 +2,38 @@ import { useState, useEffect } from 'react';
 import { css } from 'styled-components';
 import getButtonStyle from 'components/ui/Button/styled';
 import getIconStyle from 'components/ui/Icon/styled';
-import getWrapperStyle from 'components/ui/Wrapper/styled';
 import getTextStyle from 'components/ui/Text/styled';
+import getInputStyle from 'components/ui/Input/styled';
 
 type Props = {
-  style: Styles.ButtonTheme | Styles.TextTheme | Styles.IconTheme | Styles.WrapperTheme;
+  theme: Styles.Theme;
 };
 
 const defaultStyle = css``;
 
 function useStyles(props: Props) {
   const [styledCss, setStyledCss] = useState(defaultStyle);
-  const { style } = props;
+  const { theme } = props;
   useEffect(() => {
-    switch (style.type) {
+    switch (theme.element) {
       case 'button':
-        setStyledCss(getButtonStyle(style));
+        setStyledCss(getButtonStyle(theme));
         break;
       case 'icon':
-        setStyledCss(getIconStyle(style));
-        break;
-      case 'wrapper':
-        setStyledCss(getWrapperStyle(style));
+        setStyledCss(getIconStyle(theme));
         break;
       case 'text':
-        setStyledCss(getTextStyle(style));
+        setStyledCss(getTextStyle(theme));
         break;
-      default:
-        console.warn('Style non-existing');
+      case 'input':
+        setStyledCss(getInputStyle(theme));
+        break;
+      case 'no_element':
+        setStyledCss(css``);
+
         break;
     }
-  }, [style]);
+  }, [theme]);
   return styledCss;
 }
 

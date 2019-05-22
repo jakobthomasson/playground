@@ -14,7 +14,7 @@ type Props = {
 
 const IconComponent: FunctionComponent<Props & React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>> = (props) => {
   const { theme, ref, ...restProps } = props;
-  const css = useStyles({ style: props.theme });
+  const css = useStyles({ theme: props.theme });
   return (
     <Wrapper className="icon" css={css} {...restProps} >
       <SvgComponent icon={theme.icon} />

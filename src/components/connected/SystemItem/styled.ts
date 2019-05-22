@@ -32,5 +32,7 @@ export const Wrapper = styled(animated.div)<{ selected: boolean }>`
   }
 
   .text {
+    width: calc(100% - ${spacing.small});
+    text-align: center;
   }
 `;

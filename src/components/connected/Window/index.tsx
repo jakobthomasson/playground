@@ -72,16 +72,16 @@ const Window: FunctionComponent<Props> = (props: Props) => {
   return (
     <Wrapper style={getStyle()} onMouseDown={() => select(id)}>
       <div draggable className="titlebar" ref={titlebarRef}>
-        <Text theme={{ type: 'text', mood: 'bread' }} text={window.id} />
+        <Text theme={{ element: 'text', type: 'bread' }} text={window.id} />
         <div className="icon-wrapper">
           <Icon
-            theme={{ icon: 'minimize', size: 'small', type: 'icon' }}
+            theme={{ icon: 'minimize', size: 'small', element: 'icon' }}
             onMouseUp={e => minimize(id)}
             onMouseDown={stopEvent}
           />
           {isMax ? (
             <Icon
-              theme={{ icon: 'restore', size: 'small', type: 'icon' }}
+              theme={{ icon: 'restore', size: 'small', element: 'icon' }}
               onMouseUp={e => {
                 setIsMax(false);
                 select(id);
@@ -90,7 +90,7 @@ const Window: FunctionComponent<Props> = (props: Props) => {
             />
           ) : (
             <Icon
-              theme={{ icon: 'maximize', size: 'small', type: 'icon' }}
+              theme={{ icon: 'maximize', size: 'small', element: 'icon' }}
               onMouseUp={e => {
                 setIsMax(true);
                 select(id);
@@ -99,7 +99,7 @@ const Window: FunctionComponent<Props> = (props: Props) => {
             />
           )}
           <Icon
-            theme={{ icon: 'close', size: 'small', type: 'icon' }}
+            theme={{ icon: 'close', size: 'small', element: 'icon' }}
             onMouseUp={() => close(window.id)}
             onMouseDown={stopEvent}
           />
@@ -107,10 +107,10 @@ const Window: FunctionComponent<Props> = (props: Props) => {
       </div>
       {}
       <div className="content">
-        <Text theme={{ type: 'text', mood: 'bread' }} text={`width: ${dimensions.width}`} />
-        <Text theme={{ type: 'text', mood: 'bread' }} text={`height: ${dimensions.height}`} />
-        <Text theme={{ type: 'text', mood: 'bread' }} text={`x: ${position.x}`} />
-        <Text theme={{ type: 'text', mood: 'bread' }} text={`x: ${position.y}`} />
+        <Text theme={{ element: 'text', type: 'bread' }} text={`width: ${dimensions.width}`} />
+        <Text theme={{ element: 'text', type: 'bread' }} text={`height: ${dimensions.height}`} />
+        <Text theme={{ element: 'text', type: 'bread' }} text={`x: ${position.x}`} />
+        <Text theme={{ element: 'text', type: 'bread' }} text={`x: ${position.y}`} />
       </div>
     </Wrapper>
   );

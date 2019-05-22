@@ -5,6 +5,7 @@ import * as constants from './constants';
 import { systemItemActions } from 'store/domain/systemItem';
 import { pathActions, pathSelectors } from 'store/domain/path';
 import { domainHelper } from 'helpers';
+import { uiActions } from 'store/ui';
 import * as R from 'remeda';
 
 function* startCreateSystemItemSaga(action: ActionType<typeof actions.startCreateSystemItem>) {
@@ -57,12 +58,23 @@ function* startCreateSystemItemSaga(action: ActionType<typeof actions.startCreat
       }),
     );
 
-    yield delay(100);
+    yield put(uiActions.setRenamingPathId({ pathId: path.id }));
   } catch (error) {
     console.error('error: ', error);
   }
 }
 
+function* startUpdatePathSaga(action: ActionType<typeof actions.startUpdatePath>) {
+  const { partialPath } = action.payload;
+  yield put(pathActions.update({ partialPath }));
+  yield put(uiActions.setRenamingPathId({ pathId: null }));
+  // yield put(uiActions.renameSystemItem());
+  // const { app };
+}
+
 export default function* watcher() {
-  yield all([takeLatest(constants.START_CREATE_SYSTEM_ITEM, startCreateSystemItemSaga)]);
+  yield all([
+    takeLatest(constants.START_CREATE_SYSTEM_ITEM, startCreateSystemItemSaga),
+    takeLatest(constants.START_UPDATE_PATH, startUpdatePathSaga),
+  ]);
 }

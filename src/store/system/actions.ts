@@ -6,4 +6,4 @@ export {
   startCloseWindow,
 } from './window/actions';
 
-export { startCreateSystemItem } from './systemItem/actions';
+export { startCreateSystemItem, startUpdatePath } from './systemItem/actions';

@@ -4,7 +4,6 @@ import { useStyles } from 'components/hooks';
 import Icon from 'components/ui/Icon';
 import Text from 'components/ui/Text';
 
-
 const Button = styled.button<{ css: SimpleInterpolation }>`
   ${({ css }) => css}
 `;
@@ -15,14 +14,16 @@ type Props = {
   icon?: Styles.Icon;
 };
 
-const ButtonComponent: FunctionComponent<Props & React.DetailedHTMLProps<React.HTMLAttributes<HTMLButtonElement>, HTMLButtonElement>> = (props: Props) => {
+const ButtonComponent: FunctionComponent<
+  Props & React.DetailedHTMLProps<React.HTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
+> = (props: Props) => {
   const { theme, text, icon, ...buttonProps } = props;
 
-  const css = useStyles({ style: theme });
+  const css = useStyles({ theme });
   return (
     <Button className="button" css={css} {...buttonProps}>
-      {icon && <Icon theme={{ icon, size: theme.size, type: 'icon' }} />}
-      {text && <Text theme={{ type: 'text', mood: 'bread' }} text={text} />}
+      {icon && <Icon theme={{ icon, size: theme.size, element: 'icon' }} />}
+      {text && <Text theme={{ element: 'text', type: 'bread' }} text={text} />}
     </Button>
   );
 };

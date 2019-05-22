@@ -187,5 +187,7 @@ hr {
 
 input,
 select {
-  vertical-align: middle;
+  border: none;
+  outline: none;
+  box-shadow: none;
 }

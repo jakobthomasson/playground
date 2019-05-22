@@ -47,7 +47,6 @@ const Desktop: FunctionComponent<Props> = props => {
   );
 
   useEventListener<React.MouseEvent>('click', e => {
-  
     contextMenu && closeContextMenu();
   });
 

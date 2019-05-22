@@ -7,6 +7,7 @@ import {
   SET_CONTEXT_MENU,
   SET_SELECTED_PATH_IDS,
   TOGGLE_SELECTED_PATH_IDS,
+  SET_RENAMING_PATH_ID,
 } from './constants';
 
 export const showWindow = createAction(SHOW_WINDOW, resolve => (payload: { windowId: string }) => resolve(payload));
@@ -26,12 +27,15 @@ export const setContextMenu = createAction(
   resolve => (payload: { contextMenu: System.ContextMenu | null }) => resolve(payload),
 );
 
-export const setSelectedPathIds = createAction(
-  SET_SELECTED_PATH_IDS,
-  resolve => (payload: { pathIds: string[] }) => resolve(payload),
+export const setSelectedPathIds = createAction(SET_SELECTED_PATH_IDS, resolve => (payload: { pathIds: string[] }) =>
+  resolve(payload),
 );
 
 export const toggleSelectedPathIds = createAction(
   TOGGLE_SELECTED_PATH_IDS,
   resolve => (payload: { pathIds: string[] }) => resolve(payload),
+);
+
+export const setRenamingPathId = createAction(SET_RENAMING_PATH_ID, resolve => (payload: { pathId: string | null }) =>
+  resolve(payload),
 );
