@@ -13,7 +13,7 @@ export const startCloseWindow = createAction(START_CLOSE_WINDOW, resolve => (pay
 export const startMinimizeWindow = createAction(START_MINIMIZE_WINDOW, resolve => (payload: { windowId: string }) =>
   resolve(payload),
 );
-export const startOpenWindow = createAction(START_OPEN_WINDOW, resolve => (payload: { systemItemId: string }) =>
+export const startOpenWindow = createAction(START_OPEN_WINDOW, resolve => (payload: { pathId: string }) =>
   resolve(payload),
 );
 export const startResizeWindow = createAction(START_RESIZE_WINDOW, resolve => (payload: {}) => resolve(payload));

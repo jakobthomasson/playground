@@ -2,63 +2,47 @@ import { all, put, select, takeLatest, delay } from 'redux-saga/effects';
 import { ActionType } from 'typesafe-actions';
 import * as actions from './actions';
 import * as constants from './constants';
-import { systemItemActions } from 'store/domain/systemItem';
 import { pathActions, pathSelectors } from 'store/domain/path';
-import { domainHelper } from 'helpers';
+import { mockHelper } from 'helpers';
 import { uiActions } from 'store/ui';
 import * as R from 'remeda';
 
 function* startCreateSystemItemSaga(action: ActionType<typeof actions.startCreateSystemItem>) {
   try {
+    yield delay(100);
     const {
-      payload: { contextPathId, type },
+      payload: { parentPathId, type },
     } = action;
-    const parentPath: System.Path = yield select(pathSelectors.path, { pathId: contextPathId });
-    // const pathNames: System.Path = yield select(pathSelectors.newPathName, {
-    //   pathId: contextPathId,
-    //   systemItemType: type,
-    // });
 
-    const timestamp = domainHelper.getUniqueString();
-    const systemItemId = `systemitem-${timestamp}`;
-    const pathId = `path-${timestamp}`;
-    const pathName = `Path ${timestamp}`;
-
-    const path: System.Path = {
-      id: pathId,
-      name: 'Path 1558597578541',
-      parentId: action.payload.contextPathId,
-      childIds: [],
-      systemItemId: systemItemId,
-    };
+    let path: System.Path | null = null;
+    const id = mockHelper.getUniqueString();
+    const name: string = yield select(pathSelectors.newPathName, { parentPathId, type });
+    
     switch (type) {
       case 'file':
-        yield put(
-          systemItemActions.add({
-            systemItem: {
-              type,
-              id: systemItemId,
-            },
-          }),
-        );
+        path = { id, type, name, parentId: parentPathId, icon: 'file' } as System.FilePath;
         break;
       case 'folder':
-        yield put(
-          systemItemActions.add({
-            systemItem: {
-              type,
-              id: systemItemId,
-            },
-          }),
-        );
+        path = { id, type, name, parentId: parentPathId, icon: 'folder', childIds: [] } as System.FolderPath;
+
         break;
+      case 'location':
+        path = { id, type, name, parentId: parentPathId, icon: 'placeholder', childIds: [] } as System.LocationPath;
+
+        break;
+      case 'program':
+        path = { id, type, name, parentId: parentPathId, icon: 'maximize' } as System.ProgramPath;
+        break;
+      default:
+        path = { id, type, name, parentId: parentPathId, icon: 'maximize' } as System.ProgramPath;
     }
 
     yield put(pathActions.add({ path }));
 
+    const parentPath: System.ContainerPath = yield select(pathSelectors.containerPath, { pathId: parentPathId });
     yield put(
       pathActions.update({
-        partialPath: { id: contextPathId, childIds: R.concat(parentPath.childIds!, [path.id]) },
+        partialPath: { id: parentPathId, childIds: R.concat(parentPath.childIds, [path.id]) },
       }),
     );
 
@@ -72,8 +56,6 @@ function* startUpdatePathSaga(action: ActionType<typeof actions.startUpdatePath>
   const { partialPath } = action.payload;
   yield put(pathActions.update({ partialPath }));
   yield put(uiActions.setRenamingPathId({ pathId: null }));
-  // yield put(uiActions.renameSystemItem());
-  // const { app };
 }
 
 export default function* watcher() {

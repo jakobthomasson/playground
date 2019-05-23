@@ -19,7 +19,7 @@ type OwnProps = {};
 
 type Props = StateProps & DispatchProps & OwnProps;
 
-const SystemItem: FunctionComponent<Props> = props => {
+const Taskbar: FunctionComponent<Props> = props => {
   const { windowTabIds, selectWindow } = props;
   return (
     <Wrapper>
@@ -35,4 +35,4 @@ const SystemItem: FunctionComponent<Props> = props => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(SystemItem);
+)(Taskbar);

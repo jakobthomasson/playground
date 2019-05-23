@@ -27,9 +27,4 @@ function remove<T extends Record<'id', string>>(
   };
 }
 
-function getUniqueString() {
-  const timestamp = new Date().getTime().toString();
-  return timestamp;
-}
-
-export default { add, update, remove, getUniqueString };
+export default { add, update, remove };

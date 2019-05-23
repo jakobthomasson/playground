@@ -3,12 +3,13 @@ import { PathAction, PathState, pathActions as actions } from './';
 import { domainHelper } from 'helpers';
 import * as R from 'remeda';
 
-const rootPath: System.Path = {
-  id: 'iamroot',
-  parentId: null,
-  name: 'root',
+const rootPath: System.LocationPath = {
+  id: 'root',
   childIds: [],
-  systemItemId: null,
+  name: 'root',
+  parentId: null,
+  type: 'location',
+  icon: 'placeholder',
 };
 
 const initialState: PathState = {

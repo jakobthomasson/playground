@@ -15,6 +15,7 @@ const defaultStyle = css``;
 function useStyles(props: Props) {
   const [styledCss, setStyledCss] = useState(defaultStyle);
   const { theme } = props;
+
   useEffect(() => {
     switch (theme.element) {
       case 'button':

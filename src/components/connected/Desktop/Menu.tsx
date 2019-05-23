@@ -11,8 +11,8 @@ const mapStateToProps = (state: Types.RootState) => ({
   pageDimensions: uiSelectors.pageDimensions(state),
 });
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  createSystemItem: (type: System.SystemItemType) =>
-    dispatch(systemActions.startCreateSystemItem({ type, contextPathId: 'iamroot' })),
+  createSystemItem: (type: System.PathType) =>
+    dispatch(systemActions.startCreateSystemItem({ type, parentPathId: 'root' })),
 });
 
 type StateProps = ReturnType<typeof mapStateToProps>;

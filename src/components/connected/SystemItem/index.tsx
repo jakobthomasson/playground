@@ -7,7 +7,6 @@ import TextArea, { RefHandlers } from 'components/ui/TextArea';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import Types from 'Types';
-import { systemSelectors } from 'store/system';
 import { pathSelectors } from 'store/domain/path';
 
 import { uiActions, uiSelectors } from 'store/ui';
@@ -17,17 +16,16 @@ import { systemActions } from 'store/system';
 import { useEventListener, useRefCallback } from 'components/hooks';
 
 const mapStateToProps = (state: Types.RootState, ownProps: OwnProps) => ({
-  systemItem: systemSelectors.systemItemFromPathId(state, { pathId: ownProps.pathId }),
   isSelected: uiSelectors.isPathSelected(state, { pathId: ownProps.pathId }),
   isRenaming: uiSelectors.isPathRenaming(state, { pathId: ownProps.pathId }),
   path: pathSelectors.path(state, { pathId: ownProps.pathId }),
 });
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  openWindow: (systemItemId: string) => dispatch(systemActions.startOpenWindow({ systemItemId })),
+  openWindow: (pathId: string) => dispatch(systemActions.startOpenWindow({ pathId })),
   updatePath: (partialPath: PartialWithId<System.Path>) => dispatch(systemActions.startUpdatePath({ partialPath })),
-  select: (systemItemId: string) => dispatch(uiActions.setSelectedPathIds({ pathIds: [systemItemId] })),
-  ctrlSelect: (systemItemId: string) => dispatch(uiActions.toggleSelectedPathIds({ pathIds: [systemItemId] })),
-  shiftSelect: (systemItemId: string) => dispatch(uiActions.toggleSelectedPathIds({ pathIds: [systemItemId] })),
+  select: (pathId: string) => dispatch(uiActions.setSelectedPathIds({ pathIds: [pathId] })),
+  ctrlSelect: (pathId: string) => dispatch(uiActions.toggleSelectedPathIds({ pathIds: [pathId] })),
+  shiftSelect: (pathId: string) => dispatch(uiActions.toggleSelectedPathIds({ pathIds: [pathId] })),
 });
 
 type StateProps = ReturnType<typeof mapStateToProps>;
@@ -51,7 +49,6 @@ const SystemItem: FunctionComponent<Props> = props => {
     select,
     shiftSelect,
     ctrlSelect,
-    systemItem,
     isSelected,
     pathId,
     isRenaming,
@@ -65,6 +62,7 @@ const SystemItem: FunctionComponent<Props> = props => {
   const textAreaRef = useRef<RefHandlers>(null);
   useEffect(() => {
     if (textAreaRef.current) {
+      console.log('focus');
       textAreaRef.current.focus();
     }
   });
@@ -78,9 +76,10 @@ const SystemItem: FunctionComponent<Props> = props => {
 
     const previousRows = e.target.rows;
     e.target.rows = minRows; // reset number of rows in textarea
-
-    const currentRows = ~~(e.target.scrollHeight / textareaLineHeight);
-
+    const currentRows = Math.ceil(e.target.scrollHeight / textareaLineHeight);
+    if (currentRows === 2) {
+      console.log('what');
+    }
     if (currentRows === previousRows) {
       e.target.rows = currentRows;
     }
@@ -89,20 +88,29 @@ const SystemItem: FunctionComponent<Props> = props => {
       e.target.rows = maxRows;
       e.target.scrollTop = e.target.scrollHeight;
     }
-    console.log('result: ', currentRows < maxRows ? currentRows : maxRows);
+    const lol = currentRows < maxRows ? currentRows : maxRows;
+    if (lol === 2) {
+      console.log('result: ', lol);
+    }
     setRows(currentRows < maxRows ? currentRows : maxRows);
   }
   function handleTextAreaOnFocus(e: React.FocusEvent<HTMLTextAreaElement>) {
+    console.log('change');
+
     calculateRows(e);
     e.currentTarget.select();
   }
   function handleTextAreaOnKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
+    console.log('change');
+
     if (e.keyCode === 13) {
       e.preventDefault();
       updatePath({ id: pathId, name });
     }
   }
   function handleTextAreaOnChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    console.log('change');
+
     calculateRows(e);
     setName(e.target.value);
   }
@@ -110,7 +118,7 @@ const SystemItem: FunctionComponent<Props> = props => {
   useEventListener<React.MouseEvent>(
     'dblclick',
     e => {
-      openWindow(systemItem.id);
+      openWindow(pathId);
     },
     element,
   );
@@ -139,7 +147,7 @@ const SystemItem: FunctionComponent<Props> = props => {
 
   const top = Math.floor((props.position - 1) / maxRow) * size;
   const left = Math.floor((props.position - 1) % maxRow) * size;
-
+  console.log('why?');
   return (
     <Wrapper
       draggable
@@ -147,7 +155,7 @@ const SystemItem: FunctionComponent<Props> = props => {
       ref={ref}
       selected={isSelected}
     >
-      <Icon theme={{ element: 'icon', size: 'xlarge', icon: systemItem.type }} />
+      <Icon theme={{ element: 'icon', size: 'xlarge', icon: path.icon }} />
       {isRenaming ? (
         <TextArea
           theme={{ element: 'textarea', size: 'small' }}

@@ -1,29 +1,18 @@
 import React, { FunctionComponent } from 'react';
-import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
-import Types from 'Types';
+
 import SystemItem from 'components/connected/SystemItem';
-import { pathSelectors } from 'store/domain/path';
 import { Wrapper } from './styled';
 import { useTransition, config } from 'react-spring';
 
-const mapStateToProps = (state: Types.RootState, ownProps: OwnProps) => ({
-  path: pathSelectors.path(state, { pathId: ownProps.pathId }),
-});
-const mapDispatchToProps = (dispatch: Dispatch) => ({});
-
-type StateProps = ReturnType<typeof mapStateToProps>;
-type DispatchProps = ReturnType<typeof mapDispatchToProps>;
-
 type OwnProps = {
-  pathId: string;
+  containerPath: System.LocationPath | System.FolderPath;
   dimensions: System.Dimensions;
 };
-type Props = StateProps & DispatchProps & OwnProps;
+type Props = OwnProps;
 
-const Path: FunctionComponent<Props> = (props: Props) => {
+const ContainerPath: FunctionComponent<Props> = (props: Props) => {
   const {
-    path: { childIds },
+    containerPath: { childIds },
   } = props;
 
   const transition = useTransition(childIds, childId => childId, {
@@ -46,7 +35,4 @@ const Path: FunctionComponent<Props> = (props: Props) => {
   );
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Path);
+export default ContainerPath;

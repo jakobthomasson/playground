@@ -15,11 +15,10 @@ const TextComponent: FunctionComponent<
   Props & React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>
 > = props => {
   const { theme, as, text, ref, ...textProps } = props;
-
+  // console.log(theme);
   const styles = css`
     ${useStyles({ theme: theme })}
   `;
-
   return (
     <Span className="text" as={as} css={styles} {...textProps}>
       {text}

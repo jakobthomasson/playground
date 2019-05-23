@@ -35,13 +35,14 @@ declare namespace System {
     systemItemId: string;
   }
 
-  export type Path = | LocationPath |FolderPath |FilePath
+  export type Path = LocationPath | FolderPath | FilePath | ProgramPath;
+  export type PathType = 'location' | 'folder' | 'file' | 'program';
 
   export interface BasePath {
     id: string;
     name: string;
     parentId: string | null;
-    type: 'location' | 'folder' | 'program' | 'file';
+    type: PathType;
     icon: Icon;
   }
   export interface ContainerPath extends BasePath {
@@ -49,12 +50,11 @@ declare namespace System {
     type: 'location' | 'folder';
   }
   export interface LocationPath extends ContainerPath {
-    childIds: string[];
     type: 'location';
+    icon: 'placeholder';
   }
 
   export interface FolderPath extends ContainerPath {
-    childIds: string[];
     type: 'folder';
     icon: 'folder';
   }

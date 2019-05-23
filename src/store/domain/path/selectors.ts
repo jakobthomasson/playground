@@ -12,6 +12,11 @@ export const path = createSelector(
   (id, byId) => byId[id],
 );
 
+export const containerPath = createSelector(
+  path,
+  path => (path.type === 'folder' || path.type === 'location' ? path : null),
+);
+
 export const fullPath = createSelector(
   path,
   byId,
@@ -25,32 +30,33 @@ export const fullPath = createSelector(
   },
 );
 
-// export const newPathName = createSelector(
-//   (state: Types.RootState, ownProps: { pathId: string; systemItemType: System.SystemItemType }) => ownProps,
-//   path,
-//   byId,
-//   (ownProps, path, byId) => {
-//     // const lol = R.pathOr({ x: 10 }, ['x'], 2); // 2
-//     // const lol2: string[] = R.pathOr(path, ['childIds'], [] ); // 2
-//     // console.log('test: ', lol2);
-//     const newPath: System.Path = {
-//       id: 'hej',
-//       childIds: null,
-//       name: 'lol',
-//       parentId: '',
-//       systemItemId: 'asd',
-//     };
-//     console.log(path);
-//     const paths = R.pipe(
-//       path,
-//       R.pathOr(['childIds'], []),
-//       R.map(id => byId[id]),
+export const newPathName = createSelector(
+  (state: Types.RootState, ownProps: { parentPathId: string; type: System.PathType }) => {
+    return { pathId: ownProps.parentPathId, type: ownProps.type };
+  },
+  (state: Types.RootState, ownProps: { parentPathId: string; type: System.PathType }) =>
+    containerPath(state, { pathId: ownProps.parentPathId }),
+  byId,
+  (ownProps, parentPath, byId) => {
+    const childPathNames = parentPath
+      ? R.pipe(
+          parentPath.childIds,
+          R.map(id => byId[id].name),
+        )
+      : [];
 
-//       // R.prop('childIds'),
-//       // ids => (ids ? ids : []),
-//     );
-//     console.log(paths);
-//     // path.childIds.map(id => byId[id]);
-//     return path;
-//   },
-// );
+    const placeHolder = `New ${ownProps.type}`;
+    let name = placeHolder;
+    let uniqueNumber = 1;
+    for (let i = 0; i < childPathNames.length; i += 1) {
+      const currentName = childPathNames[i];
+      if (name === currentName) {
+        name = `${placeHolder} (${uniqueNumber})`;
+        uniqueNumber += 1;
+        i = 0;
+      }
+    }
+
+    return name;
+  },
+);

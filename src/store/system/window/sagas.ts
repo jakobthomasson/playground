@@ -4,7 +4,7 @@ import { windowSelectors, windowActions } from 'store/domain/window';
 import { uiActions } from 'store/ui';
 import { systemConstants, systemActions, systemSelectors } from 'store/system';
 import { size } from 'variables';
-import { domainHelper } from 'helpers';
+import { mockHelper } from 'helpers';
 import * as R from 'remeda';
 
 function* startCloseSaga(action: ActionType<typeof systemActions.startCloseWindow>) {
@@ -29,7 +29,7 @@ function* startMinimizeSaga(action: ActionType<typeof systemActions.startMinimiz
 
 function* startOpenSaga(action: ActionType<typeof systemActions.startOpenWindow>) {
   try {
-    const { systemItemId } = action.payload;
+    const { pathId: systemItemId } = action.payload;
     let window: System.Window | null = yield select(windowSelectors.systemItemWindow, { systemItemId });
 
     if (!window) {
@@ -39,7 +39,7 @@ function* startOpenSaga(action: ActionType<typeof systemActions.startOpenWindow>
         y: 150,
       }) as System.Coordinates;
       
-      const windowId = domainHelper.getUniqueString();
+      const windowId = mockHelper.getUniqueString();
       window = {
         id: windowId,
         dimensions: { height: 400, width: 500 },
@@ -47,7 +47,7 @@ function* startOpenSaga(action: ActionType<typeof systemActions.startOpenWindow>
           x: selectedPosition.x + size.window_titlebar_height,
           y: selectedPosition.y + size.window_titlebar_height,
         },
-        systemItemId: action.payload.systemItemId,
+        systemItemId: action.payload.pathId,
       };
       yield put(windowActions.add({ window }));
     }
@@ -72,6 +72,7 @@ function* startSelectSaga(action: ActionType<typeof systemActions.startSelectWin
     console.error('error: ', error);
   }
 }
+
 export default function* watcher() {
   yield all([
     takeLatest(systemConstants.START_CLOSE_WINDOW, startCloseSaga),
