@@ -35,29 +35,55 @@ declare namespace System {
     systemItemId: string;
   }
 
-  export interface Path {
+  export type Path = | LocationPath |FolderPath |FilePath
+
+  export interface BasePath {
     id: string;
     name: string;
     parentId: string | null;
-    childIds: string[] | null;
-    systemItemId: string | null;
+    type: 'location' | 'folder' | 'program' | 'file';
+    icon: Icon;
+  }
+  export interface ContainerPath extends BasePath {
+    childIds: string[];
+    type: 'location' | 'folder';
+  }
+  export interface LocationPath extends ContainerPath {
+    childIds: string[];
+    type: 'location';
   }
 
-  export type SystemItemType = 'folder' | 'file';
-  export interface BaseSystemItem {
-    id: string;
-    type: SystemItemType;
-  }
-
-  export interface File extends BaseSystemItem {
-    type: 'file';
-  }
-
-  export interface Folder extends BaseSystemItem {
+  export interface FolderPath extends ContainerPath {
+    childIds: string[];
     type: 'folder';
+    icon: 'folder';
   }
 
-  export type SystemItem = File | Folder;
+  export interface FilePath extends BasePath {
+    type: 'file';
+    icon: 'file';
+  }
+
+  export interface ProgramPath extends BasePath {
+    type: 'program';
+    icon: 'maximize';
+  }
+
+  // export type SystemItemType = 'folder' | 'file';
+  // export interface BaseSystemItem {
+  //   id: string;
+  //   type: SystemItemType;
+  // }
+
+  // export interface File extends BaseSystemItem {
+  //   type: 'file';
+  // }
+
+  // export interface Folder extends BaseSystemItem {
+  //   type: 'folder';
+  // }
+
+  // export type SystemItem = File | Folder;
 
   // Menu stuff
 

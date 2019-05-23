@@ -1,6 +1,16 @@
 import styled from 'styled-components';
 import { color, spacing } from 'variables';
 import { animated } from 'react-spring';
+/*
+
+totalHeight
+
+wrapper padding: small * 2
+icon-height: xlarge: 64px; 
+icon-margin-bottom: small 
+
+
+*/
 
 export const Wrapper = styled(animated.div)<{ selected: boolean }>`
   display: flex;
@@ -10,8 +20,8 @@ export const Wrapper = styled(animated.div)<{ selected: boolean }>`
   width: 100px;
   border: 1px solid transparent;
   max-height: 140px;
-  padding: ${spacing.small};
-  
+  padding: ${spacing.small} 0;
+
   cursor: pointer;
 
   :hover {
@@ -34,10 +44,21 @@ export const Wrapper = styled(animated.div)<{ selected: boolean }>`
     margin-bottom: ${spacing.small};
   }
 
-  .text {
-    width: calc(100% - ${spacing.small});
-    min-height: 24px;
+  .text,
+  .textarea {
+    line-height: 20px;
     text-align: center;
     overflow: hidden;
+  }
+  .text {
+    width: calc(100% - 2 * ${spacing.small});
+  }
+  .textarea {
+    box-sizing: border-box;
+    border: none;
+    resize: none;
+    height: auto;
+    padding: 0 ${spacing.xsmall};
+    width: calc(100% - 2 * ${spacing.xsmall});
   }
 `;

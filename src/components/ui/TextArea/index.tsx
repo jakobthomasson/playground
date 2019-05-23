@@ -1,4 +1,4 @@
-import React, { FunctionComponent, forwardRef, useRef, useImperativeHandle, RefForwardingComponent } from 'react';
+import React, { forwardRef, useRef, useImperativeHandle, RefForwardingComponent } from 'react';
 import styled, { SimpleInterpolation, css } from 'styled-components';
 import { useStyles } from 'components/hooks';
 
@@ -8,17 +8,16 @@ const TextArea = styled.textarea<{ css: SimpleInterpolation }>`
 
 type Props = {
   theme: Styles.TextAreaTheme;
-  value: string;
 };
 
 export type RefHandlers = Pick<HTMLTextAreaElement, 'focus'>;
 const TextAreaComponent: RefForwardingComponent<
   RefHandlers,
-  Props & React.DetailedHTMLProps<React.HTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>
+  Props & React.DetailedHTMLProps<React.TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>
 > = (props, ref) => {
-  const { theme, value, ...textAreaProps } = props;
+  const { theme, ...textAreaProps } = props;
   const inputRef = useRef<HTMLTextAreaElement>(null);
-  // React.Ref<Pick<HTMLTextAreaElement, "focus">>
+
   useImperativeHandle(ref, () => ({
     focus: () => {
       if (inputRef.current) {
@@ -35,6 +34,5 @@ const TextAreaComponent: RefForwardingComponent<
 
   return <TextArea className="textarea" css={styles} {...textAreaProps} ref={inputRef} />;
 };
-// });
 
 export default forwardRef(TextAreaComponent);

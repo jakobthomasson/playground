@@ -14,15 +14,19 @@ function* startCreateSystemItemSaga(action: ActionType<typeof actions.startCreat
       payload: { contextPathId, type },
     } = action;
     const parentPath: System.Path = yield select(pathSelectors.path, { pathId: contextPathId });
+    // const pathNames: System.Path = yield select(pathSelectors.newPathName, {
+    //   pathId: contextPathId,
+    //   systemItemType: type,
+    // });
 
     const timestamp = domainHelper.getUniqueString();
-    const systemItemId = `file-${timestamp}`;
+    const systemItemId = `systemitem-${timestamp}`;
     const pathId = `path-${timestamp}`;
     const pathName = `Path ${timestamp}`;
 
     const path: System.Path = {
       id: pathId,
-      name: pathName,
+      name: 'Path 1558597578541',
       parentId: action.payload.contextPathId,
       childIds: [],
       systemItemId: systemItemId,

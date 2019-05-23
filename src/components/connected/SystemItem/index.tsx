@@ -63,19 +63,49 @@ const SystemItem: FunctionComponent<Props> = props => {
   const [element, ref] = useRefCallback<HTMLDivElement>();
 
   const textAreaRef = useRef<RefHandlers>(null);
-
-  function inputKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
-    if (e.keyCode === 13) {
-      console.log('hej');
-      updatePath({ id: pathId, name });
-    }
-  }
-
   useEffect(() => {
     if (textAreaRef.current) {
       textAreaRef.current.focus();
     }
   });
+
+  const [minRows, setMinRows] = useState(1);
+  const [maxRows, setMaxRows] = useState(3);
+  const [rows, setRows] = useState(1);
+
+  function calculateRows(e: React.ChangeEvent<HTMLTextAreaElement> | React.FocusEvent<HTMLTextAreaElement>) {
+    const textareaLineHeight = 20;
+
+    const previousRows = e.target.rows;
+    e.target.rows = minRows; // reset number of rows in textarea
+
+    const currentRows = ~~(e.target.scrollHeight / textareaLineHeight);
+
+    if (currentRows === previousRows) {
+      e.target.rows = currentRows;
+    }
+
+    if (currentRows >= maxRows) {
+      e.target.rows = maxRows;
+      e.target.scrollTop = e.target.scrollHeight;
+    }
+    console.log('result: ', currentRows < maxRows ? currentRows : maxRows);
+    setRows(currentRows < maxRows ? currentRows : maxRows);
+  }
+  function handleTextAreaOnFocus(e: React.FocusEvent<HTMLTextAreaElement>) {
+    calculateRows(e);
+    e.currentTarget.select();
+  }
+  function handleTextAreaOnKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      updatePath({ id: pathId, name });
+    }
+  }
+  function handleTextAreaOnChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    calculateRows(e);
+    setName(e.target.value);
+  }
 
   useEventListener<React.MouseEvent>(
     'dblclick',
@@ -121,10 +151,12 @@ const SystemItem: FunctionComponent<Props> = props => {
       {isRenaming ? (
         <TextArea
           theme={{ element: 'textarea', size: 'small' }}
-          value="hej"
           ref={textAreaRef}
-          onKeyDown={inputKeyDown}
-          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setName(e.target.value)}
+          value={name}
+          onKeyDown={handleTextAreaOnKeyDown}
+          onChange={handleTextAreaOnChange}
+          onFocus={handleTextAreaOnFocus}
+          rows={rows}
         />
       ) : (
         <Text theme={{ element: 'text', type: 'bread', size: 'small' }} text={name} />
